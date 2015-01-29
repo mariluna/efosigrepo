@@ -148,12 +148,12 @@ $(document).ready(function(e){
 		});
 });
 </script>
-<h1>Agregar Persona General</h1>
+<h1>Agregar Persona "Misi&oacute;n Madres del Barrio"</h1>
 <hr>
 <div class="col-lg-12" ng-app="persona">
 	<?php
 		$d=array('name' => 'form', 'id' => 'myWizard');
-		echo form_open(base_url().'api/personas_api/save',$d);
+		echo form_open(base_url().'api/personas_api/savePersona',$d);
 	?>
 	<section class="step" data-step-title="Habitaci&oacute;n">
 			<div class="col-lg-12" style="text-align:center">
@@ -240,14 +240,14 @@ $(document).ready(function(e){
 			</div>
 			<div class="col-lg-6">
 				<p>
-					<label for="etnia">8.Â¿Pertenece ud a una etnia?</label><br>
+					<label for="etnia">8.¿Pertenece ud a una etnia?</label><br>
 					1.Si <input type="radio" value="Si" name="etnia" onclick="mostrar_etnia()">&nbsp;
 					2.No <input type="radio" value="No" name="etnia" checked="checked" onclick="ocultar_etnia()">
 					<div id="etnia2">
 						Nombre de Etnia:<br>
 						<input type="text" class="auth-input" name="cualEtnia" maxLength="25">
 						<br><br>
-						8.1. Â¿Domina Idioma?
+						8.1. ¿Domina Idioma?
 						<br><br>
 						1.Si <input type="radio" value="Si" name="idioma" checked="checked"><br>
 						2.No <input type="radio" value="No" name="idioma"> 

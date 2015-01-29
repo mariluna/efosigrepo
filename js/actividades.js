@@ -117,7 +117,7 @@ app.controller("actividadesController", [ '$scope', '$http', '$location',
 	     var r = confirm("¿Estas seguro que deseas eliminar este elemento?");
 
 	     if (r == true) {
-		 alert(id)
+		 
 	    	$http({
 				method : 'DELETE',
 				url : 'index.php/api/Actividades_api/remove/' + id

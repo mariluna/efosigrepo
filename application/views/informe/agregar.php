@@ -130,7 +130,11 @@ $("#redi").change(function () {
 </script>
 
 <div class="col-lg-12" ng-app="informe">
-	<form action="<?php echo base_url().'api/informe_api/save'; ?>" id="myWizard" class="form-horizontal" name="form" method="post" accept-charset="utf-8">
+
+<?php
+		$d=array('name' => 'form', 'id' => 'myWizard');
+		echo form_open(base_url().'api/informe_api/save',$d);
+	?>
 		<section class="step" data-step-title="General">
 
 				<div class="col-lg-6">
@@ -197,7 +201,7 @@ $("#redi").change(function () {
 				
 				<p>
 				<label for="actividad">Nombre de la Actividad</label><br>
-				<input id="actividad" ng-model="actividad" class="auth-input" type="text" value="" name="actividad" required integer></input>
+				<input id="actividad" ng-model="actividad" class="auth-input" type="text" value="" name="actividad" required></input>
 				<span style="color:red; font-size:12px" ng-show="form.actividad.$error.required"><br>* Este campo es obligatorio</span>
 				</p>
 				
@@ -390,5 +394,5 @@ $("#redi").change(function () {
 				</p>
 			</div>
 		</section>
-	</form>
+<?php echo form_close(); ?>
 </div>

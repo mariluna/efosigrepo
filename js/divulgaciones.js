@@ -23,6 +23,137 @@ app.directive('integer', function() {
   };
 });
 
+	app.controller("addDivController", ['$scope', '$http', '$location',
+        function ($scope, $http, $location) {
+		
+                
+                $scope.addDiv = function () {
+				
+					var time = $.now();
+					
+                    $(".result").append('<tr id="'+ time +'" class="test">'+
+					'<td>'+
+						'<input id="radio_'+ time +'" onclick="radioOp(radioOptions_'+ time +')" type="checkbox">&nbsp; Radio</input>'+
+						'<div id="radioOptions_'+ time +'">'+
+							'<p>'+
+								'<label style="font-size: 12px;" for="emisora">Emisora:</label><br>'+
+								'<input id="emisoras_'+ time +'" class="auth-input" type="text" value="" name="emisoras[]"></input>'+
+							'</p>'+
+							'<p>'+
+								'<label style="font-size: 12px;" for="dial">Dial:</label><br>'+
+								'<input id="dial_'+ time +'" class="auth-input" type="text" value="" name="dial[]"></input>'+
+							'</p>'+
+							'<p>'+
+								'<label style="font-size: 12px;" for="hora">Hora de emision:</label><br>'+
+								'<input id="horaR_'+ time +'" class="auth-input" type="text" value="" name="horaR[]"></input>'+
+							'</p>'+
+							'<p>'+
+								'<label style="font-size: 12px;" for="tDiv">Tipo de Divulgacion:</label><br>'+
+								'<select id="tipDiv_'+ time +'" class="auth-input" name="tipDiv[]" style="max-width: 300px !important; text-align: center;">'+
+									'<option value="" selected>Seleccione..</option>'+
+									'<option value="0">Micro </option>'+
+									'<option value="1">Programa </option>'+
+								'</select>'+
+							'</p>'+
+						'</div>'+
+					'</td>'+
+					'<td>'+
+						'<input id="tv_'+ time +'" type="checkbox" onclick="tvOp(tvOptions_'+time+')">&nbsp; Televisi&oacute;n</input>'+
+						'<div id="tvOptions_'+ time +'">'+
+							'<p>'+
+								'<label style="font-size: 12px;" for="nomTv">Nombre del programa:</label><br>'+
+								'<input id="nombreTv_'+ time +'" class="auth-input" type="text" value="" name="nombreTv[]"></input>'+
+								'</p>'+
+							'<p>'+
+								'<label style="font-size: 12px;" for="canal">Canal:</label><br>'+
+								'<input id="canal_'+ time +'" class="auth-input" type="text" value="" name="canal[]"></input>'+
+							'</p>'+
+							'<p>'+
+								'<label style="font-size: 12px;" for="horaTv">Hora del Programa:</label><br>'+
+								'<input id="horatv_'+ time +'" class="auth-input" type="text" value="" name="horatv[]"></input>'+
+							'</p>'+
+							'<p>'+
+								'<label style="font-size: 12px;" for="divT">Tipo de Divulgacion:</label><br>'+
+								'<select id="tipDivTv_'+ time +'" class="auth-input" name="tipDivTv[]" style="max-width: 300px !important; text-align: center;">'+
+									'<option value="" selected>Seleccione..</option>'+
+									'<option value="0">Propaganda Televisada </option>'+
+									'<option value="1">Programa </option>'+
+								'</select>'+
+							'</p>'+
+						'</div>'+
+					'</td>'+
+					'<td>'+
+						'<input id="prensa_'+ time +'" onclick="prensaOp(prensaOptions_'+time+')" type="checkbox">&nbsp; Prensa</input>'+
+						'<div id="prensaOptions_'+ time +'">'+
+							'<p>'+
+								'<label style="font-size: 12px;" for="nombre">Nombre del Medio:</label><br>'+
+								'<input id="nombrePrensa_'+ time +'" class="auth-input" type="text" value="" name="nombrePrensa[]"></input>'+
+							'</p>'+
+							'<p>'+
+								'<label style="font-size: 12px;" for="nombre">Fecha de la Noticia:</label><br>'+
+								'<input name="fecha[]"class="auth-input" type="text" id="fecha'+ time +'" readonly >'+
+							'</p>'+
+							'<p>'+
+								'<label style="font-size: 12px;">Tipo de Divulgacion:</label><br>'+
+								'<select id="tipDivPrensa_'+ time +'" class="auth-input" name="tipDivPrensa[]" style="max-width: 300px !important; text-align: center;">'+
+									'<option value="" selected>Seleccione..</option>'+
+									'<option value="0">Fisica </option>'+
+									'<option value="1">Digital </option>'+
+								'</select>'+
+							'</p>'+
+							'<p>'+
+								'<label style="font-size: 12px;">Seleccione:</label><br>'+
+								'<select id="tipDivPrensaSel_'+ time +'" class="auth-input" name="tipDivPrensaSel[]" style="max-width: 300px !important; text-align: center;">'+
+								'<option value="" selected>Seleccione..</option>'+
+								'</select>'+
+							'</p>'+
+						'<div>'+
+					'</td>'+
+					'<td>'+
+					'<a onclick="eliminar('+time+')" class="fa fa-minus btn btn-danger rem"></a>'+
+					'</td>'+
+					'</tr>');
+					
+					$('#radioOptions_'+ time).hide();
+					$('#tvOptions_'+ time).hide();
+					$('#prensaOptions_'+ time).hide();
+					$("#fecha"+ time).datepicker();
+                };
+
+            $('form').submit(function (e) {
+
+                $('.disp').prop('disabled',false);
+
+                var values = $('input[name="transacc[]"]').map(function () {
+                    return this.value;
+                }).toArray();
+
+                var hasDups = !values.every(function (v, i) {
+                    return values.indexOf(v) == i;
+                });
+                if (hasDups) {
+                    // having duplicate value
+                    $('.response').append(
+                        "<div class='alert alert-danger info' role='alert'>"+
+                        "<span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span>"+
+                        "<span class='sr-only'>Error:</span>Una o mas cuotas estan repetidas, por favor, verifique e intente de nuevo"+
+                        "</div>");
+                    e.preventDefault();
+                } else {
+                    var configu = $("#myWizard").serialize();
+                    var datos = {
+                        serialize: configu
+                    };
+                    $.post("index.php/api/Contribuyente_api/vere", datos, function (data) {
+                        window.open('Auth/Contribuyente_comprobante/' + data);
+                        window.location = 'Auth/Contribuyente';
+                    });
+                }
+
+            });
+			
+		}]);
+
 app.controller("divulgacionesController", [ '$scope', '$http', '$location',
 	function($scope, $http, $location) {
 		$http({

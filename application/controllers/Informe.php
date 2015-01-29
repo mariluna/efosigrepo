@@ -66,6 +66,14 @@ class Informe extends CI_Controller {
 		
 		echo $getParroquia;
 	}
+	
+	public function guardar()
+	{
+		echo "<pre>";		
+		print_r($_POST);		
+		echo "</pre>";
+	}
+
 
 }
 /* End of file Cursos.php */

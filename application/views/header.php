@@ -24,7 +24,8 @@
     <script src="<?php echo base_url(); ?>js/persona.js"></script>
 	<script src="<?php echo base_url(); ?>js/divulgaciones.js"></script>
 	<script src="<?php echo base_url(); ?>js/informe.js"></script>
-	<script src="<?php echo base_url(); ?>js/actividades.js"></script>
+	<script src="<?php echo base_url(); ?>js/actividades.js"></script>	
+	<script src="<?php echo base_url(); ?>js/biblioteca.js"></script>
 
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -159,7 +160,14 @@
             <a href="cursos">
               <i class="fa fa-newspaper-o"></i><span class="link-title">&nbsp;Cursos</span>
             </a>
-          </li>
+        </li>
+		  
+		<li class="">
+            <a href="<?php echo base_url(); ?>Biblioteca">
+              <i class="fa fa-copy"></i><span class="link-title">&nbsp;Biblioteca</span>
+            </a>
+        </li>
+		
 		<?php if($rol->id == 1){ ?>
           <li class="">
             <a href="<?php echo base_url(); ?>Auth">
@@ -181,7 +189,7 @@
 		  
 		   <li class="">
             <a href="<?php echo base_url(); ?>Informe">
-              <i class="fa fa-tags"></i><span class="link-title">&nbsp;Informe</span>
+              <i class="fa fa-file-text"></i><span class="link-title">&nbsp;Informe</span>
             </a>
           </li>
 		  

@@ -33,27 +33,21 @@ class Actividades_model extends CI_Model
 
     public function delete($id)
     {
-        print_r($id);
         $this->db->query("DELETE FROM tb_actividad WHERE id_actividad = $id");//where('id_divulgacion', $id)->delete($this->table);
         return $this->db->affected_rows();
     }
 
     public function add($data)
     {
-	print_r($data);
         $this->db->insert($this->table, $data);
         return $this->db->insert_id();
     }
 
      public function update($id, $data)
     {
+	print_r($id);
+	print_r($data);
         return $this->db->where('id_actividad', $id)->update($this->table, $data);
     }
-	
-	public function getCurso()
-	{
-		$get = $this->db->query("SELECT id_curso, nombre FROM tb_curso WHERE id_curso NOT IN (SELECT DISTINCT id_curso FROM tb_divulgacion)")->result();
-		return $get;
-	}
 
 }

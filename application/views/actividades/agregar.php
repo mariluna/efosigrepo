@@ -1,3 +1,10 @@
+<script>
+$(document).ready(function(e){
+
+		$("#fecha").datepicker();
+
+});
+</script>
 <h1>Agregar Actividad</h1>
 <hr>
 <div class="auth-form" ng-app="actividades">
@@ -29,7 +36,7 @@
 
    <p>
        <label for="fecha">Fecha:</label><br>
-         <input id="fecha" ng-model="fecha" class="auth-input" type="text" value="" name="fecha" required></input>
+         <input id="fecha" ng-model="fecha" class="auth-input" type="text" value="" name="fecha" readonly></input>
          <span style="color:red; font-size:12px" ng-show="form.fecha.$error.required"><br>* Este campo es obligatorio</span>
          
    </p>

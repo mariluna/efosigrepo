@@ -1,3 +1,10 @@
+<script>
+$(document).ready(function(e){
+
+		$("#fecha").datepicker();
+
+});
+</script>
 <h1>Editar Actividad</h1>
 <hr>
 <div class="auth-form" ng-controller="actividadesController as uni" ng-app="actividades">
@@ -5,7 +12,7 @@
 	<?php
 	    $d=array('name' => 'form');
 		echo form_open(base_url().'api/actividades_api/update',$d);
-		print_r($data);
+		
 	?>
 	<input type="hidden" name="id" value="<?php echo $data[0]->id_actividad; ?>">
 	<div class="col-lg-6">

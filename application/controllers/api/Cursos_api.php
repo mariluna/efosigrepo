@@ -19,10 +19,13 @@ class Cursos_api extends REST_Controller{
 
 	}
 
-    public function index_get(){
-
-        $this->response($this->db->get('tb_curso')->result());
-
+    public function index_get()
+	{
+        $this->response($this->db->query('SELECT DISTINCT a.*, b.nro_participantes AS inscritos 
+										  FROM tb_curso a
+ 										  INNER JOIN tr_curso_participantes b 
+										  ON a.id_curso = b.id_curso')->result()
+						);
     }
 
     public function show_get($id)
@@ -49,6 +52,7 @@ class Cursos_api extends REST_Controller{
 
 	public function save_post()
 	{
+		
 		$data=array(
 			'nombre'=>$this->post("nombre"),
 			'duracion'=>$this->post("duracion"),
@@ -58,7 +62,7 @@ class Cursos_api extends REST_Controller{
 		 );
 
 		$this->cursos_model->add($data);
-
+		
 		redirect(base_url().'Cursos');
 
 	}

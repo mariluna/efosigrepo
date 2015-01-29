@@ -1,6 +1,6 @@
 (function(){
 
-var app= angular.module('cursos',[]);
+var app= angular.module('biblioteca',[]);
 
 var INTEGER_REGEXP = /^\d+$/;
 app.directive('integer', function() {
@@ -22,15 +22,13 @@ app.directive('integer', function() {
   };
 });
 
-app.controller("cursosController", [ '$scope', '$http', '$location',
+app.controller("bibliotecaController", [ '$scope', '$http', '$location',
 	function($scope, $http, $location) {
-	
-		$scope.cursos = {};
 		$http({
 			method : 'GET',
-			url : 'index.php/api/Cursos_api/'
+			url : 'index.php/api/Biblioteca_api/'
 		}).success(function(data, status, headers, config) {
-			$scope.cursos = data;
+			$scope.bibliotecas = data;
 			$scope.itemsPerPage = 10;
 			$scope.currentPage = 0;
 		}).error(function(data, status, headers, config) {
@@ -44,7 +42,7 @@ app.controller("cursosController", [ '$scope', '$http', '$location',
 	    var start;
 
 	    start = $scope.currentPage;
-	       //  console.log($scope.pageCount(),$scope.currentPage)
+	    //  console.log($scope.pageCount(),$scope.currentPage)
 	    if ( start > $scope.pageCount()-rangeSize ) {
 	      start = $scope.pageCount()-rangeSize+1;
 	    }
@@ -68,7 +66,7 @@ app.controller("cursosController", [ '$scope', '$http', '$location',
   };
 
   $scope.pageCount = function() {
-    return Math.ceil($scope.cursos.length/$scope.itemsPerPage)-1;
+    return Math.ceil($scope.bibliotecas.length/$scope.itemsPerPage)-1;
   };
 
   $scope.nextPage = function() {
@@ -95,28 +93,15 @@ app.controller("cursosController", [ '$scope', '$http', '$location',
 
 	$scope.addEntity = function(){
 
-		 window.location= 'Cursos/agregar';
+		 window.location= 'Biblioteca/agregar';
 
 	};
 
-	$scope.view = function(id){
+  $scope.viewMulti = function(multi){
 
-		window.location= 'Cursos/ver/'+id;
+    window.open(multi,'_blank');
 
-	};
-
-	$scope.edit = function(id){
-
-		window.location= 'Cursos/editar/'+id;
-
-	};
-	
-	$scope.register = function(part, ins, cursoid, userid){
-
-		window.location= 'Cursos/registrar_curso/'+ part + '/' + ins + '/' + cursoid + '/' + userid;
-		alert(part + "," + ins + "," + cursoid + "," + userid);
-
-	};
+  };
 
 	$scope.delete = function(id){
 
@@ -134,7 +119,7 @@ app.controller("cursosController", [ '$scope', '$http', '$location',
 
 }]);
 
-angular.module('cursos').filter('pagination', function()
+angular.module('biblioteca').filter('pagination', function()
 {
   return function(input, start) {
     start = parseInt(start, 10);

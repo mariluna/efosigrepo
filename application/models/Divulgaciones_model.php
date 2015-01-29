@@ -40,5 +40,11 @@ class Divulgaciones_model extends CI_Model
 		$get = $this->db->query("SELECT id_curso, nombre FROM tb_curso WHERE id_curso NOT IN (SELECT DISTINCT id_curso FROM tb_divulgacion)")->result();
 		return $get;
 	}
+	
+	 public function addDiv($data)
+    {
+        $this->db->insert_batch('tb_divulgacion', $data);
+        return $this->db->affected_rows();
+    }
 
 }

@@ -21,7 +21,8 @@ class Divulgaciones_api extends REST_Controller{
 
     public function index_get(){
 
-        $this->response($this->divulgaciones_model->get_all());//($this->db->get('tb_divulgacion')->result());
+        $this->response($this->divulgaciones_model->get_all());
+		//($this->db->get('tb_divulgacion')->result());
 
     }
 
@@ -50,17 +51,52 @@ class Divulgaciones_api extends REST_Controller{
 
 	public function save_post()
 	{
-		$data=array(
-			'nombre'=>$this->post("nombre"),
-			'duracion'=>$this->post("duracion"),
-			'nro_participantes'=>$this->post("participantes"),
-			'id_estado'=>$this->post("estado"),
-			'status'=>$this->post("estatus")
-		 );
+		$values = array_map(null, 
+							$this->post('emisoras'), 
+							$this->post('dial'), 
+							$this->post('horaR'), 
+							$this->post('tipDiv'), 
+							$this->post('nombreTv'),
+							$this->post('canal'),
+							$this->post('horatv'), 
+							$this->post('tipDivTv'), 
+							$this->post('nombrePrensa'), 
+							$this->post('fecha'), 
+							$this->post('tipDivPrensa'),
+							$this->post('tipDivPrensaSel')
+							);
 
-		$this->cursos_model->add($data);
+        $array = array();
 
-		redirect(base_url().'Cursos');
+        foreach ($values as $value) {
+
+            $datainsert = array(
+
+                'id_curso' => $this->post('curso'),
+                'tipo_divulgacion_radio' => $value[3],
+                'nombre_radio' => null,
+                'fecha_actual' => date("Y-m-d"),
+                'emisoras' => $value[0],
+                'dial' => $value[1],
+                'hora_radio' => $value[2],
+				'canal' => $value[5],
+                'hora_tv' => $value[6],
+                'tipo_divulgacion_tv' => $value[7],
+                'nombre_tv' => $value[4],
+                'prensa' => $value[8],
+                'fecha_prensa' => $value[9],
+                'tipo_divulgacion_prensa' => $value[10]
+            );
+
+            array_push($array, $datainsert);
+			
+			}
+			
+			echo"<pre>";print_r($array);echo"</pre>";
+	
+		$this->divulgaciones_model->add($array);
+
+		redirect(base_url().'Divulgaciones');
 
 	}
 

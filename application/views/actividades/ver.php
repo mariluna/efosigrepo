@@ -1,6 +1,6 @@
 <h1>Ver Actividades</h1>
 <hr>
-<div class="auth-form" ng-controller="cursosController as uni" ng-app="cursos">
+<div class="auth-form" ng-controller="actividadesController" ng-app="actividades">
 	<div class="col-lg-6">
 	   <p>
 			 <label for="creado">Creado Por:</label><br>
@@ -15,7 +15,7 @@
 <div class="col-lg-6">
 	   <p>
 			 <label for="desc">Descripcion:</label><br>
-			 <input id="desc" class="auth-input dis" type="text" value="" name="desc" readonly required placeholder="<?php  echo $data[0]->descripcion; ?>"></input>
+			 <textarea id="desc" class="auth-input dis auth-textarea" type="text" value="" name="desc" readonly required placeholder="<?php  echo $data[0]->descripcion; ?>"></textarea>
 
 	   </p>
 	   

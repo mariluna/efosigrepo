@@ -6800,6 +6800,12 @@ button.close{
 	color:white;
 }
 
+.b:hover{
+
+	text-decoration: none;
+	color:white;
+}
+
 #disabeled::-moz-placeholder { /* Firefox 19+ */
 font-size: 14px;
 color: black;

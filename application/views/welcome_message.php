@@ -6,7 +6,7 @@
 		<div>
 		<ul>
 			<li> <a href="Pnf/argelia">PNF "Argelia Laya"</a> </li>
-			<li href="Pnf/yoMujer">"Yo Mujer, Si quiero"</li>
+			<li> <a href="Pnf/yoMujer">"Yo Mujer, Si quiero" </a></li>
 			<li href="Pnf/defensoras">Defensoras Comunitarias</li>
 			<li href="Pnf/somxs">Somxs Diversidad</li>
 		</ul>

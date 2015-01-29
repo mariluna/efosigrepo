@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Cursos extends CI_Controller {
+class Biblioteca extends CI_Controller {
 
 	function __construct()
 	{
@@ -11,7 +11,7 @@ class Cursos extends CI_Controller {
 	{
 
 		$this->load->view('header');
-		$this->load->view('cursos/'.$name_view.'', $data);
+		$this->load->view('biblioteca/'.$name_view.'', $data);
 		$this->load->view('footer');
 
 	}
@@ -37,8 +37,7 @@ class Cursos extends CI_Controller {
 	{
 		if (!$this->ion_auth->logged_in()){redirect('auth/login', 'refresh');}
 		$name="agregar";
-		$this->load->model('cursos_model');
-		$data['estado']=$this->cursos_model->getEstado();
+		$data="";
 		$this->view($name,$data);
 	}
 
@@ -52,46 +51,24 @@ class Cursos extends CI_Controller {
 		$get['estado']=$this->cursos_model->getEstadoForEdit($get['data']->id_estado);
 		$this->view($name,$get);
 	}
-	
-	public function estado()
-	{
-		$redi = $_POST['redi'];
-		$getEstado = $this->cursos_model->cargar_estado($redi);
-		
-		echo $getEstado;
-	}
-	
-	public function registrar_curso($part, $ins, $cursoid, $userid)
-	{
-		$this->load->model('cursos_model');
 
-		if ((is_numeric($part) == false) OR (is_numeric($ins)== false) OR (is_numeric($cursoid)== false) OR (is_numeric($userid)== false)){
-			
-		}else{
+	public function subir_archivo()
+	{
+		$this->load->model('biblioteca_model');
+		$ruta = "./uploads/".$_FILES['archivo']['name'];
 		
-			$checkCursoData = $this->cursos_model->checkCursoData($part, $ins, $cursoid);
-			
-			if ($checkCursoData =="true"){
-				
-				$cupo = $part-$ins;
-			
-				if ($cupo > 0){		
-					$inscribirCurso = $this->cursos_model->registrarPersonaCurso($cursoid, $userid);
-					
-					redirect(base_url().'Cursos');
-					
-				}else{
-					
-					redirect(base_url().'Cursos');
-				}
-					
-			} else {	
-				
-				redirect(base_url().'cinco');
-			
-			}	
-		}
+		$archivo = array(
+			'descripcion' => $_POST['desc'],
+			'ruta' => $ruta,
+			'tipo_multimedia' => $_POST['tipo'],
+			'titulo'=> $_FILES['archivo']['name']	
+		);
+		
+		move_uploaded_file($_FILES['archivo']['tmp_name'],$ruta);
+		$this->biblioteca_model->add($archivo);
+		redirect(base_url()."Biblioteca");
+		
 	}
 
 }
-/* End of file Cursos.php */
+/* End of file Biblioteca.php */

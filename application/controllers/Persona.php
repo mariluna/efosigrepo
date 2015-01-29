@@ -32,6 +32,14 @@ class Persona extends CI_Controller {
 		$data['redi']=$this->persona_model->cargar_redi();
 		$this->view($name,$data);
 	}
+	
+	public function agregarMMDB()
+	{
+		$name="agregarMMDB";
+		$this->load->model('persona_model');
+		$data['redi']=$this->persona_model->cargar_redi();
+		$this->view($name,$data);
+	}
 
 	public function editar($id)
 	{

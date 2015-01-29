@@ -14,6 +14,55 @@ body{
 	background:#3a3a3a !important;
 }
 
+
+.easyWizardSteps {
+	list-style:none;
+	width:100%;
+	overflow:hidden;
+	margin:10px;
+	padding:0;
+	border-bottom:1px solid #ccc;
+	margin-bottom:20px;
+	max-width: 1200px;
+}
+
+.easyWizardSteps li {
+    font-size: 18px;
+    display: inline-block;
+    padding: 10px;
+    color: #B0B1B3;
+    border: 1px solid #B0B1B3;
+    border-top-right-radius: 15px;
+    border-top-left-radius: 15px;
+    margin-bottom: -1px;
+    margin-right: -1px;
+}
+
+.easyWizardSteps li span {
+	font-size:24px
+}
+
+.easyWizardSteps li.current {
+    color: #000;
+    border-bottom: 1px solid white !important;
+    background-color: whitesmoke;
+}
+.easyWizardButtons {
+	overflow:hidden;padding:10px;
+}
+
+.easyWizardButtons button, .easyWizardButtons .submit {
+	cursor:pointer
+}
+
+.easyWizardButtons .prev {
+	float:left
+}
+
+.easyWizardButtons .next, .easyWizardButtons .submit {
+	float:right
+}
+
 #top > .navbar {
   border-top: 3px solid #f03f35;
 }

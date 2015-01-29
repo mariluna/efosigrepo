@@ -193,12 +193,11 @@ class Personas_api extends REST_Controller{
 			'status'=>"General"
 			);
 			
-			$this->persona_model->add($data);
-			
-			$id_persona=$this->db->query("select id_persona from tb_persona where  cedula= $this->post(cedula)")->row();
+			$id_persona=$this->persona_model->add($data);		
+			//$this->db->query("select id_persona from tb_persona where  cedula= $this->post(cedula)")->row();
 		
 		$data2=array(
-			'id_persona'=>$id_persona->id_persona,
+			'id_persona'=>$id_persona,
 			'institucion_labora'=>$this->post("instTrabajo"),
 			'cargo'=>$this->post("cargo"),
 			'telefono'=>$this->post("telTrab"),

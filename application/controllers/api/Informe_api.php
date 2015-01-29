@@ -41,7 +41,12 @@ class Informe_api extends REST_Controller{
 
 	public function save_post()
 	{
-		$data=array(
+		echo "<pre>";		
+		print_r($_POST);		
+		echo "</pre>";
+		
+		
+		/*$data=array(
 			'nombre'=>$this->post("nombre"),
 			'duracion'=>$this->post("duracion"),
 			'nro_participantes'=>$this->post("participantes"),
@@ -51,7 +56,7 @@ class Informe_api extends REST_Controller{
 
 		$this->informe_model->add($data);
 
-		redirect(base_url().'Informe');
+		redirect(base_url().'Informe');*/
 
 	}
 

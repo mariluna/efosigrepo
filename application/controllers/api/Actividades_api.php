@@ -55,9 +55,10 @@ class Actividades_api extends REST_Controller{
 
 	public function save_post()
 	{
+		$r=$this->ion_auth->user()->row();
 		$data=array(
 			
-			'id_usuario'=>$this->post("user"),
+			'id_usuario'=>$r->id,
 			'titulo'=>$this->post("titulo"),
 			'descripcion'=>$this->post("desc"),
 			'fecha'=>$this->post("fecha")
@@ -71,11 +72,11 @@ class Actividades_api extends REST_Controller{
 
 	public function update_post()
 	{
+	    $r=$this->ion_auth->user()->row();
 		$data=array(
-			'nombre'=>$this->post("nombre"),
-			'cuenta'=>$this->post("cuenta"),
-			'observaciones'=>$this->post("observaciones"),
-			'fecha_actualizacion'=>date("Y-m-d H:i:s")
+			'titulo'=>$this->post("titulo"),
+			'descripcion'=>$this->post("desc"),
+			'fecha'=>$this->post("fecha"),
 		 );
 		$id=$this->post("id");
 

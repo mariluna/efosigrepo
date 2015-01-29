@@ -12,7 +12,8 @@ $(document).ready(function() {
     <div class="span6" ng-controller="personaController" ng-app="persona">
         <div class="add-menu">
             <!-- ng-click="createUT()" botones que disparan funciones en angular, las cuales se encuentran el la aplicacion -->
-            <td><a ng-click="addEntity()" class="fa fa-plus btn btn-success"> Agregar </a></td>
+            <td><a ng-click="addEntity()" class="fa fa-plus btn btn-success"> Agregar General </a></td>
+			<td><a ng-click="addMMDB()" class="fa fa-plus btn btn-success"> Agregar MMDB</a></td>
         </div>
         <!-- Input que contiene un modelo, con el cual podemos filtrar la data del CRUD -->
         <div style="width:30% !important;">
