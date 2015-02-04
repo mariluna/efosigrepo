@@ -3,14 +3,25 @@
  $rol = $this->ion_auth->get_users_groups()->row();?>
 	<div class="col-lg-12">
 		<img style="width:100%; height:auto" src="<?php echo base_url(); ?>img/encabezado.PNG">
-		<div>
-		<ul>
-			<li> <a href="Pnf/argelia">PNF "Argelia Laya"</a> </li>
-			<li> <a href="Pnf/yoMujer">"Yo Mujer, Si quiero" </a></li>
-			<li href="Pnf/defensoras">Defensoras Comunitarias</li>
-			<li href="Pnf/somxs">Somxs Diversidad</li>
-		</ul>
-		</div>
+		<nav class="navbar-inverse navbar-pnf">
+			<div class="navbar-header">
+			  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			  </button>
+			  <p class="head-nav-pnf">PNF</p>
+			</div>
+			<div id="navbar" class="collapse navbar-collapse">
+			  <ul class="nav navbar-nav navpnf">
+				<li><a style="padding: 15px;" href="Pnf/argelia">PNF "Argelia Laya"</a></li>
+				<li><a style="padding: 15px;" href="Pnf/yoMujer">"Yo Mujer, Si quiero"</a></li>
+				<li><a style="padding: 15px;" href="Pnf/defensoras">Defensoras Comunitarias</a></li>
+				<li><a style="padding: 15px;" href="Pnf/somxs">Somxs Diversidad</a></li>
+			  </ul>
+			</div><!--/.nav-collapse -->
+    </nav>
 		<img style="width:100%; height:auto" src="<?php echo base_url(); ?>img/Banner.PNG">
 	</div>
 	<?php if($rol == null){ ?>

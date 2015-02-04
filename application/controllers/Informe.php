@@ -29,8 +29,8 @@ class Informe extends CI_Controller {
 	{
 		$name="agregar";
 		$this->load->model('informe_model');
-		$data['cursos']=$this->informe_model->getCursos();
 		$data['redi']=$this->informe_model->cargar_redi();
+		$data['curso']=$this->informe_model->cargar_curso();
 		$data['user'] = $r=$this->ion_auth->user()->row();
 		$this->view($name,$data);
 	}

@@ -21,13 +21,13 @@
 	</div>
 	<div class="col-lg-6">
 	   <p>
-			 <label for="tramite">Estado:</label><br>
-			 <input id="tramite" class="auth-input dis" type="text" value="" name="tramite" readonly required placeholder="<?php  echo $estado->nombre; ?>"></input>
-	   </p>
-
-	   <p>
 			 <label for="distribucion">Estatus:</label><br>
 			 <input id="distribucion" class="auth-input dis" type="text" value="" name="distribucion" readonly required placeholder="<?php if($data->status=1){ echo 'Activo';}else{echo 'Inactivo';} ?>"></input>
+	   </p>
+	   
+	    <p>
+			 <label for="tramite">Estado:</label><br>
+			 <input id="tramite" class="auth-input dis" type="text" value="" name="tramite" readonly required placeholder="<?php echo $data->estado; ?>"></input>
 	   </p>
 	</div>
 	<div class="col-lg-12">

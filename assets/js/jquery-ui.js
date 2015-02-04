@@ -3830,7 +3830,7 @@ function Datepicker() {
 		dayNamesShort: ["Dom", "Lun", "Mar", "Mie", "Jue", "Vie", "Sab"], // For formatting
 		dayNamesMin: ["Do", "Lu", "Ma", "Mi", "Ju", "V", "Sa"], // Column headings for days starting at Sunday
 		weekHeader: "Sem", // Column header for week of the year
-		dateFormat: "yy-mm-dd", // See format options on parseDate
+		dateFormat: "dd-mm-yy", // See format options on parseDate
 		firstDay: 0, // The first day of the week, Sun = 0, Mon = 1, ...
 		isRTL: false, // True if right-to-left language, false if left-to-right
 		showMonthAfterYear: false, // True if the year select precedes month, false for month then year
@@ -3853,7 +3853,7 @@ function Datepicker() {
 		gotoCurrent: true, // True if today link goes back to current selection instead
 		changeMonth: true, // True if month can be selected directly, false if only prev/next
 		changeYear: true, // True if year can be selected directly, false if only prev/next
-		yearRange: "c-5:c+0", // Range of years to display in drop-down,
+		yearRange: "c-90:c+0", // Range of years to display in drop-down,
 			// either relative to today's year (-nn:+nn), relative to currently displayed year
 			// (c-nn:c+nn), absolute (nnnn:nnnn), or a combination of the above (nnnn:-n)
 		showOtherMonths: false, // True to show dates in other months, false to leave blank

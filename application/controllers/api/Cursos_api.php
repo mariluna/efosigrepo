@@ -21,10 +21,14 @@ class Cursos_api extends REST_Controller{
 
     public function index_get()
 	{
-        $this->response($this->db->query('SELECT DISTINCT a.*, b.nro_participantes AS inscritos 
+        $this->response($this->db->query('SELECT DISTINCT a.*, b.nro_participantes AS inscritos, d.nombre as estado
 										  FROM tb_curso a
  										  INNER JOIN tr_curso_participantes b 
-										  ON a.id_curso = b.id_curso')->result()
+										  ON a.id_curso = b.id_curso
+										  INNER JOIN tr_curso_estado c
+										  ON a.id_curso = c.curso_id
+										  INNER JOIN tb_estado d 
+										  ON c.estado_id = d.id_estado')->result()
 						);
     }
 
@@ -57,11 +61,28 @@ class Cursos_api extends REST_Controller{
 			'nombre'=>$this->post("nombre"),
 			'duracion'=>$this->post("duracion"),
 			'nro_participantes'=>$this->post("participantes"),
-			'id_estado'=>$this->post("estado"),
 			'status'=>1
 		 );
 
-		$this->cursos_model->add($data);
+		$cursoId = $this->cursos_model->add($data);
+		
+		$estadosCurso = array();
+		
+		foreach ($_POST['estado'] as $estado) {
+				
+				$datainsert = array(
+
+					'curso_id' => $cursoId,
+					'estado_id' => $estado,
+
+				);
+
+				array_push($estadosCurso, $datainsert);
+			
+			}
+		
+		$this->cursos_model->addCursoEstado($estadosCurso);
+		
 		
 		redirect(base_url().'Cursos');
 

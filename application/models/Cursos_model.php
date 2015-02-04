@@ -9,10 +9,25 @@ class Cursos_model extends CI_Model
         return $this->db->get($this->table)->result();
     }
 
-    public function get($id)
+    public function get($id,$est)
     {
-    	$get=  $this->db->where('id_curso', $id)->get($this->table)->row();
-        return $get;
+    	$get=  $this->db->query("SELECT DISTINCT a.*, b.nombre as estado 
+								FROM tb_curso a 
+								INNER JOIN tr_curso_estado c ON a.id_curso = c.curso_id
+								INNER JOIN tb_estado b on  b.id_estado = c.estado_id
+								WHERE a.id_curso = $id AND b.nombre = '$est'")->row();
+								
+		if ($get == null){
+			
+			$get = "Error";
+			return $get;
+			
+		
+		}else{
+		
+			return $get;
+			
+		}
 
     }
 
@@ -98,7 +113,12 @@ class Cursos_model extends CI_Model
 		}
 		
 		return $msg;
-									
-
+							
 	}
+	
+	public function addCursoEstado($data)
+    {
+        $this->db->insert_batch('tr_curso_estado', $data);
+        return $this->db->insert_id();
+    }
 }

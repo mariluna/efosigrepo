@@ -23,14 +23,18 @@ class Cursos extends CI_Controller {
 		$this->view($name,$data);
 	}
 
-	public function ver($id)
+	public function ver($id,$est)
 	{
-		//if (!$this->ion_auth->logged_in()){redirect('auth/login', 'refresh');}
+		if (!$this->ion_auth->logged_in()){redirect('auth/login', 'refresh');}
 		$this->load->model('cursos_model');
 		$name="ver";
-		$get['data']=$this->cursos_model->get($id);
-		$get['estado']=$this->cursos_model->getEstadoForEdit($get['data']->id_estado);
-		$this->view($name,$get);
+		$get['data']=$this->cursos_model->get($id,$est);
+		if($get['data'] == "Error"){
+			redirect('Cursos');
+		} else {
+			$get['estado']=$this->cursos_model->getEstadoForEdit($get['data']->id_curso);
+			$this->view($name,$get);
+		}
 	}
 
 	public function agregar()
@@ -48,8 +52,8 @@ class Cursos extends CI_Controller {
 		$this->load->model('cursos_model');
 		$name="editar";
 		$get['data']=$this->cursos_model->get($id);
-		$get['list']=$this->cursos_model->getEstadoEdit($get['data']->id_estado);
-		$get['estado']=$this->cursos_model->getEstadoForEdit($get['data']->id_estado);
+		$get['list']=$this->cursos_model->getEstadoEdit($get['data']->id_curso);
+		$get['estado']=$this->cursos_model->getEstadoForEdit($get['data']->id_curso);
 		$this->view($name,$get);
 	}
 	
@@ -87,7 +91,7 @@ class Cursos extends CI_Controller {
 					
 			} else {	
 				
-				redirect(base_url().'cinco');
+				redirect(base_url().'Cursos');
 			
 			}	
 		}

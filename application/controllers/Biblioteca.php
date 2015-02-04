@@ -5,6 +5,7 @@ class Biblioteca extends CI_Controller {
 	function __construct()
 	{
 		parent::__construct();
+		$this->load->helper(array('form', 'url'));
 		
 	}
 	function view($name_view,$data)
@@ -23,16 +24,6 @@ class Biblioteca extends CI_Controller {
 		$this->view($name,$data);
 	}
 
-	public function ver($id)
-	{
-		//if (!$this->ion_auth->logged_in()){redirect('auth/login', 'refresh');}
-		$this->load->model('cursos_model');
-		$name="ver";
-		$get['data']=$this->cursos_model->get($id);
-		$get['estado']=$this->cursos_model->getEstadoForEdit($get['data']->id_estado);
-		$this->view($name,$get);
-	}
-
 	public function agregar()
 	{
 		if (!$this->ion_auth->logged_in()){redirect('auth/login', 'refresh');}
@@ -41,21 +32,14 @@ class Biblioteca extends CI_Controller {
 		$this->view($name,$data);
 	}
 
-	public function editar($id)
-	{
-		if (!$this->ion_auth->logged_in()){redirect('auth/login', 'refresh');}
-		$this->load->model('cursos_model');
-		$name="editar";
-		$get['data']=$this->cursos_model->get($id);
-		$get['list']=$this->cursos_model->getEstadoEdit($get['data']->id_estado);
-		$get['estado']=$this->cursos_model->getEstadoForEdit($get['data']->id_estado);
-		$this->view($name,$get);
-	}
-
 	public function subir_archivo()
 	{
 		$this->load->model('biblioteca_model');
 		$ruta = "./uploads/".$_FILES['archivo']['name'];
+		
+		$max_size = "104857600";
+
+		//$size =
 		
 		$archivo = array(
 			'descripcion' => $_POST['desc'],
@@ -64,10 +48,20 @@ class Biblioteca extends CI_Controller {
 			'titulo'=> $_FILES['archivo']['name']	
 		);
 		
-		move_uploaded_file($_FILES['archivo']['tmp_name'],$ruta);
-		$this->biblioteca_model->add($archivo);
-		redirect(base_url()."Biblioteca");
+		if($_FILES['archivo']['size'] <= $max_size){
+			echo "Exito:<br>"; 
+			echo "<pre>"; print_r($_FILES); echo "</pre>"; 
+		} else {
+			echo "max size overflow!:<br>"; 
+			echo "el size del archivo, el cual es de: ".$_FILES['archivo']['size']." es mayor al size permitido, el cual es de: ".$max_size; 
 		
+		}
+		
+		
+		
+		/*move_uploaded_file($_FILES['archivo']['tmp_name'],$ruta);
+		$this->biblioteca_model->add($archivo);
+		redirect(base_url()."Biblioteca");*/		
 	}
 
 }

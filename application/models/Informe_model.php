@@ -62,7 +62,10 @@ class Informe_model extends CI_Model
 		$redi=$this->db->query("Select * from tb_redi")->result();
 		return $redi;
 	}
-	
+	public function cargar_curso(){
+		$curso=$this->db->query("SELECT id_curso,nombre FROM tb_curso")->result();
+		return $curso;
+	}
 	public function cargar_estado($redi)
 	{
 		$html = '<option value="" selected="selected">Seleccione una opcion</option>';

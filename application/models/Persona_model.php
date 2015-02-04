@@ -38,6 +38,12 @@ class Persona_model extends CI_Model
         return $this->db->insert_id();
 	}
 
+	public function add_MMDB($data)
+	{
+		$this->db->insert("tb_mmdb", $data);
+        return $this->db->insert_id();
+	}
+	
      public function update($id, $data)
     {
         return $this->db->where('id', $id)->update($this->table, $data);

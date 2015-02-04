@@ -99,9 +99,9 @@ app.controller("cursosController", [ '$scope', '$http', '$location',
 
 	};
 
-	$scope.view = function(id){
+	$scope.view = function(id,est){
 
-		window.location= 'Cursos/ver/'+id;
+		window.location= 'Cursos/ver/'+id+'/'+est;
 
 	};
 
@@ -114,7 +114,12 @@ app.controller("cursosController", [ '$scope', '$http', '$location',
 	$scope.register = function(part, ins, cursoid, userid){
 
 		window.location= 'Cursos/registrar_curso/'+ part + '/' + ins + '/' + cursoid + '/' + userid;
-		alert(part + "," + ins + "," + cursoid + "," + userid);
+
+	};
+	
+	$scope.regLogin = function(){
+
+		window.location= 'Auth/login';
 
 	};
 

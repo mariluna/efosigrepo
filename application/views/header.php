@@ -26,7 +26,6 @@
 	<script src="<?php echo base_url(); ?>js/informe.js"></script>
 	<script src="<?php echo base_url(); ?>js/actividades.js"></script>	
 	<script src="<?php echo base_url(); ?>js/biblioteca.js"></script>
-
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/lib/bootstrap/css/bootstrap.min.css">
@@ -37,8 +36,6 @@
     <script src="<?php echo base_url(); ?>assets/lib/bootstrap/js/bootstrap.min.js"></script>
 	<script src="<?php echo base_url(); ?>assets/js/jquery.easyWizard.js"></script>
 	<script src="<?php echo base_url(); ?>assets/js/jquery-ui.js"></script>
-
-
   </head>
     <body class="  " id="mybody">
     <div class="bg-dark dk" id="wrap">
@@ -81,31 +78,78 @@
                  <?php  } ?>
                </div>
 
-            <div class="collapse navbar-collapse navbar-ex1-collapse">
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
 
        <!-- .nav -->
-          <div id="menucol" class="menu-open">
-          <ul id="menu" class="bg-blue dker">
-          <li class="nav-header">Menu</li>
-          <li class="nav-divider"></li>
-		 <li class="">
+        <div id="menucol" class="menu-open">
+			<ul id="menu" class="bg-blue dker">
+				<li class="nav-header">Menu</li>
+				<li class="nav-divider"></li>
+				<li class="">
             <a href="cursos">
               <i class="fa fa-newspaper-o"></i><span class="link-title">&nbsp;Cursos</span>
             </a>
-          </li>
-
+        </li>
+		  
+		<li class="">
+            <a href="<?php echo base_url(); ?>Biblioteca">
+              <i class="fa fa-copy"></i><span class="link-title">&nbsp;Biblioteca</span>
+            </a>
+        </li>
+		
+		<?php if($rol->id == 1){ ?>
           <li class="">
             <a href="<?php echo base_url(); ?>Auth">
               <i class="fa fa-group"></i><span class="link-title">&nbsp;Usuarios</span>
             </a>
           </li>
 
-
-          <li class="nav-divider"></li>
-        </li>
-        </ul><!-- /#menu -->
-      </div>
-            </div>
+          <li class="">
+            <a href="<?php echo base_url(); ?>Persona">
+              <i class="fa fa-user"></i><span class="link-title">&nbsp;Persona</span>
+            </a>
+          </li>
+		  
+		  <li class="">
+            <a href="<?php echo base_url(); ?>Divulgaciones">
+              <i class="fa fa-newspaper-o"></i><span class="link-title">&nbsp;Divulgaciones</span>
+            </a>
+          </li>
+		  
+		   <li class="">
+            <a href="<?php echo base_url(); ?>Informe">
+              <i class="fa fa-file-text"></i><span class="link-title">&nbsp;Informe</span>
+            </a>
+          </li>
+		  
+		  <li class="">
+            <a href="<?php echo base_url(); ?>Evaluacion">
+              <i class="fa fa-tags"></i><span class="link-title">&nbsp;Evaluaci&oacute;n</span>
+            </a>
+          </li>
+		  
+		  <li class="">
+            <a href="<?php echo base_url(); ?>Actividades">
+              <i class="fa fa-tags"></i><span class="link-title">&nbsp;Actividades</span>
+            </a>
+          </li>
+		  
+		  <?php } ?>
+             <li class="nav-divider"></li>
+           <li class="">
+            <a  data-toggle="tooltip" onClick="document.getElementById('mybody').className += ' sidebar-right-opened'; $('#footer').hide()">
+              <i class="fa fa-folder-open"></i><span class="link-title">&nbsp;Ver Actividades</span>
+            </a>
+          </li>
+          <li class="">
+            <a data-toggle="tooltip"  onClick="document.getElementById('mybody').className =' '; $('#footer').show()">
+              <i class="fa fa-folder"></i><span class="link-title">&nbsp;Ocultar Actividades</span>
+            </a>
+          </li>
+				<li class="nav-divider"></li>
+			</ul><!-- /#menu -->
+		</div>
+        </div>
           </div><!-- /.container-fluid -->
         </nav><!-- /.navbar -->
       </div><!-- /#top -->
@@ -194,6 +238,12 @@
           </li>
 		  
 		  <li class="">
+            <a href="<?php echo base_url(); ?>Evaluacion">
+              <i class="fa fa-tags"></i><span class="link-title">&nbsp;Evaluaci&oacute;n</span>
+            </a>
+          </li>
+		  
+		  <li class="">
             <a href="<?php echo base_url(); ?>Actividades">
               <i class="fa fa-tags"></i><span class="link-title">&nbsp;Actividades</span>
             </a>
@@ -217,20 +267,32 @@
       </div><!-- /#left -->
 
        <div id="right"style="width:250px;">
-         <div style="text-align:center;">
-		 Actividades<br>
-		 <?php 
+		   <ul id="menu" class="bg-blue dker">
+			  <li class="nav-header">Actividades</li>
+			  <li class="nav-divider"></li>
+				<?php 
+					$today = date("Y-m-d");
 					$r=$this->ion_auth->user()->row();
-					$X = pg_query("SELECT t1.id_actividad,t1.titulo, to_char(fecha, 'DD-MM-YYYY') AS fecha  FROM tb_actividad t1
-							   INNER JOIN users t2 ON t1.id_usuario = t2.id WHERE  t1.id_usuario IN (1, $r->id) "); 
-					
+					$X = pg_query("SELECT t1.id_actividad,t1.titulo, fecha  
+								   FROM tb_actividad t1
+							       INNER JOIN users t2 ON t1.id_usuario = t2.id 
+								   WHERE  t1.id_usuario IN (1, $r->id)
+								   AND fecha >= '$today' 
+								   ORDER BY fecha ASC"); 
+						
 					while($row = pg_fetch_row($X)){
-						echo "<a  href = '".base_url()."/Actividades/ver/".$row[0]."'>".$row[2]." - ".$row[1]."</a>";
-						echo "<br>";
-					}
 					
-		?><br>
-		 </div>
+						$fecha = $row[2];
+						$newFecha = explode("-",$fecha);
+						$fechaFormat = $newFecha[2]."-".$newFecha[1]."-".$newFecha[0];
+						echo "<li class=''>";					
+						echo "<a  href = '".base_url()."/Actividades/ver/".$row[0]."'>".$fechaFormat." - ".$row[1]."</a>";
+						echo "</li>";
+					}
+						
+				?>
+				<li class="nav-divider"></li>
+			</ul>
       </div><!-- /#right -->
        <?php  } ?>
       <div id="content">

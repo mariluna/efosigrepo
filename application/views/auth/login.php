@@ -1,4 +1,4 @@
-<div class="auth-form">
+<div class="col-lg-6" style="text-align:center;">
   <h1><?php echo lang('login_heading');?></h1>
   <p><?php echo lang('login_subheading');?></p>
 
@@ -33,4 +33,10 @@
   <p>
     <a href="forgot_password"><?php echo lang('login_forgot_password');?></a>
   </p>
+</div>
+<div class="col-lg-6" style="text-align:center;">
+	<h1>Registrate</h1>
+	<p>Si no posees usuario, oprime el boton de Registrarse<br><br>
+		<a class="auth-but-fix .btn-success" style="padding: 9px 12px; !important;" href="<?php echo base_url()?>Persona/agregar">Registrarse</a>
+	</p>
 </div>

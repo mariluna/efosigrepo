@@ -4099,13 +4099,14 @@ textarea.input-group-sm>.form-control,textarea.input-group-sm>.input-group-addon
 }
 
 .navbar-collapse{
-	padding-right:15px;
-	padding-left:15px;
+	
 	overflow-x:visible;
 	-webkit-overflow-scrolling:touch;
+	/*padding-right:15px;
+	padding-left:15px;
 	border-top:1px solid transparent;
 	-webkit-box-shadow:inset 0 1px 0 rgba(255,255,255,.1);
-	box-shadow:inset 0 1px 0 rgba(255,255,255,.1)
+	box-shadow:inset 0 1px 0 rgba(255,255,255,.1)*/
 }
 
 .navbar-collapse.in{
@@ -4563,6 +4564,17 @@ textarea.input-group-sm>.form-control,textarea.input-group-sm>.input-group-addon
 	border-color:#222;
 }
 
+.navbar-pnf{
+	background-color:#710071;
+	border-color:#222;
+}
+
+.head-nav-pnf{
+    color: white;
+    font-size: 21px;
+	margin: 10px;
+}
+
 .navbar-inverse .navbar-brand{
 	color:#777
 }
@@ -4577,12 +4589,33 @@ textarea.input-group-sm>.form-control,textarea.input-group-sm>.input-group-addon
 }
 
 .navbar-inverse .navbar-nav>li>a{
-	color:#777
+	color:white
 }
 
+.navpnf {
+    float: left;
+    margin: 0px;
+	width: 100%;
+	background-color: rgba(0, 0, 0, 0.1);
+	outline: medium none;
+	box-shadow: none;
+}
+
+.navpnf > li > a {
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 1px 0px rgba(255, 255, 255, 0.05) inset;
+    text-shadow: 0px 1px 0px rgba(0, 0, 0, 0.5);
+    padding: 10px 0px 10px 15px;
+}
+
+.navpnf  > li:hover > a, .navpnf > li:focus > a{
+    color:white;
+	text-decoration:none;
+    outline: medium none;
+    box-shadow: none;
+}
 .navbar-inverse .navbar-nav>li>a:hover,.navbar-inverse .navbar-nav>li>a:focus{
-	color:black;
-	background-color:transparent
+	background-color: rgba(0,0,0, 0.1);
 }
 
 .navbar-inverse .navbar-nav>.active>a,.navbar-inverse .navbar-nav>.active>a:hover,.navbar-inverse .navbar-nav>.active>a:focus{
@@ -6653,6 +6686,23 @@ button.close{
 	}
 
 }
+
+@media (min-width:768px){
+
+	.navpnf {
+		float: left;
+		margin-top: -50px;
+		width: 100%;
+		background-color: rgba(0, 0, 0, 0.1);
+		outline: medium none;
+		box-shadow: none;
+		margin-left: 0px;
+		padding-left: 70px;
+		height:50px;
+	}
+
+}
+
 
 @media (min-width:1200px){
 	.visible-lg-inline-block{

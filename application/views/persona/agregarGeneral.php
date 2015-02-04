@@ -400,16 +400,7 @@ $(document).ready(function(e){
 							&iquest;Cu&aacute;l?:<br>
 							<input id="cualVoceria" class="auth-input" type="text" value="" name="cualVoceria" maxLegth="25"/>
 							</div><br>
-						
-						3.4.Pertenece a una Comuna:1.<br>
-						1.Si <input type="radio" value="Si" name="comuna" onclick="mostrar_comuna()">&nbsp;
-						2.No<input type="radio" value="No" name="comuna" checked="checked" onclick="ocultar_comuna()">
-							<div id="comuna2">
-								&iquest;Cu&aacute;l?<br>
-								<input id="cualComuna" class="auth-input" type="text" value="" name="cualComuna" maxLegth="25"/>
-							</div>
 						</div>
-					
 				</p>
 			</div>
 		</section>

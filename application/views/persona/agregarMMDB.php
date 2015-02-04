@@ -88,10 +88,26 @@ function ocultar_comuna()
 	$("#comuna2").hide("blind");
 }
 
+function mostrar_mmdb(){
+	$("#mmdb2").show("blind");
+}
+function ocultar_mmdb()
+{
+	$("#mmdb2").hide("blind");
+}
+
+function mostrar_comite(){
+	$("#comite2").show("blind");
+}
+function ocultar_comite()
+{
+	$("#comite2").hide("blind");
+}
+
 $(document).ready(function(e){
 
 		$('#myWizard').easyWizard();
-		$("#etnia2,#discapacidad2,#instruccion2,#estudio2, #misiones2, #estudiar2,#movimiento2,#partido2,#concejoC2,#voceria2, #comuna2").hide();
+		$("#etnia2,#discapacidad2,#instruccion2,#estudio2, #misiones2, #estudiar2,#movimiento2,#partido2,#concejoC2,#voceria2, #comuna2 , #mmdb2, #comite2").hide();
 		$("#fecha").datepicker();
 		
 		
@@ -153,7 +169,7 @@ $(document).ready(function(e){
 <div class="col-lg-12" ng-app="persona">
 	<?php
 		$d=array('name' => 'form', 'id' => 'myWizard');
-		echo form_open(base_url().'api/personas_api/savePersona',$d);
+		echo form_open(base_url().'api/personas_api/saveMMDB',$d);
 	?>
 	<section class="step" data-step-title="Habitaci&oacute;n">
 			<div class="col-lg-12" style="text-align:center">
@@ -401,7 +417,7 @@ $(document).ready(function(e){
 							<input id="cualVoceria" class="auth-input" type="text" value="" name="cualVoceria" maxLegth="25"/>
 							</div><br>
 						
-						3.4.Pertenece a una Comuna:1.<br>
+						3.4.Pertenece a una Comuna:<br>
 						1.Si <input type="radio" value="Si" name="comuna" onclick="mostrar_comuna()">&nbsp;
 						2.No<input type="radio" value="No" name="comuna" checked="checked" onclick="ocultar_comuna()">
 							<div id="comuna2">
@@ -413,24 +429,33 @@ $(document).ready(function(e){
 				</p>
 			</div>
 		</section>
-		<section class="step" data-step-title="Laborales">
+		<section class="step" data-step-title="MMDB">
 			<div class="col-lg-12" style="text-align:center">
 				<p>
-					<label for="instTrabajo">1.Instituci&oacute;n donde labora: </label><br>
-					<input id="instTrabajo" ng-model="instTrabajo" class="auth-input" type="text" value="" name="instTrabajo" maxLegth="50"/> 
+					<label for="mmdb">1.Usted es madre beneficiaria de la Misi&oacute;n Madres del Barrio: </label><br>
+					1.Si<input type="radio" value="Si" name="mmdb" onclick="mostrar_mmdb()">&nbsp;
+					2.No<input type="radio" value="No" name="mmdb" checked="checked" onclick="ocultar_mmdb()">
+						<div id="mmdb2">
+						1.1.Usted pertenece a un Comit&eacute; de Madres del Barrio: <br>
+						1.Si <input type="radio" value="Si" name="comite" onclick="mostrar_comite()">&nbsp;
+						2.No <input type="radio" value="No" name="comite" checked="checked" onclick="ocultar_comite()"><br>
+							<div id="comite2">
+							1.2. Indique el nombre del Comit&eacute;:<br>
+							<input id="cualComite" class="auth-input" type="text" value="" name="cualComite" maxLegth="25"/> <br>
+							1.3. Responsabilidad dentro del Comit&eacute;:<br>
+							<input id="responsabilidadCom" class="auth-input" type="text" value="" name="responsabilidadCom" maxLength="25"/>
+							</div><br>
+						</div>
 				</p>
 				<p>
-					<label for="cargo">2.Cargo o rol que ejerce:</label><br>
-					<input id="cargo" ng-model="cargo" class="auth-input" type="text" value="" name="cargo" maxLegth="50"></input> 
+					<label for="socioProd">2.Usted pertenece a un proyecto socio-productivo: </label><br>
+					1.Si<input type="radio" value="Si" name="socioProd">&nbsp;
+					2.No<input type="radio" value="No" name="socioProd" checked="checked">
 				</p>
 				<p>
-					<label for="telOficina">3.Tel&eacute;fono (oficina):</label><br>
-					<input id="telOficina" ng-model="telOficina" class="auth-input" type="text" value="" name="telOficina" maxLegth="11" integer></input>
-					<span style="color:red; font-size:12px" ng-show="form.telOficina.$error.integer"><br>* Este campo debe ser un numero entero</span>
-				</p>
-				<p>
-					<label for="correoTrabajo">4.Correo Electr&oacute;nico:</label><br>
-					<input id="correoTrabajo" ng-model="correoTrabajo" class="auth-input" type="text" value="" name="correoTrabajo" maxLegth="50"></input>
+					<label for="frenteComite">3.Usted pertenece a un frente de comites de Madres del Barrio: </label><br>
+					1.Si<input type="radio" value="Si" name="frenteComite">&nbsp;
+					2.No<input type="radio" value="No" name="frenteComite" checked="checked">
 				</p>
 			</div>
 		</section>

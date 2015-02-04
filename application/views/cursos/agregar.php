@@ -30,9 +30,8 @@
 
    <p>
        <label for="estado">Estado:</label><br>
-       <select name="estado" class="auth-input" style="max-width: 300px !important; text-align: center;" required>
-	   <option value="">Seleccione</option>
-         <?php foreach($estado as $row){ 
+       <select name="estado[]" class="auth-input" style="max-width: 300px !important;" required multiple>
+	    <?php foreach($estado as $row){ 
 			echo "<option value='$row->id_estado'>$row->nombre</option>";
 		 }             
          ?>
