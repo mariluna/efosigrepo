@@ -11,7 +11,7 @@ class Actividades_api extends REST_Controller{
     }
 
     function view($name_view,$data){
-		var_dump($name_view);
+	
 		$this->load->view('header');
 		$this->load->view('actividades/'.$name_view.'', $data);
 		$this->load->view('footer');
@@ -42,7 +42,7 @@ class Actividades_api extends REST_Controller{
 
 	public function remove_delete($id = NULL)
 	{
-		var_dump($id);
+
 		if ($this->actividades_model->delete($id))
 		{
 			$this->response(array('status' => true, 'message' => sprintf('Project #%d has been deleted.', $id)), 200);

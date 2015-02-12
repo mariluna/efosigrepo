@@ -47,6 +47,7 @@ class Personas_api extends REST_Controller{
 
 	public function save_post()
 	{
+
 		if($this->post("etnia")=="Si")
 		{
 			$etnia=$this->post("cualEtnia");
@@ -154,6 +155,7 @@ class Personas_api extends REST_Controller{
 			$voceria="No";
 			$comuna="No";
 		}
+		
 		$data=array(
 			'id_redi'=>$this->post("redi"),
 			'id_estado'=>$this->post("estado"),
@@ -192,11 +194,17 @@ class Personas_api extends REST_Controller{
 			'comuna_cc'=>$comuna,
 			'status'=>"General"
 			);
-			$id_persona=$this->persona_model->add($data);	
+
+		$this->db->trans_start();
+		
+		$cedula = $this->post("cedula");
+		
+		$this->persona_model->add($data);
 			
+		$id_persona=$this->db->query("select id_persona from tb_persona where cedula= $cedula")->row();
 		
 		$data2=array(
-			'id_persona'=>$id_persona,
+			'id_persona'=>$id_persona->id_persona,
 			'institucion_labora'=>$this->post("instTrabajo"),
 			'cargo'=>$this->post("cargo"),
 			'telefono'=>$this->post("telTrab"),
@@ -204,10 +212,36 @@ class Personas_api extends REST_Controller{
 		);
 		
 		$this->persona_model->add_general($data2);
-		redirect(base_url().'persona');
+		
+		$this->load->library('ion_auth');
+		$this->load->library('form_validation');
+		$this->load->helper('url');
+		$this->load->database();
+		$this->form_validation->set_error_delimiters($this->config->item('error_start_delimiter', 'ion_auth'), $this->config->item('error_end_delimiter', 'ion_auth'));
+		$this->lang->load('auth');
+		$this->load->helper('language');
+		
+		$username = $this->post("nombreApellido");
+		$email    = $this->post("correo");
+		$password = $this->post("cedula");
+
+		$additional_data = array(
+			'persona_id'      => $id_persona->id_persona,
+			'first_name'	  => $this->post("nombreApellido"),
+			'pregunta'		  => 'Cuantos hijos tengo?',
+			'respuesta'		  => $this->post("nroHijos")			
+		);
+		
+		//funcion del correo//
+
+		$this->ion_auth->register($username, $password, $email, $additional_data);
+		
+		$this->db->trans_complete();
+		
+		redirect(base_url().'Persona');
 
 	}
-
+	
 	public function saveMMDB_post()
 	{
 		if($this->post("etnia")=="Si")
@@ -387,7 +421,7 @@ class Personas_api extends REST_Controller{
 		$this->persona_model->add_MMDB($data2);
 		redirect(base_url().'persona');
 	}
-	
+
 	public function update_post()
 	{
 		$data=array(

@@ -21,15 +21,7 @@ class Cursos_api extends REST_Controller{
 
     public function index_get()
 	{
-        $this->response($this->db->query('SELECT DISTINCT a.*, b.nro_participantes AS inscritos, d.nombre as estado
-										  FROM tb_curso a
- 										  INNER JOIN tr_curso_participantes b 
-										  ON a.id_curso = b.id_curso
-										  INNER JOIN tr_curso_estado c
-										  ON a.id_curso = c.curso_id
-										  INNER JOIN tb_estado d 
-										  ON c.estado_id = d.id_estado')->result()
-						);
+		$this->response($this->cursos_model->get_all());
     }
 
     public function show_get($id)
@@ -56,33 +48,100 @@ class Cursos_api extends REST_Controller{
 
 	public function save_post()
 	{
+		$this->db->trans_start();
 		
 		$data=array(
 			'nombre'=>$this->post("nombre"),
 			'duracion'=>$this->post("duracion"),
 			'nro_participantes'=>$this->post("participantes"),
-			'status'=>1
+			'status'=>1,
+			'fecha_inicio'=>$this->post("fechaini"),
+			'fecha_fin'=>$this->post("fechafin")
 		 );
 
 		$cursoId = $this->cursos_model->add($data);
 		
 		$estadosCurso = array();
 		
+		$cursoPart = array();
+		
 		foreach ($_POST['estado'] as $estado) {
 				
-				$datainsert = array(
+			$datainsert = array(
 
-					'curso_id' => $cursoId,
-					'estado_id' => $estado,
+				'curso_id' => $cursoId,
+				'estado_id' => $estado,
 
-				);
+			);
+			
+			$datainsertpar = array(
 
-				array_push($estadosCurso, $datainsert);
+				'id_curso' => $cursoId,
+				'nro_participantes' => 0,
+				'id_estado' => $estado
+
+			);
+
+			array_push($estadosCurso, $datainsert);
+			
+			array_push($cursoPart, $datainsertpar);
 			
 			}
 		
 		$this->cursos_model->addCursoEstado($estadosCurso);
 		
+		$this->cursos_model->setCursoPart($cursoPart);
+		
+		$this->db->trans_complete();
+		
+		redirect(base_url().'Cursos');
+
+	}
+	
+	public function saveAsis_post()
+	{
+		echo"<pre>";
+		print_r($this->post());
+		echo"</pre>";
+		
+		$datos = $this->post("curso");
+		$newDatos = explode("_",$datos);
+		$curso = $newDatos[0];
+		$estado = $newDatos[1];
+		
+		$this->db->trans_start();
+		
+		$dataAsistencia=array(
+			'horas_impartidas'=>$this->post("duracion"),
+			'fecha_asistencia'=>$this->post("fechaini"),
+			'curso_id'=>$curso,
+			'estado_id'=>$estado
+		 );
+
+		$asistenciaId = $this->cursos_model->addAsistencia($dataAsistencia);
+		
+		$personaAsistencia = array();
+		
+		foreach ($this->post("asistencia") as $row) {
+		
+			if($row != null){
+				
+				$datainsert = array(
+
+				'persona_id' => $row,
+				'asistencia_id' => $asistenciaId,
+
+				);
+
+				array_push($personaAsistencia, $datainsert);
+			
+			}
+							
+		}
+		
+		$this->cursos_model->addPersonaAsis($personaAsistencia);
+		
+		$this->db->trans_complete();
 		
 		redirect(base_url().'Cursos');
 
@@ -94,14 +153,15 @@ class Cursos_api extends REST_Controller{
 			'nombre'=>$this->post("nombre"),
 			'duracion'=>$this->post("duracion"),
 			'nro_participantes'=>$this->post("participantes"),
-			'id_estado'=>$this->post("estado"),
-			'status'=>$this->post("estatus")
+			'status'=>$this->post("estatus"),
+			'fecha_inicio'=>$this->post("fechaini"),
+			'fecha_fin'=>$this->post("fechafin")
 		 );
 
 		$this->cursos_model->update($this->post("id"),$data);
+		
+		$this->cursos_model->updateCursoEstado($this->post("id"),$this->post("prev"),$this->post("estado"));		
 
 		redirect(base_url().'Cursos');
-
-
 	}
 }

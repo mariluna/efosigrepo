@@ -18,7 +18,9 @@ $(document).ready(function() {
         <!--aqui el f=if para ocultar el boton de agregar -->
 		<?php if(($rol != null) && ($rol->id == 1)){ ?>
 		<div class="add-menu">
-            <td><a ng-click="addEntity()" class="fa fa-plus btn btn-success"> Agregar </a></td>
+            <td><a ng-click="addEntity()" class="fa fa-plus btn btn-success"> Agregar Nuevo Curso</a></td>
+			<td><a ng-click="addAsiss()" class="fa fa-plus btn btn-primary"> Cargar Asistencia </a></td>
+			<td><a ng-click="descAsis()" class="fa fa-download btn btn-info"> Descargar Asistencia </a></td>
         </div> 
 		<?php } ?>
         <!-- Input que contiene un modelo, con el cual podemos filtrar la data del CRUD -->
@@ -50,12 +52,12 @@ $(document).ready(function() {
                         <a ng-click="view(curso.id_curso, curso.estado)" class="fa fa-search btn btn-small btn-info"></a>
                         <a ng-click="edit(curso.id_curso, curso.estado)" class="fa fa-pencil btn btn-small btn-primary"></a>
                         <a ng-click="delete(curso.id_curso, curso.estado)" class="fa fa-trash btn btn-small btn-danger"></a>
-						<a ng-click="register(curso.nro_participantes, curso.inscritos, curso.id_curso,<?php echo $r->persona_id; ?>)" class="fa fa-list-alt btn btn-small btn-success"></a>
+						<a ng-click="register(curso.nro_participantes, curso.inscritos, curso.id_curso,<?php echo $r->persona_id; ?>,curso.id_estado)" class="fa fa-list-alt btn btn-small btn-success"></a>
                     </td>
 					<?php }elseif($rol != null){ ?>
 					<td>
                         <a ng-click="view(curso.id_curso)" class="fa fa-search btn btn-small btn-info"></a>
-                        <a ng-click="register(curso.nro_participantes, curso.inscritos, curso.id_curso,<?php echo $r->persona_id; ?>)" class="fa fa-list-alt btn btn-small btn-success"></a>
+                        <a ng-click="register(curso.nro_participantes, curso.inscritos, curso.id_curso,<?php echo $r->persona_id; ?>,curso.id_estado)" class="fa fa-list-alt btn btn-small btn-success"></a>
                     </td>
 					<?php } elseif($rol == null){?>
 					<td>

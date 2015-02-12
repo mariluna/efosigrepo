@@ -98,6 +98,18 @@ app.controller("cursosController", [ '$scope', '$http', '$location',
 		 window.location= 'Cursos/agregar';
 
 	};
+	
+	$scope.addAsiss = function(){
+
+		 window.location= 'Cursos/agregarAsistencia';
+
+	};
+	
+	$scope.descAsis = function(){
+
+		 window.location= 'Cursos/descargarAsistencia';
+
+	};
 
 	$scope.view = function(id,est){
 
@@ -105,15 +117,15 @@ app.controller("cursosController", [ '$scope', '$http', '$location',
 
 	};
 
-	$scope.edit = function(id){
+	$scope.edit = function(id,est){
 
-		window.location= 'Cursos/editar/'+id;
-
+		window.location= 'Cursos/editar/'+id+'/'+est;
+		
 	};
 	
-	$scope.register = function(part, ins, cursoid, userid){
+	$scope.register = function(part, ins, cursoid, userid, estid){
 
-		window.location= 'Cursos/registrar_curso/'+ part + '/' + ins + '/' + cursoid + '/' + userid;
+		window.location= 'Cursos/registrar_curso/'+ part + '/' + ins + '/' + cursoid + '/' + userid + '/' + estid;
 
 	};
 	

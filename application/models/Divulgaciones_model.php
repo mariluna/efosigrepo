@@ -25,9 +25,8 @@ class Divulgaciones_model extends CI_Model
 
     public function add($data)
     {
-	print_r($data);
-        $this->db->query("INSERT INTO");//insert($this->table, $data);
-        return $this->db->insert_id();
+        $this->db->insert_batch($this->table, $data);
+        return $this->db->affected_rows();
     }
 
      public function update($id, $data)

@@ -1,6 +1,6 @@
 <!-- Titulo -->
 <?php $r=$this->ion_auth->user(); ?>
-<h1>INFORME REGIONAL SEMANAL POR ACTIVIDAD</h1>
+<h1>Informe regional por actividad</h1>
 <hr>
 <script type="text/javascript">
 $(document).ready(function() {
@@ -23,21 +23,27 @@ $(document).ready(function() {
         <table class="table table-striped table-condensed" style="text-align: center;">
             <thead>
                 <tr>
-                    <th style="min-width: 80px; text-align: center;">ID</th>
                     <th style="min-width: 80px; text-align: center;">Region</th>
+                    <th style="min-width: 80px; text-align: center;">Curso</th>
+					<th style="min-width: 80px; text-align: center;">Actividad</th>
+                    <th style="min-width: 80px; text-align: center;">Nombre de la actividad</th>
+					  <th style="min-width: 80px; text-align: center;">Creado</th>
                 </tr>
             </thead>
             <tbody>
                 <!-- con el ng-repeat le decimos que carge y repita tantas filas como datos obtenga y el filter para filtrar los datos-->
                 <tr ng-repeat="informe in filtered =( informes | filter:query ) | pagination : currentPage*itemsPerPage | limitTo: itemsPerPage">
                     <!-- Data que va a mostrar el CRUD -->
-                    <td>{{ informe.id_informe }}</td>
-                    <td>{{ informe.id_redi }}</td>
-                    
+                    <td>{{ informe.region }}</td>
+                     <td>{{ informe.curso }}</td>
+					 <td>{{ informe.tipo_actividad_for }}</td>
+					 <td>{{ informe.act_nombre_for }}</td>
+					  <td>{{ informe.usuario}}</td>
                     <td>
                         <a ng-click="view(informe.id_informe)" class="fa fa-search btn btn-small btn-info"></a>
                         <a ng-click="edit(informe.id_informe)" class="fa fa-pencil btn btn-small btn-primary"></a>
                         <a ng-click="delete(informe.id_informe)" class="fa fa-trash btn btn-small btn-danger"></a>
+						<a ng-click="viewInforme(informe.id_informe)" target="_blank" class="fa fa-file-pdf-o btn btn-small btn-danger"></a>
                     </td>
                 </tr>
             </tbody>

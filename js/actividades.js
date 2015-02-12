@@ -124,7 +124,6 @@ app.controller("actividadesController", [ '$scope', '$http', '$location',
 			});
 			location.reload();
 	     }else{
-		 alert()
 		 }
 	};
 

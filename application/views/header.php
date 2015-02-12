@@ -32,10 +32,12 @@
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/lib/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/main.min.css">
 	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/jquery-ui.css">
+	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/stylesheet.css">
     <script src="<?php echo base_url(); ?>assets/lib/jquery/jquery.min.js"></script>
     <script src="<?php echo base_url(); ?>assets/lib/bootstrap/js/bootstrap.min.js"></script>
 	<script src="<?php echo base_url(); ?>assets/js/jquery.easyWizard.js"></script>
 	<script src="<?php echo base_url(); ?>assets/js/jquery-ui.js"></script>
+	<script src="<?php echo base_url(); ?>assets/js/selectize.js"></script>
   </head>
     <body class="  " id="mybody">
     <div class="bg-dark dk" id="wrap">
@@ -86,7 +88,7 @@
 				<li class="nav-header">Menu</li>
 				<li class="nav-divider"></li>
 				<li class="">
-            <a href="cursos">
+            <a href="Cursos">
               <i class="fa fa-newspaper-o"></i><span class="link-title">&nbsp;Cursos</span>
             </a>
         </li>
@@ -119,12 +121,6 @@
 		   <li class="">
             <a href="<?php echo base_url(); ?>Informe">
               <i class="fa fa-file-text"></i><span class="link-title">&nbsp;Informe</span>
-            </a>
-          </li>
-		  
-		  <li class="">
-            <a href="<?php echo base_url(); ?>Evaluacion">
-              <i class="fa fa-tags"></i><span class="link-title">&nbsp;Evaluaci&oacute;n</span>
             </a>
           </li>
 		  
@@ -201,7 +197,7 @@
           <li class="nav-divider"></li>
 
          <li class="">
-            <a href="cursos">
+            <a href="Cursos">
               <i class="fa fa-newspaper-o"></i><span class="link-title">&nbsp;Cursos</span>
             </a>
         </li>
@@ -238,12 +234,6 @@
           </li>
 		  
 		  <li class="">
-            <a href="<?php echo base_url(); ?>Evaluacion">
-              <i class="fa fa-tags"></i><span class="link-title">&nbsp;Evaluaci&oacute;n</span>
-            </a>
-          </li>
-		  
-		  <li class="">
             <a href="<?php echo base_url(); ?>Actividades">
               <i class="fa fa-tags"></i><span class="link-title">&nbsp;Actividades</span>
             </a>
@@ -252,7 +242,7 @@
 		  <?php } ?>
              <li class="nav-divider"></li>
            <li class="">
-            <a  data-toggle="tooltip" onClick="document.getElementById('mybody').className += ' sidebar-right-opened'; $('#footer').hide()">
+            <a onClick="document.getElementById('mybody').className += ' sidebar-right-opened'; $('#footer').hide()">
               <i class="fa fa-folder-open"></i><span class="link-title">&nbsp;Ver Actividades</span>
             </a>
           </li>

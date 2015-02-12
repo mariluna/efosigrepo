@@ -143,7 +143,7 @@ $("#redi").change(function () {
 						echo '<option value="'.$cursos->id_curso.'">'.$cursos->nombre.'</option>'; 
 						}
 						?>
-       </select>
+				</select>
          <span style="color:red; font-size:12px" ng-show="form.curso.$error.required"><br>* Este campo es obligatorio</span>
 				
 					<br><br>

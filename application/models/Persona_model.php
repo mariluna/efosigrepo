@@ -7,8 +7,16 @@ class Persona_model extends CI_Model
     public function get_all()
     {
 		$r=$this->ion_auth->user()->row();		
-		$query=$this->db->query("SELECT id_estado FROM tb_persona WHERE id_persona=$r->user_id")->row();    
-		$getpersona = $this->db->query("select * from tb_persona where id_estado = $query->id_estado")->result();
+		$query=$this->db->query("SELECT id_estado FROM tb_persona WHERE id_persona = $r->persona_id")->row();  
+		if($query->id_estado == 24){
+		
+			$getpersona = $this->db->query("select * from tb_persona")->result();
+		
+		}else{
+		
+			$getpersona = $this->db->query("select * from tb_persona where id_estado = $query->id_estado")->result();
+		
+		}
 		return $getpersona;
     }
 
@@ -21,6 +29,7 @@ class Persona_model extends CI_Model
 
     public function delete($id)
     {
+		$this->db->where('id_persona', $id)->delete("tr_persona_curso");
         $this->db->where('id_persona', $id)->delete($this->table);
 		$this->db->where('id_general',$id)->delete("tb_general");
         return $this->db->affected_rows();
@@ -32,18 +41,18 @@ class Persona_model extends CI_Model
         return $this->db->insert_id();
     }
 	
-	public function add_general($data)
-	{
-		$this->db->insert("tb_general", $data);
-        return $this->db->insert_id();
-	}
-
 	public function add_MMDB($data)
 	{
 		$this->db->insert("tb_mmdb", $data);
         return $this->db->insert_id();
 	}
 	
+	public function add_general($data)
+	{
+		$this->db->insert("tb_general", $data);
+        return $this->db->insert_id();
+	}
+
      public function update($id, $data)
     {
         return $this->db->where('id', $id)->update($this->table, $data);

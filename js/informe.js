@@ -109,6 +109,12 @@ app.controller("informeController", [ '$scope', '$http', '$location',
 		window.location= 'Informe/editar/'+id;
 
 	};
+	
+	$scope.viewInforme = function(id){
+
+		window.open('Informe/show_informe/'+id,'_blank');
+
+	};
 
 	$scope.delete = function(id){
 

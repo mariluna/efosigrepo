@@ -746,5 +746,5 @@ class Auth extends CI_Controller {
 		$this->_render_page('footer');
 
 	}
-
+	
 }

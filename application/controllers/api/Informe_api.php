@@ -10,17 +10,35 @@ class Informe_api extends REST_Controller{
 
         $this->load->model('Informe_model');
     }
+function view($name_view,$data){
+		
+		$this->load->view('header');
+		$this->load->view('actividades/'.$name_view.'', $data);
+		$this->load->view('footer');
 
+	}
+	
+	
+	
     public function index_get(){
 
-        $this->response($this->db->get('tb_informe')->result());
-
+	 $this->response($this->db->query("SELECT
+			tb_informe.id_informe,
+			tb_informe.tipo_actividad_for,
+			tb_informe.act_nombre_for,
+			tb_redi.nombre AS region,
+			users.first_name || ' ' || users.last_name as usuario,
+			tb_curso.nombre as curso
+			FROM
+			tb_informe
+			INNER JOIN tb_redi ON tb_informe.id_redi = tb_redi.id_redi
+			INNER JOIN users ON tb_informe.id_usuario = users.id
+			INNER JOIN tb_curso ON tb_curso.id_curso = tb_informe.id_curso")->result());
     }
 
     public function show_get($id)
 	{
 		$f=$this->response($this->informe_model->get($id));
-
 		$this->load->view('header');
 		$this->load->view('informe/ver', $f);
 		$this->load->view('footer');
@@ -115,6 +133,7 @@ class Informe_api extends REST_Controller{
 		}
 		$hora_ini="19:06:25";
 		$hora_fin="19:06:25";
+		$fecha=date("Y-m-d");
 		
 			$data=array(
 			'id_redi'=>$this->post("redi"),
@@ -154,7 +173,8 @@ class Informe_api extends REST_Controller{
 			'medios_prensa_div'=>$this->post("prensa"),
 			'medios_tv_div'=>$this->post("t_v"),
 			'medios_comunitarios_div'=>$this->post("medios_comunitarios"),
-			'medios_otros_div'=>$this->post("otros")
+			'medios_otros_div'=>$this->post("otros"),
+			'fecha_creacion'=>$fecha
 		 );
 
 		$id_informe = $this->Informe_model->add($data);
@@ -179,4 +199,5 @@ class Informe_api extends REST_Controller{
 
 
 	}
+	
 }

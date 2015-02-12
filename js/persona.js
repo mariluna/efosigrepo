@@ -96,16 +96,16 @@ app.controller("personaController", [ '$scope', '$http', '$location',
 		 window.location= 'persona/agregar';
 
 	};
-	
-	$scope.addMMDB = function(){
-
-		 window.location= 'persona/agregarMMDB';
-
-	};
 
 	$scope.view = function(id){
 
 		alert('mi id persona es ' + id);
+
+	};
+	
+	$scope.addMMDB = function(){
+
+		 window.location= 'persona/agregarMMDB';
 
 	};
 
