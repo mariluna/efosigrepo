@@ -31,7 +31,7 @@
 			<input type="submit" class="auth-button .btn-danger go" value="Agregar" name="submit"></input>
 		</p>
 		<p>
-			<a class="auth-button .btn-danger back" href="<?php echo base_url()?>cursos">Volver</a>
+			<a class="auth-button .btn-danger back" href="<?php echo base_url()?>Biblioteca">Volver</a>
 		</p>
 	</div>
 	<?php echo form_close(); ?>

@@ -31,7 +31,6 @@ app.controller("actividadesController", [ '$scope', '$http', '$location',
 			
 		}).success(function(data, status, headers, config) {
 			$scope.actividades = data;
-			console.log(data);
 			$scope.itemsPerPage = 10;
 			$scope.currentPage = 0;
 		}).error(function(data, status, headers, config) {

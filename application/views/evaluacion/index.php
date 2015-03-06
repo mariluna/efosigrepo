@@ -1,6 +1,10 @@
-<!-- Titulo -->
 <h1>Evaluaci&oacute;n</h1>
 <hr>
+<?php 
+$r=$this->ion_auth->user()->row();	
+//var_dump ($r->persona_id);
+?>
+<div class="auth-form"  ng-controller="evaluacionController" ng-app="evaluacion">
 <script type="text/javascript">
 $(document).ready(function() {
     $(".loader").fadeOut("slow");
@@ -9,43 +13,42 @@ $(document).ready(function() {
 <div class="loader"></div>
 <div>
     <!-- Div que contiene la aplicacion ng-app="project" y el controlador de angular ng-controller="ApiController" -->
-    <div class="span6" ng-controller="evaluacionController" ng-app="evaluacion">
+    <div class="span6" >
         <div class="add-menu">
             <!-- ng-click="createUT()" botones que disparan funciones en angular, las cuales se encuentran el la aplicacion -->
-            <td><a ng-click="addEntity()" class="fa fa-plus btn btn-success"> Agregar General </a></td>
-			<td><a ng-click="addMMDB()" class="fa fa-plus btn btn-success"> Agregar MMDB</a></td>
+			<td></td>
         </div>
-        <!-- Input que contiene un modelo, con el cual podemos filtrar la data del CRUD -->
-        <div style="width:30% !important;">
+		<div style="width:30%;">
             <input type ="text" class="form-control" ng-model="query" placeholder="Filtrar">
-           <!--  <div ng-hide="filtered.length===3">{{filtered.length}}</div> -->
-        </div>
+		</div>	
         <!-- CRUD -->
         <table class="table table-striped table-condensed" style="text-align: center;">
             <thead>
                 <tr>
-                    <th style="min-width: 80px; text-align: center;">Nombre persona</th>
-					<th style="min-width: 80px; text-align: center;">C&eacute;dula</th>
-					<th style="min-width: 80px; text-align: center;">Estatus</th>
+                    <th style="min-width: 80px; text-align: center;">Curso</th>
+					<th style="min-width: 80px; text-align: center;">Evaluaciones Total/Llenas</th>
 					<th style="min-width: 80px; text-align: center;">Acciones</th>
                 </tr>
             </thead>
             <tbody>
                 <!-- con el ng-repeat le decimos que carge y repita tantas filas como datos obtenga y el filter para filtrar los datos-->
-                <tr ng-repeat="persona in filtered =( personas | filter:query ) | pagination : currentPage*itemsPerPage | limitTo: itemsPerPage">
+                <tr ng-repeat="detalle in filtered =( detalles | filter:query ) | pagination : currentPage*itemsPerPage | limitTo: itemsPerPage">
                     <!-- Data que va a mostrar el CRUD -->
-                    <td>{{ persona.nombre_apellido }}</td>
-					<td>{{ persona.cedula }} </td>
-					<td>{{ persona.status }} </td>
-                    <td>
-                        <a ng-click="view(persona.id_persona)" class="fa fa-search btn btn-small btn-info"></a>
-                        <a ng-click="edit(persona.id_persona)" class="fa fa-pencil btn btn-small btn-primary"></a>
-                        <a ng-click="delete(persona.id_persona)" class="fa fa-trash btn btn-small btn-danger"></a>
+                    <td>{{ detalle.nombre }}</td>
+					<td>{{ detalle.total }} / {{ detalle.lleno }} </td>
+					<td>
+					<?php
+						$rol = $this->ion_auth->get_users_groups()->row();
+						if ($rol->id == 2 ) { ?>
+						<a ng-click="addEvaluacion(detalle.id_curso)" class="fa fa-plus btn btn-success"> Agregar</a>
+						<?php } else { ?>
+                        <a ng-click="download(detalle.id_curso)" class="fa fa-download btn btn-info"> Excel</a>
+						<?php } ?>
                     </td>
                 </tr>
             </tbody>
         </table>
-		          <div class="pagination-div">
+		<div class="pagination-div">
             <ul class="pagination">
                 <li ng-class="DisablePrevPage()">
                     <a href ng-click="firstPage()"><i class="fa fa-angle-double-left pagi"></i></a>
@@ -66,4 +69,5 @@ $(document).ready(function() {
             </ul>
         </div>
     </div>
+</div>
 </div>

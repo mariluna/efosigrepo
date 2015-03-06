@@ -22,6 +22,6 @@ $(document).ready(function() {
 			</br>
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;El  PROGRAMA SOMXS DIVERSIDAD est&aacute; articulado en funci&oacute;n de proveer a las diversidad sexual combatiente las herramientas te&oacute;ricas, conceptuales, subjetivas y pedag&oacute;gicas necesarias para generar procesos de revisi&oacute;n y an&aacute;lisis de la opresi&oacute;n del capitalismo patriarcal, heteronormativo, sexista, racista y neoliberal, a fines de construir la agenda pol&iacute;tica y los proyectos socioproductivos exitosos, ambos estadios liberados del miedo a la autonom&iacute;a y subversivos a la divisi&oacute;n sexual patriarcal del trabajo. Por lo mismo, siguiendo las directrices del trabajo de la militancia feminista popular, una de las caracter&iacute;sticas fundamentales de este programa es incluir un componente de trabajo subjetivo y de construcci&oacute;n de una agenda unitaria para la lucha diversa sexual emancipatoria y contestaria por el reconocimiento y el respeto.
 		</div>
-		<div class="col-lg-4"> <img  width="425px" height="425px" src="<?php echo base_url(); ?>assets/img/somxs.jpg"> </div>
+		<div class="col-lg-4"> <img style="max-width: 100%;" width="425px" height="425px" src="<?php echo base_url(); ?>assets/img/somxs.jpg"> </div>
 	</div>
 </div>

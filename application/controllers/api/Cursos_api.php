@@ -36,6 +36,7 @@ class Cursos_api extends REST_Controller{
 
 	public function remove_delete($id = NULL)
 	{
+		 $this->load->model('cursos_model');
 		if ($this->cursos_model->delete($id))
 		{
 			$this->response(array('status' => true, 'message' => sprintf('Project #%d has been deleted.', $id)), 200);
@@ -56,7 +57,8 @@ class Cursos_api extends REST_Controller{
 			'nro_participantes'=>$this->post("participantes"),
 			'status'=>1,
 			'fecha_inicio'=>$this->post("fechaini"),
-			'fecha_fin'=>$this->post("fechafin")
+			'fecha_fin'=>$this->post("fechafin"),
+			'id_facilitador'=>$this->post("facilitador")
 		 );
 
 		$cursoId = $this->cursos_model->add($data);
@@ -93,8 +95,11 @@ class Cursos_api extends REST_Controller{
 		$this->cursos_model->setCursoPart($cursoPart);
 		
 		$this->db->trans_complete();
-		
-		redirect(base_url().'Cursos');
+		$this->session->set_flashdata('message', '<br><br><div class="alert alert-success info" role="alert">
+						<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+						<span class="sr-only">Error:</span> El curso: "'.$this->post("nombre").'" fue agregado con exito!
+						<span class="glyphicon glyphicon-remove close" aria-hidden="true"></span></div>');
+		redirect('Cursos');
 
 	}
 	
@@ -142,26 +147,58 @@ class Cursos_api extends REST_Controller{
 		$this->cursos_model->addPersonaAsis($personaAsistencia);
 		
 		$this->db->trans_complete();
-		
-		redirect(base_url().'Cursos');
+		$this->session->set_flashdata('message', '<br><br><div class="alert alert-success info" role="alert">
+						<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+						<span class="sr-only">Error:</span> La asistencia fue cargada con exito!
+						<span class="glyphicon glyphicon-remove close" aria-hidden="true"></span></div>');
+		redirect('Cursos');
 
 	}
 
 	public function update_post()
 	{
+		$this->load->model('cursos_model');
 		$data=array(
 			'nombre'=>$this->post("nombre"),
 			'duracion'=>$this->post("duracion"),
 			'nro_participantes'=>$this->post("participantes"),
 			'status'=>$this->post("estatus"),
 			'fecha_inicio'=>$this->post("fechaini"),
-			'fecha_fin'=>$this->post("fechafin")
+			'fecha_fin'=>$this->post("fechafin"),
+			'id_facilitador'=>$this->post("facilitador")
 		 );
-
+		$this->db->trans_start();
 		$this->cursos_model->update($this->post("id"),$data);
 		
-		$this->cursos_model->updateCursoEstado($this->post("id"),$this->post("prev"),$this->post("estado"));		
-
-		redirect(base_url().'Cursos');
+		$dataPreviaCurso = $this->cursos_model->getForAudit($this->post("id"),$this->post("prev"));
+		$r = $this->ion_auth->user()->row();
+		
+		$dataAudi = array(
+			'id_usuario'=>$r->id,
+			'accion'=>"Modificar",
+			'fecha'=>date("Y-m-d H:i:s"),
+			'tabla_afectada'=>'tb_curso, tr_curso_estado',
+			'campo_afectado'=>'nombre ,duracion ,nro_participantes ,status , fecha_inicio, fecha_fin, id_facilitador, estado, id_estado, rel',
+			'informacion_campo'=>$dataPreviaCurso->nombre.
+								 $dataPreviaCurso->duracion.
+								 $dataPreviaCurso->nro_participantes.
+								 $dataPreviaCurso->status.
+								 $dataPreviaCurso->fecha_inicio.
+								 $dataPreviaCurso->fecha_fin.
+								 $dataPreviaCurso->id_facilitador.
+								 $dataPreviaCurso->estado.
+								 $dataPreviaCurso->id_estado.
+								 $dataPreviaCurso->rel
+		);
+	//	$this->cursos_model->addAuditoria($dataAudi);
+		
+		$this->cursos_model->updateCursoEstado($this->post("id"),$this->post("prev"),$this->post("estado"));	
+		
+		$this->session->set_flashdata('message', '<br><br><div class="alert alert-success info" role="alert">
+						<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+						<span class="sr-only">Error:</span> El curso: "'.$this->post("nombre").'" fue modificado con exito!
+						<span class="glyphicon glyphicon-remove close" aria-hidden="true"></span></div>');
+		$this->db->trans_complete();
+		redirect('Cursos');
 	}
 }

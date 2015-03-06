@@ -9,6 +9,10 @@
 <script type="text/javascript">
 $(document).ready(function() {
     $(".loader").fadeOut("slow");
+	
+	$('.close').click(function () {
+		$('.alert').remove();
+	});
 })
 </script>
 <div class="loader"></div>
@@ -19,16 +23,24 @@ $(document).ready(function() {
 		<?php if(($rol != null) && ($rol->id == 1)){ ?>
 		<div class="add-menu">
             <td><a ng-click="addEntity()" class="fa fa-plus btn btn-success"> Agregar Nuevo Curso</a></td>
-			<td><a ng-click="addAsiss()" class="fa fa-plus btn btn-primary"> Cargar Asistencia </a></td>
 			<td><a ng-click="descAsis()" class="fa fa-download btn btn-info"> Descargar Asistencia </a></td>
         </div> 
-		<?php } ?>
+		<?php }elseif(($rol != null) && ($rol->id == 3)){ ?>
+		<div class="add-menu">
+            <td><a ng-click="addAsiss()" class="fa fa-plus btn btn-primary"> Cargar Asistencia </a></td>
+			<td><a ng-click="descAsis()" class="fa fa-download btn btn-info"> Descargar Asistencia </a></td>
+		</div> 
+		<?php } ?>	
         <!-- Input que contiene un modelo, con el cual podemos filtrar la data del CRUD -->
         <div style="width:30% !important;">
             <input type ="text" class="form-control" ng-model="query" placeholder="Filtrar">
            <!--  <div ng-hide="filtered.length===3">{{filtered.length}}</div> -->
         </div>
         <!-- CRUD -->
+		<?php
+		$message = $this->session->flashdata('message');
+		echo $message;
+		?>
         <table class="table table-striped table-condensed" style="text-align: center;">
             <thead>
                 <tr>
@@ -61,7 +73,7 @@ $(document).ready(function() {
                     </td>
 					<?php } elseif($rol == null){?>
 					<td>
-                        <a ng-click="view(curso.id_curso)" class="fa fa-search btn btn-small btn-info"></a>
+                        <a ng-click="view(curso.id_curso, curso.estado)" class="fa fa-search btn btn-small btn-info"></a>
                         <a ng-click="regLogin(curso.nro_participantes, curso.inscritos, curso.id_curso)" class="fa fa-list-alt btn btn-small btn-success"></a>
                     </td>
 					<?php } ?>

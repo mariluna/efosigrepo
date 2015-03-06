@@ -23,7 +23,6 @@ class Actividades extends CI_Controller {
 
 	public function ver($id)
 	{
-
 		$this->load->model('actividades_model');
 		$name="ver";
 		$get['data']=$this->actividades_model->get($id);
@@ -42,8 +41,7 @@ class Actividades extends CI_Controller {
 	{
 		$this->load->model('actividades_model');
 		$name="editar";
-		$get["data"]=$this->actividades_model->get($id);
-		
+		$get["data"]=$this->actividades_model->get($id);		
 		$this->view($name,$get);
 	}
 

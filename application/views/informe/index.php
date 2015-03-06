@@ -20,10 +20,14 @@ $(document).ready(function() {
            <!--  <div ng-hide="filtered.length===3">{{filtered.length}}</div> -->
         </div>
         <!-- CRUD -->
+		<?php
+		$message = $this->session->flashdata('message');
+		echo $message;
+		?>
         <table class="table table-striped table-condensed" style="text-align: center;">
             <thead>
                 <tr>
-                    <th style="min-width: 80px; text-align: center;">Region</th>
+                    <th style="min-width: 80px; text-align: center;">Regi&oacute;n</th>
                     <th style="min-width: 80px; text-align: center;">Curso</th>
 					<th style="min-width: 80px; text-align: center;">Actividad</th>
                     <th style="min-width: 80px; text-align: center;">Nombre de la actividad</th>

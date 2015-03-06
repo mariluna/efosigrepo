@@ -3,18 +3,25 @@
 //print_r($r);
 ?>
 <h1>Divulgaciones</h1>
+
 <hr>
+
 <script type="text/javascript">
 $(document).ready(function() {
     $(".loader").fadeOut("slow");
+	
+	$('.close').click(function () {
+		$('.alert').remove();
+	});
 })
 </script>
 <div class="loader"></div>
 <div>
+
     <!-- Div que contiene la aplicacion ng-app="project" y el controlador de angular ng-controller="ApiController" -->
     <div class="span6" ng-controller="divulgacionesController as uni" ng-app="divulgaciones">
         <div class="add-menu">
-            <td><a ng-click="addEntity()" class="fa fa-plus btn btn-success"> Agregar </a></td>
+            <a ng-click="addEntity()" class="fa fa-plus btn btn-success"> Agregar </a>
         </div>
         <!-- Input que contiene un modelo, con el cual podemos filtrar la data del CRUD -->
         <div style="width:30% !important;">
@@ -22,11 +29,17 @@ $(document).ready(function() {
            <!--  <div ng-hide="filtered.length===3">{{filtered.length}}</div> -->
         </div>
         <!-- CRUD -->
+		<?php
+		$message = $this->session->flashdata('message');
+		echo $message;
+		?>
         <table class="table table-striped table-condensed" style="text-align: center;">
             <thead>
                 <tr>
                     <th style="min-width: 80px; text-align: center;">Nombre del Curso</th>
-                    <th style="min-width: 80px; text-align: center;">Divulgacion(es)</th>
+                    <th style="min-width: 80px; text-align: center;">Radiales</th>
+					<th style="min-width: 80px; text-align: center;">Televisi&oacute;n</th>
+					<th style="min-width: 80px; text-align: center;">Prensa</th>
                     <th style="min-width: 80px; text-align: center;">Acciones</th>
                 </tr>
             </thead>
@@ -35,12 +48,16 @@ $(document).ready(function() {
                 <tr ng-repeat="divulgacion in filtered =( divulgaciones | filter:query ) | pagination : currentPage*itemsPerPage | limitTo: itemsPerPage">
                     <!-- Data que va a mostrar el CRUD -->
                     <td>{{ divulgacion.nombre}}</td>
-                    <td>{{ divulgacion.nombre_radio | nombreDivR}} {{divulgacion.nombre_tv | nombreDivTv}} {{divulgacion.prensa | nombreDivP}}   </td>
+                    <td>{{ divulgacion.rad }}</td>
+					<td>{{ divulgacion.tv }}</td>
+					<td>{{ divulgacion.pre }}</td>
+					
                    <!-- + {{ divulgacion.nombre_tv | 'nombreDivTv'}} + {{divulgacion.prensa | 'nombreDivP'}} -->
                     <td>
-                        <a ng-click="view(divulgacion.id_divulgacion)" class="fa fa-search btn btn-small btn-info"></a>
-                        <a ng-click="edit(divulgacion.id_divulgacion)" class="fa fa-pencil btn btn-small btn-primary"></a>
-                        <a ng-click="delete(divulgacion.id_divulgacion)" class="fa fa-trash btn btn-small btn-danger"></a>
+                        <a ng-click="view(divulgacion.id_curso)" class="fa fa-search btn btn-small btn-info"></a>
+                    <!--    <a ng-click="edit(divulgacion.id_curso)" class="fa fa-pencil btn btn-small btn-primary"></a>-->
+                      <a ng-click="delete(divulgacion.id_divulgacion)" class="fa fa-trash btn btn-small btn-danger"></a>
+					  <a ng-click="viewInforme(divulgacion.id_curso)" target="_blank" class="fa fa-file-pdf-o btn btn-small btn-danger"></a> 
                     </td>
                 </tr>
             </tbody>

@@ -6,9 +6,14 @@
 <script type="text/javascript">
 $(document).ready(function() {
     $(".loader").fadeOut("slow");
+	
+	$('.close').click(function () {
+		$('.alert').remove();
+	});
 })
 </script>
 <div class="loader"></div>
+
 <div>
     <!-- Div que contiene la aplicacion ng-app="project" y el controlador de angular ng-controller="ApiController" -->
     <div class="span6" ng-controller="bibliotecaController" ng-app="biblioteca">
@@ -17,6 +22,10 @@ $(document).ready(function() {
 		<div class="add-menu">
             <td><a ng-click="addEntity()" class="fa fa-plus btn btn-success"> Agregar </a></td>
         </div> 
+		<?php }else{ ?>
+		<div class="add-menu">
+			<a href="<?php echo base_url(); ?>" class="fa fa-arrow-left  btn btn-success"> Volver </a>
+		</div> 
 		<?php } ?>
         <!-- Input que contiene un modelo, con el cual podemos filtrar la data del CRUD -->
         <div style="width:30% !important;">
@@ -24,11 +33,15 @@ $(document).ready(function() {
            <!--  <div ng-hide="filtered.length===3">{{filtered.length}}</div> -->
         </div>
         <!-- CRUD -->
+		<?php
+		$message = $this->session->flashdata('message');
+		echo $message;
+		?>
         <table class="table table-striped table-condensed" style="text-align: center;">
             <thead>
                 <tr>
                     <th style="min-width: 80px; text-align: center;">Titulo</th>
-                    <th style="min-width: 80px; text-align: center;">Descripcion</th>
+                    <th style="min-width: 80px; text-align: center;">Descripci&oacute;n</th>
                     <th style="min-width: 80px; text-align: center;">Tipo</th>
                     <th style="min-width: 80px; text-align: center;">Acciones</th>
                 </tr>

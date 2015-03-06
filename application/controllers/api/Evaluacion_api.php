@@ -8,7 +8,7 @@ class Evaluacion_api extends REST_Controller{
     {
         parent::__construct();
 
-        $this->load->model('persona_model');
+        $this->load->model('evaluacion_model');
     }
 
     function view($name_view,$data){
@@ -18,9 +18,9 @@ class Evaluacion_api extends REST_Controller{
 		$this->load->view('footer');
 
 	}
-
+	
     public function index_get(){
-        $this->response($this->persona_model->get_all());
+        $this->response($this->evaluacion_model->getCursos());
     }
 
     public function show_get($id)
@@ -30,7 +30,6 @@ class Evaluacion_api extends REST_Controller{
 		$this->load->view('header');
 		$this->load->view('personas/ver', $f);
 		$this->load->view('footer');
-
 	}
 
 	public function remove_delete($id = NULL)
@@ -47,164 +46,98 @@ class Evaluacion_api extends REST_Controller{
 
 	public function save_post()
 	{
-		if($this->post("etnia")=="Si")
-		{
-			$etnia=$this->post("cualEtnia");
-			$idioma=$this->post("idioma");
-		}else
-		{
-			$etnia=$this->post("etnia");
-			$idioma="";
-		}
-		
-		if($this->post("discapacidad")=="Si")
-		{
-			$discapacidad=$this->post("cualDiscapacidad");
-		}
-		else
-		{
-			$discapacidad=$this->post("discapacidad");
-		}
-		
-		if($this->post("instruccion")=="Universitario")
-		{
-			$instruccion=$this->post("profesion");
-		}
-		else
-		{
-			$instruccion=$this->post("instruccion");
-		}
-		
-		if($this->post("estudio")=="Si")
-		{
-			$estudioAct=$this->post("estudio");
-			$institucion=$this->post("inst");
-			$queEstudia=$this->post("queEstudia");
-			$tipoInstitucion=$this->post("tipoInst");
-		}
-		else
-		{
-			$estudioAct=$this->post("estudio");
-			$institucion="";
-			$queEstudia="";
-			$tipoInstitucion="";
-		}
-		
-		if($this->post("mision")=="Si")
-		{
-			$mision=$this->post("cualMision");
-		}
-		else
-		{
-			$mision=$this->post("mision");
-		}
-		
-		if($this->post("estudiar")=="Si")
-		{
-			$gustEstudiar=$this->post("gustEstudiar");
-		}
-		else
-		{
-			$gustEstudiar=$this->post("estudiar");
-		}
-		
-		if($this->post("movimiento")=="Si")
-		{
-			$movimiento=$this->post("cualMovimiento");
-			$militanciaMov=$this->post("militanciaMov");
-			$responsabilidadMov=$this->post("responsabilidadMov");
-		}
-		else
-		{
-			$movimiento=$this->post("movimiento");
-			$militanciaMov=0;
-			$responsabilidadMov="";
-		}
-		
-		if($this->post("partido")=="Si")
-		{
-			$partido=$this->post("cualPartido");
-			$militanciaPar=$this->post("militanciaPar");
-			$responsabilidadPar=$this->post("responsabilidadPar");
-		}
-		else
-		{
-			$partido=$this->post("partido");
-			$militanciaPar=0;
-			$responsabilidadPar="";
-		}
-		
-		if($this->post("concejoC")=="Si")
-		{
-			$concejoC=$this->post("nombreConcejoC");
-			if($this->post("voceria")=="Si"){
-				$voceria=$this->post("cualVoceria");
-			}else{
-				$voceria=$this->post("voceria");;
-			}
-			if($this->post("comuna")=="Si"){
-				$comuna=$this->post("cualComuna");
-			}else{
-				$comuna=$this->post("comuna");;
-			}
-		}
-		else
-		{
-			$concejoC=$this->post("concejoC");
-			$voceria="No";
-			$comuna="No";
-		}
-		$data=array(
-			'id_redi'=>$this->post("redi"),
-			'id_estado'=>$this->post("estado"),
-			'id_municipio'=>$this->post("municipio"),
-			'id_parroquia'=>$this->post("parroquia"),
-			'direccion'=>$this->post("direccion"),
-			'nombre_apellido'=>$this->post("nombreApellido"),
-			'cedula'=>$this->post("cedula"),
-			'nacionalidad'=>$this->post("nacionalidad"),
-			'edad'=>$this->post("edad"),
-			'sexo'=>$this->post("sexo"),
-			'fecha_nacimiento'=>$this->post("fecha"),
-			'num_hijos'=>$this->post("nroHijos"),
-			'etnia'=>$etnia,
-			'domina_idioma'=>$idioma,
-			'discapacidad'=>$discapacidad,
-			'estado_civil'=>$this->post("edoCivil"),
-			'tel_local'=>$this->post("telHab"),
-			'tel_celular'=>$this->post("telCel"),
-			'email'=>$this->post("correo"),
-			'nivel_instruccion'=>$instruccion,
-			'estudia_act'=>$estudioAct,
-			'nombre_inst'=>$institucion,
-			'grado'=>$queEstudia,
-			'tipo_inst'=>$tipoInstitucion,
-			'estudia_mision'=>$mision,
-			'gustaria_estudiar'=>$gustEstudiar,
-			'participa_org_mujeres'=>$movimiento,
-			'anios_militancia'=>$militanciaMov,
-			'responsabilidad'=>$responsabilidadMov,
-			'participa_part_politico'=>$partido,
-			'anios_militancia_pp'=>$militanciaPar,
-			'responsabilidad_pp'=>$responsabilidadPar,
-			'concejo_comunal'=>$concejoC,
-			'voceria_cc'=>$voceria,
-			'comuna_cc'=>$comuna,
-			'status'=>"General"
-			);
-			$id_persona=$this->persona_model->add($data);	
-			
-		
-		$data2=array(
+	$id_persona=$this->ion_auth->user()->id_persona->row();
+	$id_curso = $this->post("id_curso");
+		$data1=array(
+			'id_pregunta'=>$this->post("pregunta1"),
+			'id_escala'=>$this->post("respuesta1"),
 			'id_persona'=>$id_persona,
-			'institucion_labora'=>$this->post("instTrabajo"),
-			'cargo'=>$this->post("cargo"),
-			'telefono'=>$this->post("telTrab"),
-			'email'=>$this->post("correoTrabajo")
+			'id_curso'=>$id_curso,
 		);
 		
-		$this->persona_model->add_general($data2);
-		redirect(base_url().'persona');
+		$data2=array(
+			'id_pregunta'=>$this->post("pregunta2"),
+			'id_escala'=>$this->post("respuesta2"),
+			'id_persona'=>$id_persona,
+			'id_curso'=>$id_curso,
+		);
+		
+		$data3=array(
+			'id_pregunta'=>$this->post("pregunta3"),
+			'id_escala'=>$this->post("respuesta3"),
+			'id_persona'=>$id_persona,
+			'id_curso'=>$id_curso,
+		);
+		
+		$data4=array(
+			'id_pregunta'=>$this->post("pregunta4"),
+			'id_escala'=>$this->post("respuesta4"),
+			'id_persona'=>$id_persona,
+			'id_curso'=>$id_curso,
+		);
+		
+		$data5=array(
+			'id_pregunta'=>$this->post("pregunta5"),
+			'id_escala'=>$this->post("respuesta5"),
+			'id_persona'=>$id_persona,
+			'id_curso'=>$id_curso,
+		);
+		
+		$data6=array(
+			'id_pregunta'=>$this->post("pregunta6"),
+			'id_escala'=>$this->post("respuesta6"),
+			'id_persona'=>$id_persona,
+			'id_curso'=>$id_curso,
+		);
+		
+		$data7=array(
+			'id_pregunta'=>$this->post("pregunta7"),
+			'id_escala'=>$this->post("respuesta7"),
+			'id_persona'=>$id_persona,
+			'id_curso'=>$id_curso,
+		);
+		
+		$data8=array(
+			'id_pregunta'=>$this->post("pregunta9"),
+			'id_escala'=>$this->post("respuesta9"),
+			'id_persona'=>$id_persona,
+			'id_curso'=>$id_curso,
+		);
+		
+		$data10=array(
+			'id_pregunta'=>$this->post("pregunta10"),
+			'id_escala'=>$this->post("respuesta10"),
+			'id_persona'=>$id_persona,
+			'id_curso'=>$id_curso,
+		);
+		$this->Evaluacion_model->add($data1);
+		$this->Evaluacion_model->add($data2);
+		$this->Evaluacion_model->add($data3);
+		$this->Evaluacion_model->add($data4);
+		$this->Evaluacion_model->add($data5);
+		$this->Evaluacion_model->add($data6);
+		$this->Evaluacion_model->add($data7);
+		$this->Evaluacion_model->add($data8);
+		$this->Evaluacion_model->add($data9);
+		$this->Evaluacion_model->add($data10);
+		
+	    redirect(base_url().'Evaluacion');	
+	}
+	
+	public function update_post()
+	{
+		$data=array(
+			'nombre'=>$this->post("nombre"),
+			'cuenta'=>$this->post("cuenta"),
+			'observaciones'=>$this->post("observaciones"),
+			'fecha_actualizacion'=>date("Y-m-d H:i:s")
+		 );
+		$id=$this->post("id");
+
+		$this->bancos_model->update($id,$data);
+
+		redirect(base_url().'Entidades_bancarias');
+
 
 	}
 }

@@ -26,6 +26,7 @@
 	<script src="<?php echo base_url(); ?>js/informe.js"></script>
 	<script src="<?php echo base_url(); ?>js/actividades.js"></script>	
 	<script src="<?php echo base_url(); ?>js/biblioteca.js"></script>
+	<script src="<?php echo base_url(); ?>js/evaluacion.js"></script>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/lib/bootstrap/css/bootstrap.min.css">
@@ -33,11 +34,20 @@
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/main.min.css">
 	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/jquery-ui.css">
 	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/stylesheet.css">
+	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/lib/timepicker/jquery.ui.timepicker.css">
+	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/lib/timepicker/jquery-ui-1.10.0.custom.min.css">
     <script src="<?php echo base_url(); ?>assets/lib/jquery/jquery.min.js"></script>
     <script src="<?php echo base_url(); ?>assets/lib/bootstrap/js/bootstrap.min.js"></script>
+	<script src="<?php echo base_url(); ?>assets/lib/timepicker/jquery.ui.timepicker.js"></script>
+	<script src="<?php echo base_url(); ?>assets/lib/timepicker/jquery.ui.timepicker-es.js"></script>
+	<script src="<?php echo base_url(); ?>assets/lib/timepicker/jquery.ui.core.min.js"></script>
+	<script src="<?php echo base_url(); ?>assets/lib/timepicker/jquery.ui.position.min.js"></script>
+	<script src="<?php echo base_url(); ?>assets/lib/timepicker/jquery.ui.tabs.min.js"></script>
+	<script src="<?php echo base_url(); ?>assets/lib/timepicker/jquery.ui.widget.min.js"></script>
 	<script src="<?php echo base_url(); ?>assets/js/jquery.easyWizard.js"></script>
 	<script src="<?php echo base_url(); ?>assets/js/jquery-ui.js"></script>
 	<script src="<?php echo base_url(); ?>assets/js/selectize.js"></script>
+	
   </head>
     <body class="  " id="mybody">
     <div class="bg-dark dk" id="wrap">
@@ -99,7 +109,13 @@
             </a>
         </li>
 		
-		<?php if($rol->id == 1){ ?>
+		<li class="">
+            <a href="<?php echo base_url(); ?>Evaluacion">
+              <i class="fa fa-check-square-o"></i><span class="link-title">&nbsp;Evaluaci&oacute;n</span>
+            </a>
+        </li>
+		
+		<?php if($rol->id == 1 || $rol->id == 3){ ?>
           <li class="">
             <a href="<?php echo base_url(); ?>Auth">
               <i class="fa fa-group"></i><span class="link-title">&nbsp;Usuarios</span>
@@ -111,6 +127,8 @@
               <i class="fa fa-user"></i><span class="link-title">&nbsp;Persona</span>
             </a>
           </li>
+		  
+		  
 		  
 		  <li class="">
             <a href="<?php echo base_url(); ?>Divulgaciones">
@@ -208,7 +226,13 @@
             </a>
         </li>
 		
-		<?php if($rol->id == 1){ ?>
+		<li class="">
+            <a href="<?php echo base_url(); ?>Evaluacion">
+              <i class="fa fa-check-square-o"></i><span class="link-title">&nbsp;Evaluaci&oacute;n</span>
+            </a>
+        </li>
+		
+		<?php if($rol->id == 1 || $rol->id == 3){ ?>
           <li class="">
             <a href="<?php echo base_url(); ?>Auth">
               <i class="fa fa-group"></i><span class="link-title">&nbsp;Usuarios</span>

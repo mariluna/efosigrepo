@@ -1,9 +1,160 @@
 <h1>Agregar Informe</h1>
 <hr>
+
 <script>
 function mostrar_total_diversidad_sexual(){
 			$("#diversidad_sexual2").show("blind");
 		}
+function fechas(){
+		
+		fechaini= document.getElementById("fec_ini").value;
+	    fechafin = document.getElementById("fec_fin").value;
+		if(fechaini>fechafin){
+		alert("La fecha de inicio no puede ser mayor\nque la fecha de culminacion");
+			document.form.fec_fin.value ='';
+		}
+		
+		}
+function mostrar_total_asistentes_for(){
+		var femenino =0;
+		var masculino =0;
+		femenino = document.getElementById("tot_femeninos_for").value;
+	masculino = document.getElementById("tot_masculinos_for").value;
+		//var total = document.getElementById("tot_asistentes_for").value;
+		
+		  var resultado= (parseInt(femenino)+parseInt(masculino));
+
+		//document.getElementById("tot_asistentes_for").value = resultado;
+		document.form.tot_asistentes_for.value = resultado;
+		}
+function mostrar_dv(){
+		
+		femenino = document.getElementById("tot_femeninos_for").value;
+	div_sex = document.getElementById("tot_div_sexual_for2").value;
+		//var total = document.getElementById("tot_asistentes_for").value;
+		
+		  fem=parseInt(femenino);
+		  dv=parseInt(div_sex);
+			if(dv>fem){
+			alert("Los participantes de la Diversidad Sexual \n no puede ser mayor que el total \n de participantes femeninos");
+			document.form.tot_div_sexual_for2.value ='';
+		}}
+function mostrar_mind(){
+		
+		femenino = document.getElementById("tot_femeninos_for").value;
+	mind= document.getElementById("tot_mujeres_indigenas_for2").value;
+		//var total = document.getElementById("tot_asistentes_for").value;
+		
+		  fem=parseInt(femenino);
+		  mind=parseInt(mind);
+			if(mind>fem){
+			alert("Las Mujeres Indigenas \n no puede ser mayor que el total \n de participantes femeninos");
+			document.form.tot_mujeres_indigenas_for2.value ='';
+		}}
+function mostrar_disc(){
+		
+		femenino = document.getElementById("tot_femeninos_for").value;
+		disc= document.getElementById("tot_mujeres_discapacidad_for2").value;
+		//var total = document.getElementById("tot_asistentes_for").value;
+		
+		  fem=parseInt(femenino);
+		  disc=parseInt(disc);
+			if(disc>fem){
+			alert("Las Mujeres con discapacidad \n no puede ser mayor que el total \n de participantes femeninos");
+			document.form.tot_mujeres_discapacidad_for2.value ='';
+		}}
+function mostrar_afro(){
+		
+		femenino = document.getElementById("tot_femeninos_for").value;
+		afro= document.getElementById("tot_mujeres_afrodecendientes_for2").value;
+		//var total = document.getElementById("tot_asistentes_for").value;
+		
+		  fem=parseInt(femenino);
+		  afro=parseInt(afro);
+			if(afro>fem){
+			alert("Las Mujeres afrodecendientes \n no puede ser mayor que el total \n de participantes femeninos");
+			document.form.tot_mujeres_afrodecendientes_for2.value ='';
+		}}
+function mostrar_dv2(){
+		
+		femenino = document.getElementById("tot_femeninos_div").value;
+	div_sex2= document.getElementById("tot_div_sexual_div2").value;
+		//var total = document.getElementById("tot_asistentes_for").value;
+		
+		  fem=parseInt(femenino);
+		  dv2=parseInt(div_sex2);
+			if(dv2>fem){
+			alert("Los participantes de la Diversidad Sexual \n no puede ser mayor que el total \n de participantes femeninos");
+			document.form.tot_div_sexual_div2.value ='';
+		}}
+function mostrar_mind2(){
+		
+		femenino = document.getElementById("tot_femeninos_div").value;
+	mind2= document.getElementById("tot_mujeres_indigenas_div2").value;
+		//var total = document.getElementById("tot_asistentes_for").value;
+		
+		  fem=parseInt(femenino);
+		  mind2=parseInt(mind2);
+			if(mind2>fem){
+			alert("Las Mujeres Indigenas \n no puede ser mayor que el total \n de participantes femeninos");
+			document.form.tot_mujeres_indigenas_div2.value ='';
+		}}
+function mostrar_disc2(){
+		
+		femenino = document.getElementById("tot_femeninos_div").value;
+		disc2= document.getElementById("tot_mujeres_discapacidad_div2").value;
+		//var total = document.getElementById("tot_asistentes_for").value;
+		
+		  fem=parseInt(femenino);
+		  disc2=parseInt(disc2);
+			if(disc2>fem){
+			alert("Las Mujeres con discapacidad \n no puede ser mayor que el total \n de participantes femeninos");
+			document.form.tot_mujeres_discapacidad_div2.value ='';
+		}}
+function mostrar_afro2(){
+		
+		femenino = document.getElementById("tot_femeninos_div").value;
+		afro2= document.getElementById("tot_mujeres_afrodecendientes_div2").value;
+		//var total = document.getElementById("tot_asistentes_for").value;
+		
+		  fem=parseInt(femenino);
+		  afro2=parseInt(afro2);
+			if(afro2>fem){
+			alert("Las Mujeres afrodecendientes \n no puede ser mayor que el total \n de participantes femeninos");
+			document.form.tot_mujeres_afrodecendientes_div2.value ='';
+		}}
+
+function mostrar_total_asistentes_for2(){
+		var femenino =0;
+		
+		femenino = document.getElementById("tot_femeninos_for").value;
+	
+		  var resultado= (parseInt(femenino));
+
+		//document.getElementById("tot_asistentes_for").value = resultado;
+		document.form.tot_asistentes_for.value = resultado;
+		}
+function mostrar_total_asistentes_div(){
+		var femenino2 =0;
+		var masculino2 =0;
+		femenino2= document.getElementById("tot_femeninos_div").value;
+		 masculino2 = document.getElementById("tot_masculinos_div").value;
+		//var total = document.getElementById("tot_asistentes_for").value;
+		
+		  var resultado2= (parseInt(femenino2)+parseInt(masculino2));
+
+		document.getElementById("tot_asistentes_div").value = resultado2;
+		}
+function mostrar_total_asistentes_div2(){
+		var femenino2 =0;
+		
+		femenino2= document.getElementById("tot_femeninos_div").value;
+		  var resultado2= (parseInt(femenino2));
+
+		//document.getElementById("tot_asistentes_for").value = resultado;
+		document.getElementById("tot_asistentes_div").value = resultado2;
+		}
+
 function ocultar_total_diversidad_sexual()
 {
 	$("#diversidad_sexual2").hide("blind");
@@ -197,7 +348,7 @@ $("#redi").change(function () {
 
 		</section>
 		
-		<section class="step" data-step-title="Formacion">
+		<section class="step" data-step-title="Formaci&oacute;n">
 		
 			<div class="col-lg-6">
 
@@ -221,32 +372,32 @@ $("#redi").change(function () {
 				<span style="color:red; font-size:12px" ng-show="form.act_nombre_for.$error.required"><br>* Este campo es obligatorio</span>
 				</p>
 				
-				<p>
-				<label for="tot_asistentes_for">Total de Asistentes</label><br>
-				<input id="tot_asistentes_for" ng-model="tot_asistentes_for" class="auth-input" type="text" value="" name="tot_asistentes_for" required integer></input>
-				<span style="color:red; font-size:12px" ng-show="form.tot_asistentes_for.$error.required"><br>* Este campo es obligatorio</span>
-				<span style="color:red; font-size:12px" ng-show="form.tot_asistentes_for.$error.integer"><br>* Este campo debe ser un numero entero</span>
-				</p>
 				
 				<p>
 				<label for="tot_femeninos_for">Total Femenino</label><br>
-				<input id="tot_femeninos_for" ng-model="tot_femeninos_for" class="auth-input" type="text" value="" name="tot_femeninos_for" required integer></input>
+				<input id="tot_femeninos_for" ng-model="tot_femeninos_for" class="auth-input" type="text" value="" onchange="mostrar_total_asistentes_for2()" name="tot_femeninos_for" required integer></input>
 				<span style="color:red; font-size:12px" ng-show="form.tot_femeninos_for.$error.required"><br>* Este campo es obligatorio</span>
 				<span style="color:red; font-size:12px" ng-show="form.tot_femeninos_for.$error.integer"><br>* Este campo debe ser un numero entero</span>
 				</p>
 				
 				<p>
 				<label for="tot_masculinos_for">Total Masculino</label><br>
-				<input id="tot_masculinos_for" ng-model="tot_masculinos_for" class="auth-input" type="text" value="" name="tot_masculinos_for" required integer></input>
+				<input id="tot_masculinos_for" ng-model="tot_masculinos_for" class="auth-input" type="text" value="" onchange="mostrar_total_asistentes_for()" name="tot_masculinos_for" required integer></input>
 				<span style="color:red; font-size:12px" ng-show="form.tot_masculinos_for.$error.required"><br>* Este campo es obligatorio</span>
 				<span style="color:red; font-size:12px" ng-show="form.tot_masculinos_for.$error.integer"><br>* Este campo debe ser un numero entero</span>
+				</p>
+				<p>
+				<label for="tot_asistentes_for">Total de Asistentes</label><br>
+				<input id="tot_asistentes_for" ng-model="tot_asistentes_for" class="auth-input dis" type="text" 
+				 name="tot_asistentes_for" required integer></input>
+				
 				</p>
 				<p>
 				<label for="tot_div_sexual_for">&iquest;Hubo participaci&oacute;n de la Diversidad Sexual&#63;</label><br>
 				1.Si <input type="radio" value="Si" name="tot_div_sexual_for" onclick="mostrar_total_diversidad_sexual()">&nbsp;
 				2.No <input type="radio" value="0" name="tot_div_sexual_for" checked="checked" onclick="ocultar_total_diversidad_sexual()">
 				<div id="diversidad_sexual2">
-				Total de participantes:<br><input type="text" class="auth-input" name="tot_div_sexual_for2" maxLength="25"><br><br>
+				Total de participantes:<br><input type="text" class="auth-input" onchange='mostrar_dv()' id="tot_div_sexual_for2" name="tot_div_sexual_for2" maxLength="25"><br><br>
 				</div>
 				</p>
 				
@@ -258,7 +409,7 @@ $("#redi").change(function () {
 				1.Si <input type="radio" value="Si" name="tot_mujeres_indigenas_for" onclick="mostrar_total_mujeres_indigenas()">&nbsp;
 				2.No <input type="radio" value="0" name="tot_mujeres_indigenas_for" checked="checked" onclick="ocultar_total_mujeres_indigenas()">
 				<div id="mujeres_indigenas2">
-				Total de participantes:<br><input type="text" class="auth-input" name="tot_mujeres_indigenas_for2" maxLength="25"><br><br>
+				Total de participantes:<br><input type="text" class="auth-input" id="tot_mujeres_indigenas_for2" name="tot_mujeres_indigenas_for2" onchange='mostrar_mind()' maxLength="25"><br><br>
 				
 				</div>
 				</p>
@@ -267,7 +418,7 @@ $("#redi").change(function () {
 				1.Si <input type="radio" value="Si" name="tot_mujeres_discapacidad_for" onclick="mostrar_total_mujeres_discapacidad()">&nbsp;
 				2.No <input type="radio" value="0" name="tot_mujeres_discapacidad_for" checked="checked" onclick="ocultar_total_mujeres_discapacidad()">
 				<div id="mujeres_discapacidad2">
-				Total de participantes:<br><input type="text" class="auth-input" name="tot_mujeres_discapacidad_for2" maxLength="25"><br><br>
+				Total de participantes:<br><input type="text" class="auth-input" id="tot_mujeres_discapacidad_for2" onchange='mostrar_disc()' name="tot_mujeres_discapacidad_for2" maxLength="25"><br><br>
 				</div>
 				</p>
 				<p>
@@ -275,7 +426,7 @@ $("#redi").change(function () {
 				1.Si <input type="radio" value="Si" name="tot_mujeres_afrodecendientes_for" onclick="mostrar_total_mujeres_afrodecendientes()">&nbsp;
 				2.No <input type="radio" value="0" name="tot_mujeres_afrodecendientes_for" checked="checked" onclick="ocultar_total_mujeres_afrodecendientes()">
 				<div id="mujeres_afrodecendientes2">
-				Total de participantes:<br><input type="text" class="auth-input" name="tot_mujeres_afrodecendientes_for2" maxLength="25"><br><br>
+				Total de participantes:<br><input type="text" class="auth-input" onchange="mostrar_afro()" id="tot_mujeres_afrodecendientes_for2" name="tot_mujeres_afrodecendientes_for2" maxLength="25"><br><br>
 				</div>
 				</p>
 				<p>
@@ -283,7 +434,7 @@ $("#redi").change(function () {
 				1.Si <input type="radio" value="Si" name="tot_movimientos_mujeres_for" onclick="mostrar_total_movimientos_mujeres()">&nbsp;
 				2.No <input type="radio" value="0" name="tot_movimientos_mujeres_for" checked="checked" onclick="ocultar_total_movimientos_mujeres()">
 				<div id="movimientos_mujeres2">
-				Total de participantes:<br><input type="text" class="auth-input" name="tot_movimientos_mujeres_for2" maxLength="25"><br><br>
+				total de movimientos:<br><input type="text" class="auth-input" id="tot_movimientos_mujeres_for2" name="tot_movimientos_mujeres_for2" maxLength="25"><br><br>
 				</div>
 				</p>
 				<p>
@@ -297,13 +448,14 @@ $("#redi").change(function () {
 				</p>
 				<p>
 					<label for="fec_fin">Fecha de Culminaci&oacute;n:</label><br>
-					<input name="fec_fin"class="auth-input" type="text" id="fec_fin" readonly required>
+					<input name="fec_fin" class="auth-input" type="text" id="fec_fin"    onchange='fechas()' readonly required>
 					<span style="color:red; font-size:12px" ng-show="form.fec_fin.$error.required"><br>* Este campo es obligatorio</span>
 				</p>
+				<br><br><br>
 			</div>
 		</section>
 		<!--section 3-->
-		<section class="step" data-step-title="Divulgacion">
+		<section class="step" data-step-title="Divulgaci&oacute;n">
 		
 			<div class="col-lg-6">
 				<p>
@@ -319,34 +471,33 @@ $("#redi").change(function () {
 				</p>
 				<p>
 				<label for="act_nombre_div">Nombre de la Actividad</label><br>
-				<input id="act_nombre_div" ng-model="act_nombre_div" class="auth-input" type="text" value="" name="act_nombre_div" required integer></input>
+				<input id="act_nombre_div" ng-model="act_nombre_div" class="auth-input" type="text" value="" name="act_nombre_div" required ></input>
 				<span style="color:red; font-size:12px" ng-show="form.act_nombre_div.$error.required"><br>* Este campo es obligatorio</span>
 				</p>
 				<p>
-				<label for="tot_asistentes_div">Total de Asistentes</label><br>
-
-				<input id="tot_asistentes_div" ng-model="tot_asistentes_div" class="auth-input" type="text" value="" name="tot_asistentes_div" required integer></input>
-				<span style="color:red; font-size:12px" ng-show="form.tot_asistentes_div.$error.required"><br>* Este campo es obligatorio</span>
-				<span style="color:red; font-size:12px" ng-show="form.tot_asistentes_div.$error.integer"><br>* Este campo debe ser un numero entero</span>
-				</p>
-				<p>
 				<label for="tot_femeninos_div">Total Femenino</label><br>
-				<input id="tot_femeninos_div" ng-model="tot_femeninos_div" class="auth-input" type="text" value="" name="tot_femeninos_div" required integer></input>
+				<input id="tot_femeninos_div" ng-model="tot_femeninos_div" class="auth-input" type="text" value="" name="tot_femeninos_div" onchange="mostrar_total_asistentes_div2()" required integer></input>
 				<span style="color:red; font-size:12px" ng-show="form.tot_femeninos_div.$error.required"><br>* Este campo es obligatorio</span>
 				<span style="color:red; font-size:12px" ng-show="form.tot_femeninos_div.$error.integer"><br>* Este campo debe ser un numero entero</span>
 				</p>
 				<p>
 				<label for="tot_masculinos_div">Total Masculino</label><br>
-				<input id="tot_masculinos_div" ng-model="tot_masculinos_div" class="auth-input" type="text" value="" name="tot_masculinos_div" required integer></input>
+				<input id="tot_masculinos_div" ng-model="tot_masculinos_div" class="auth-input" type="text" value="" name="tot_masculinos_div" onchange="mostrar_total_asistentes_div()" required integer></input>
 				<span style="color:red; font-size:12px" ng-show="form.tot_masculinos_div.$error.required"><br>* Este campo es obligatorio</span>
 				<span style="color:red; font-size:12px" ng-show="form.tot_masculinos_div.$error.integer"><br>* Este campo debe ser un numero entero</span>
+				</p>
+						<p>
+				<label for="tot_asistentes_div">Total de Asistentes</label><br>
+
+				<input id="tot_asistentes_div" ng-model="tot_asistentes_div" class="auth-input dis" type="text"  value=""  name="tot_asistentes_div"></input>
+				
 				</p>
 				<p>
 				<label for="tot_div_sexual_div">&iquest;Hubo participaci&oacute;n de la Diversidad Sexual&#63;</label><br>
 				1.Si <input type="radio" value="Si" name="tot_div_sexual_div" onclick="mostrar_tot_div_sexual()">&nbsp;
 				2.No <input type="radio" value="0" name="tot_div_sexual_div" checked="checked" onclick="ocultar_tot_div_sexual()">
 				<div id="tot_div_sexual2">
-				Total de participantes:<br><input type="text" class="auth-input" name="tot_div_sexual_div2" maxLength="25"><br><br>
+				Total de participantes:<br><input type="text" class="auth-input" id="tot_div_sexual_div2" onchange="mostrar_dv2()" name="tot_div_sexual_div2" maxLength="25"><br><br>
 
 				</div>
 				</p>
@@ -360,7 +511,7 @@ $("#redi").change(function () {
 				1.Si <input type="radio" value="Si" name="tot_mujeres_indigenas_div" onclick="mostrar_tot_mujeres_indigenas()">&nbsp;
 				2.No <input type="radio" value="0" name="tot_mujeres_indigenas_div" checked="checked" onclick="ocultar_tot_mujeres_indigenas()">
 				<div id="tot_mujeres_indigenas2">
-				Total de participantes:<br><input type="text" class="auth-input" name="tot_mujeres_indigenas_div2" maxLength="25"><br><br>
+				Total de participantes:<br><input type="text" class="auth-input" id="tot_mujeres_indigenas_div2" onchange="mostrar_mind2()" name="tot_mujeres_indigenas_div2" maxLength="25"><br><br>
 
 				</div>
 				</p>
@@ -369,7 +520,7 @@ $("#redi").change(function () {
 				1.Si <input type="radio" value="Si" name="tot_mujeres_discapacidad_div" onclick="mostrar_tot_mujeres_discapacidad()">&nbsp;
 				2.No <input type="radio" value="0" name="tot_mujeres_discapacidad_div" checked="checked" onclick="ocultar_tot_mujeres_discapacidad()">
 				<div id="tot_mujeres_discapacidad2">
-				Total de participantes:<br><input type="text" class="auth-input" name="tot_mujeres_discapacidad_div2" maxLength="25"><br><br>
+				Total de participantes:<br><input type="text" class="auth-input" onchange="mostrar_disc2()" id="tot_mujeres_discapacidad_div2" name="tot_mujeres_discapacidad_div2" maxLength="25"><br><br>
 
 				</div>
 				</p>
@@ -378,7 +529,7 @@ $("#redi").change(function () {
 				1.Si <input type="radio" value="Si" name="tot_mujeres_afrodecendientes_div" onclick="mostrar_tot_mujeres_afrodecendientes()">&nbsp;
 				2.No <input type="radio" value="0" name="tot_mujeres_afrodecendientes_div" checked="checked" onclick="ocultar_tot_mujeres_afrodecendientes()">
 				<div id="tot_mujeres_afrodecendientes2">
-				Total de participantes:<br><input type="text" class="auth-input" name="tot_mujeres_afrodecendientes_div2" maxLength="25"><br><br>
+				Total de participantes:<br><input type="text" class="auth-input" onchange="mostrar_afro2()" id="tot_mujeres_afrodecendientes_div2" name="tot_mujeres_afrodecendientes_div2" maxLength="25"><br><br>
 
 				</div>
 				</p>

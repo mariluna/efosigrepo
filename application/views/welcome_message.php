@@ -25,14 +25,17 @@
 		<img style="width:100%; height:auto" src="<?php echo base_url(); ?>img/Banner.PNG">
 	</div>
 	<?php if($rol == null){ ?>
-	<div class="col-lg-6">
-	
-		<!-- <img style="width:100%; height:auto" src="<?php //echo base_url(); ?>img/logo_efosig.jpg"> -->
-		<br><a href="Persona/agregar" class="fa fa-plus btn btn-success"> Registrarse como Persona</a>
-		<br><br><a href="Cursos" class="fa fa-plus btn btn-success"> Ver Cursos Disponibles</a>
+	<div class="col-lg-3" style="text-align:center;">
+		<br>
+		<a href="Persona/agregar" class="fa fa-plus btn btn-metis-4"> Registrarse como Persona</a>
+		<br><br>
+		<a href="Cursos" class="fa fa-search btn btn-metis-4"> Ver Cursos Disponibles</a>
+		<br><br>
+		<a href="Biblioteca" class="fa fa-file-pdf-o btn btn-metis-4"> Ir a la Biblioteca Virtual</a>
+		<br><br>
 	</div>
 	<?php }?>
-	<div class="col-lg-6" style="padding-top: 25px;">
+	<div class="col-lg-9" style="padding-top: 25px;">
 		<p>
 			La Escuela de Formación Socialista para la igualdad de Género Ana María Campos” (EFOSIG.AMC),
 			del MinMujer, creada en el año 2009, con una visión estratégica, para la elevación de la conciencia

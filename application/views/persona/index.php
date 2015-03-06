@@ -4,6 +4,10 @@
 <script type="text/javascript">
 $(document).ready(function() {
     $(".loader").fadeOut("slow");
+	
+	$('.close').click(function () {
+		$('.alert').remove();
+	});
 })
 </script>
 <div class="loader"></div>
@@ -14,6 +18,7 @@ $(document).ready(function() {
             <!-- ng-click="createUT()" botones que disparan funciones en angular, las cuales se encuentran el la aplicacion -->
             <td><a ng-click="addEntity()" class="fa fa-plus btn btn-success"> Agregar General </a></td>
 			<td><a ng-click="addMMDB()" class="fa fa-plus btn btn-success"> Agregar MMDB</a></td>
+			<td><a ng-click="descargarList()" class="fa fa-download btn btn-info"> Descargar Listado Personas</a></td>
         </div>
         <!-- Input que contiene un modelo, con el cual podemos filtrar la data del CRUD -->
         <div style="width:30% !important;">
@@ -21,6 +26,10 @@ $(document).ready(function() {
            <!--  <div ng-hide="filtered.length===3">{{filtered.length}}</div> -->
         </div>
         <!-- CRUD -->
+		<?php
+		$message = $this->session->flashdata('message');
+		echo $message;
+		?>
         <table class="table table-striped table-condensed" style="text-align: center;">
             <thead>
                 <tr>

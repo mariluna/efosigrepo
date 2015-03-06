@@ -11,13 +11,14 @@ class Cursos_model extends CI_Model
 
 			if($r == null){
 		
-			$getcursos = $this->db->query("SELECT DISTINCT a.*, b.nro_participantes AS inscritos, e.nombre as estado, e.id_estado
+				$getcursos = $this->db->query("SELECT DISTINCT a.*, b.nro_participantes AS inscritos, e.nombre as estado, e.id_estado
 											FROM tb_curso a
 											INNER JOIN tr_curso_participantes b 
 											ON a.id_curso = b.id_curso
 											INNER JOIN tb_estado e 
-											ON e.id_estado = b.id_estado")->result();
-		} else {
+											ON e.id_estado = b.id_estado
+											ORDER BY a.status DESC")->result();
+			} else {
 		
 			$query = $this->db->query("SELECT id_estado FROM tb_persona WHERE id_persona = $r->persona_id")->row();  
 			
@@ -28,7 +29,8 @@ class Cursos_model extends CI_Model
 												INNER JOIN tr_curso_participantes b 
 												ON a.id_curso = b.id_curso
 												INNER JOIN tb_estado e 
-												ON e.id_estado = b.id_estado")->result();
+												ON e.id_estado = b.id_estado
+												ORDER BY a.status DESC")->result();
 			} else {
 					
 				$getcursos = $this->db->query("SELECT DISTINCT a.*, b.nro_participantes AS inscritos, e.nombre as estado, e.id_estado
@@ -37,11 +39,27 @@ class Cursos_model extends CI_Model
 												ON a.id_curso = b.id_curso
 												INNER JOIN tb_estado e 
 												ON e.id_estado = b.id_estado
-												WHERE e.id_estado = $query->id_estado")->result();
+												WHERE e.id_estado = $query->id_estado
+												ORDER BY a.status DESC")->result();
 											  
 			}
 		}
 		
+		return $getcursos;
+    }
+	
+public function getCursoFac($facid)
+    {
+      
+		$getcursos = $this->db->query("SELECT DISTINCT a.*, b.nro_participantes AS inscritos, e.nombre as estado, e.id_estado
+											FROM tb_curso a
+											INNER JOIN tr_curso_participantes b 
+											ON a.id_curso = b.id_curso
+											INNER JOIN tb_estado e 
+											ON e.id_estado = b.id_estado
+											WHERE a.id_facilitador = $facid
+											ORDER BY a.status DESC")->result();
+	
 		return $getcursos;
     }
 
@@ -52,6 +70,27 @@ class Cursos_model extends CI_Model
 								INNER JOIN tr_curso_estado c ON a.id_curso = c.curso_id
 								INNER JOIN tb_estado b on  b.id_estado = c.estado_id
 								WHERE a.id_curso = $id AND b.nombre = '$est'")->row();
+								
+		if ($get == null){
+			
+			$get = "Error";
+			return $get;		
+		
+		}else{
+		
+			return $get;
+			
+		}
+
+    }
+	
+    public function getForAudit($id,$est)
+    {
+    	$get=  $this->db->query("SELECT DISTINCT a.*, b.nombre as estado, b.id_estado, c.id as rel
+								FROM tb_curso a 
+								INNER JOIN tr_curso_estado c ON a.id_curso = c.curso_id
+								INNER JOIN tb_estado b on  b.id_estado = c.estado_id
+								WHERE a.id_curso = $id AND b.id_estado = $est")->row();
 								
 		if ($get == null){
 			
@@ -96,6 +135,17 @@ class Cursos_model extends CI_Model
         return $this->db->get('tb_estado')->result();
     }
 	
+	public function getFacilitadores()
+    {
+        return $this->db->query("SELECT  nombre_apellido,
+										 id_persona 
+							    FROM users a
+								INNER JOIN tb_persona b ON a.persona_id = b.id_persona
+								INNER JOIN users_groups c ON c.user_id = a.id
+								INNER JOIN groups d ON d.id = c.group_id
+								WHERE d.id = 3")->result();
+    }
+	
 	public function getEstadoEdit($id)
     {
         return $this->db->query("select * from tb_estado where id_estado != $id")->result();
@@ -112,6 +162,30 @@ class Cursos_model extends CI_Model
 	public function getEstadoForEdit($id)
 	{
 		return $this->db->query("select nombre from tb_estado where id_estado = $id")->row();
+	}
+	
+	public function getFacEdit($id)
+    {
+        return $this->db->query("SELECT  nombre_apellido,
+										 id_persona 
+							    FROM users a
+								INNER JOIN tb_persona b ON a.persona_id = b.id_persona
+								INNER JOIN users_groups c ON c.user_id = a.id
+								INNER JOIN groups d ON d.id = c.group_id
+								WHERE d.id = 3
+								AND b.id_persona != $id")->result();
+    }
+	
+	public function getFacForEdit($id)
+	{
+		return $this->db->query("SELECT  nombre_apellido,
+										 id_persona 
+							    FROM users a
+								INNER JOIN tb_persona b ON a.persona_id = b.id_persona
+								INNER JOIN users_groups c ON c.user_id = a.id
+								INNER JOIN groups d ON d.id = c.group_id
+								WHERE d.id = 3
+								AND b.id_persona = $id")->row();
 	}
 	
 	public function getCursoName($id)
@@ -196,7 +270,9 @@ class Cursos_model extends CI_Model
 	
 	public function updateCursoEstado($curso,$prev,$estado)
     {
-        return $this->db->query("UPDATE tr_curso_estado SET estado_id = $estado WHERE curso_id = $curso AND estado_id = $prev");
+        $this->db->query("UPDATE tr_curso_estado SET estado_id = $estado WHERE curso_id = $curso AND estado_id = $prev");
+		$this->db->query("UPDATE tr_curso_participantes SET id_estado = $estado WHERE id_curso = $curso AND id_estado = $prev");
+		return $this->db->affected_rows();
     }
 	
 	public function addPersonaAsis($data)
@@ -319,4 +395,25 @@ class Cursos_model extends CI_Model
 		
 		return $body;
     }
+
+    public function checkCursoDate()
+    {
+        $cursos = $this->db->query("SELECT * FROM tb_curso")->result();
+		$today = date("Y-m-d");
+		
+		foreach($cursos as $row){
+		
+			if($row->fecha_fin <= $today){
+			
+				$this->db->query("UPDATE tb_curso SET status = 0 WHERE id_curso = $row->id_curso");
+			
+			} else {
+			
+				$this->db->query("UPDATE tb_curso SET status = 1 WHERE id_curso = $row->id_curso");
+			
+			}
+		
+		}
+		return $this->db->affected_rows();
+	}
 }

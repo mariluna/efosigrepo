@@ -1,9 +1,32 @@
 <script>
 $(document).ready(function(e){
 
-		$("#fecha").datepicker();
+		$("#fecha").datepicker(
+		{
+			minDate: 'today',
+		});
+		
 
 });
+
+ function soloLetrasYNumeros(e){
+       key = e.keyCode || e.which;
+       tecla = String.fromCharCode(key).toLowerCase();
+       letras = " áéíóúabcdefghijklmnñopqrstuvwxyz1234567890";
+       especiales = "8-37-39-46";
+
+       tecla_especial = false
+       for(var i in especiales){
+            if(key == especiales[i]){
+                tecla_especial = true;
+                break;
+            }
+        }
+
+        if(letras.indexOf(tecla)==-1 && !tecla_especial){
+            return false;
+        }
+    }
 </script>
 <h1>Agregar Actividad</h1>
 <hr>
@@ -16,14 +39,14 @@ $(document).ready(function(e){
    <p>
    
      <label for="titulo">Titulo:</label><br>
-         <input id="titulo" ng-model="titulo" class="auth-input" type="text" value="" name="titulo" required></input>
+         <input id="titulo" ng-model="titulo" maxlength="20" class="auth-input" type="text" value="" name="titulo" required onkeypress="return soloLetrasYNumeros(event);"></input>
          <span style="color:red; font-size:12px" ng-show="form.titulo.$error.required"><br>* Este campo es obligatorio</span>
          
    </p>
 
    <p>
        <label for="desc">Descripcion de Actividad:</label><br>
-         <textarea id="desc" ng-model="desc" class="auth-input auth-textarea" type="text" value="" name="desc" rows="2" required></textarea>
+         <textarea id="desc" ng-model="desc" maxlength="300" class="auth-input auth-textarea" type="text" value="" name="desc" rows="2" required></textarea>
          <span style="color:red; font-size:12px" ng-show="form.desc.$error.required"><br>* Este campo es obligatorio</span>
 
    </p>
@@ -43,7 +66,7 @@ $(document).ready(function(e){
 </div>
 <div class="col-lg-12">
  <p>
-	<input type="submit" class="auth-button .btn-danger go" ng-disabled="form.$invalid" value="Agregar" name="submit"></input>
+	<input type="submit" class="auth-button .btn-danger go"  value="Agregar" name="submit"></input>
 </p>
 <p>
 <a class="auth-button .btn-danger back" href="<?php echo base_url()?>actividades">Volver</a>

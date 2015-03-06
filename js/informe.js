@@ -124,12 +124,15 @@ app.controller("informeController", [ '$scope', '$http', '$location',
 	    	$http({
 				method : 'DELETE',
 				url : 'index.php/api/Informe_api/remove/' + id
+			}).success(function(data, status, headers, config) {
 			});
 			location.reload();
-	     }else{}
+	     }else{
+		 alert()
+		 }
 	};
 
-
+	     
 }]);
 
 angular.module('informe').filter('pagination', function()

@@ -6,20 +6,19 @@
 		echo form_open(base_url().'api/divulgaciones_api/save',$d);
 	?>
 
-	<script type="text/javascript">
+<script type="text/javascript">
 	
 		function eliminar(div) {
 			document.getElementById(div).remove();
 		}
 			
 		$(document).ready(function() {
+		
 			$('#radioOptions_1').hide();
 			$('#tvOptions_1').hide();
 			$('#prensaOptions_1').hide();
-			$("#fecha_1").datepicker();
-			
-			
-			
+			$("#fecha_1").datepicker({
+			});
 			
 			$(document).on("change", "#curso", function() {
 				var cursosel = $("#curso").val();
@@ -29,9 +28,10 @@
 					}else {
 						$('.check').hide("slow");
 					}
-					
 			});
 			
+		$("#horaR_1").timepicker();
+		$("#horatv_1").timepicker();
 		});
 		
 		function radioOp(value) {
@@ -101,13 +101,28 @@
 				$('#dial_' + sep[1]).prop("required", false);
 				$('#tipDivPrensaSel_' + sep[1]).prop("required", false);
 				$('#tipDivPrensa_' + sep[1]).prop("required", false);				
-			}      
+			}    
+
 		}
-	</script>
+		
+		function getPrensa(value) {
+
+			var sep = value.id.split('_');
+
+			$.post("index.php/api/Divulgaciones_api/getPrensa", {
+				prensa: value.value
+			}, function (data) {
+				$("#tipDivPrensaSel_" + sep[1]).html(data);
+			});
+
+		}	
+		
+		
+</script>
 	<div class="col-lg-12">
 		<p align="center">
 			<label for="curso">Curso:</label><br>
-			<select id="curso" class="auth-input" ng-model="curso" name="curso" style="max-width: 300px !important; text-align: center;" required>
+			<select id="curso" class="demo-default" required name="curso" required>
 				<option value="">Seleccione..</option>
 					<?php 
 						foreach($curso as $key){
@@ -117,6 +132,16 @@
 						}
 					?>	
 			</select>
+			<script>
+			$('#curso').selectize({
+				create: false,
+				sortField: {
+					field: 'text',
+					direction: 'asc'
+				},
+				dropdownParent: 'body'
+			});
+		</script>
 			<span style="color:red; font-size:12px" ng-show="form.curso.$error.required"><br>* Este campo es obligatorio</span>
 			<br><br>
 			<a ng-click="addDiv()" class="fa fa-plus btn btn-danger add"> Agregar Nueva Divulgaci&oacute;n </a>&nbsp;
@@ -141,25 +166,29 @@
 						<div id="radioOptions_1">
 							<p>
 								<label style="font-size: 12px;" for="emisora">Emisora:</label><br>
-								<input id="emisoras_1" class="auth-input" type="text" value="" name="emisoras[]" ></input>
+								<input id="emisoras_1" maxlength="20" class="auth-input" type="text" value="" name="emisoras[]" ></input>
 							</p>
 
 							<p>
 								<label style="font-size: 12px;" for="dial">Dial:</label><br>
-								<input id="dial_1" class="auth-input" type="text" value="" name="dial[]" ></input>
+								<input id="dial_1" maxlength="6" class="auth-input" type="text" value="" name="dial[]" ></input>
 							</p>
 
 							<p>
 								<label style="font-size: 12px;" for="hora">Hora de emision:</label><br>
-								<input id="horaR_1" class="auth-input" type="text" value="" name="horaR[]" ></input>
+								<input id="horaR_1" class="auth-input" readonly type="text" value="" name="horaR[]" ></input>
 							</p>
 
 							<p>
 								<label style="font-size: 12px;" for="tDiv">Tipo de Divulgacion:</label><br>
 								<select id="tipDiv_1" class="auth-input" name="tipDiv[]" style="max-width: 300px !important; text-align: center;">
 									<option value="" selected>Seleccione.. </option>
-									<option value="0">Micro </option>
-									<option value="1">Programa </option>
+									<?php 
+									    foreach ($tipo_radio as $radio) {
+											echo "<option value='$radio->id_tipo_divulgacion'>$radio->nombre</option>";
+										}
+									
+									?>
 								</select>
 							</p>
 						</div>
@@ -169,25 +198,29 @@
 						<div id="tvOptions_1">
 							<p>
 								<label style="font-size: 12px;" for="nomTv">Nombre del programa:</label><br>
-								<input id="nombreTv_1" class="auth-input" type="text" value="" name="nombreTv[]"></input>
+								<input id="nombreTv_1" maxlength="40" class="auth-input" type="text" value="" name="nombreTv[]"></input>
 							</p>
 
 							<p>
 								<label style="font-size: 12px;" for="canal">Canal:</label><br>
-								<input id="canal_1" class="auth-input" type="text" value="" name="canal[]"></input>
+								<input id="canal_1" maxlength="20" class="auth-input" type="text" value="" name="canal[]"></input>
 							</p>
 
 							<p>
 								<label style="font-size: 12px;" for="horaTv">Hora del Programa:</label><br>
-								<input id="horatv_1" class="auth-input" type="text" value="" name="horatv[]" ></input>
+								<input id="horatv_1" class="auth-input" readonly type="text" value="" name="horatv[]" ></input>
 							</p>
 
 							<p>
 								<label style="font-size: 12px;" for="divT">Tipo de Divulgacion:</label><br>
 								<select id="tipDivTv_1" class="auth-input" ng-model="divulgacion" name="tipDivTv[]" style="max-width: 300px !important; text-align: center;">
 									<option value="" selected>Seleccione..</option>
-									<option value="0">Propaganda Televisada </option>
-									<option value="1">Programa </option>
+									<?php 
+									    foreach ($tipo_tv as $tv) {
+											echo "<option value='$tv->id_tipo_divulgacion'>$tv->nombre</option>";
+										}
+									
+									?>
 								</select>
 							</p>
 						</div>
@@ -197,7 +230,7 @@
 						<div id="prensaOptions_1">
 							<p>
 								<label style="font-size: 12px;" for="nombre">Nombre del Medio:</label><br>
-								<input id="nombrePrensa_1" class="auth-input" type="text" value="" name="nombrePrensa[]"></input>
+								<input id="nombrePrensa_1" maxlength="40" class="auth-input" type="text" value="" name="nombrePrensa[]"></input>
 							</p>
 
 							<p>
@@ -207,10 +240,10 @@
 
 							<p>
 								<label style="font-size: 12px;">Tipo de Divulgacion:</label><br>
-								<select id="tipDivPrensa_1" class="auth-input" name="tipDivPrensa[]" style="max-width: 300px !important; text-align: center;">
+								<select onchange="getPrensa(tipDivPrensa_1)" id="tipDivPrensa_1" class="auth-input" name="tipDivPrensa[]" style="max-width: 300px !important; text-align: center;">
 									<option value="" selected>Seleccione..</option>
-									<option value="0">Fisica </option>
-									<option value="1">Digital </option>
+									<option value="fisica">Fisica </option>
+									<option value="digital">Digital </option>
 								</select>
 							</p>
 
@@ -218,7 +251,6 @@
 								<label style="font-size: 12px;">Seleccione:</label><br>
 								<select id="tipDivPrensaSel_1" class="auth-input" name="tipDivPrensaSel[]" style="max-width: 300px !important; text-align: center;">
 									<option value="" selected>Seleccione..</option>
-									<option value="1">op</option>
 								</select>
 							</p>
 						<div>
@@ -231,7 +263,7 @@
 		</table>
 			<p>
 				<input style="float: right; margin-top:-9px" class="auth-button .btn-danger go" ng-disabled="form.nombre.$invalid" value="Agregar" type="submit">
-				<a class="auth-button .btn-danger b" href="<?php echo base_url()?>persona" >Volver</a>
+				<a class="auth-button .btn-danger b" href="<?php echo base_url()?>Divulgaciones" >Volver</a>
 			</p>
 	<?php echo form_close(); ?>
 	</div>

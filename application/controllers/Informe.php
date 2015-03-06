@@ -5,7 +5,12 @@ class Informe extends CI_Controller {
 	function __construct()
 	{
 		parent::__construct();
+		$rol = $this->ion_auth->get_users_groups()->row();
 		if (!$this->ion_auth->logged_in()){redirect('auth/login', 'refresh');}
+		
+		if(($rol->id != 3) AND ($rol->id != 1)){
+		redirect(base_url());
+		}
 		
 	}
 	function view($name_view,$data){
@@ -82,20 +87,13 @@ class Informe extends CI_Controller {
 		
 		echo $getParroquia;
 	}
-	
-	public function guardar()
-	{
-		echo "<pre>";		
-		print_r($_POST);		
-		echo "</pre>";
-	}
-	
+		
 	function show_informe($id)
 	{
 		$this->load->model('informe_model');
 		
 		$paraPdf=$this->informe_model->getInformeData($id);
-			$data['user'] = $r=$this->ion_auth->user()->row();
+		$data['user'] = $r=$this->ion_auth->user()->row();
 		$data['content'] =$paraPdf;
 
 		$footer="DIRECCIÓN NACIONAL DE FORMACI&Oacute;N SOCIALISTA FEMINISTA";
@@ -127,6 +125,20 @@ class Informe extends CI_Controller {
 		$pdf->Output($pdfFilePath, "I");
 
 	}
+	public function delete($id)
+	{
+		$this->load->model('informe_model');
+		$this->db->trans_start();
+		$this->informe_model->delete($id);
+		$this->session->set_flashdata('message', '<br><br><div class="alert alert-success info" role="alert">
+						<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+						<span class="sr-only">Error:</span> El informe fue eliminado de forma exitosa
+						<span class="glyphicon glyphicon-remove close" aria-hidden="true"></span></div>');
+		$this->db->trans_complete();
+		redirect(base_url().'informe');
+		
+	}
+	
 
 
 }

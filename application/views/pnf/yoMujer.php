@@ -22,6 +22,6 @@ $(document).ready(function() {
 			&nbsp;&nbsp;&nbsp;&nbsp;Para problematizar la multiplicidad de opresiones y los mecanismos de reproducci&oacute;n  naturalizaci&oacute;n patriarcales nos propusimos articular una serie de ejercicios que le quitan el peso academicista a la teor&iacute;a feminista, as&iacute; como hacen cercano el proceso de revisi&oacute;n de las rebeld&iacute;as, malestares y enfrentamientos con la cultura patriarcal. Nos proponemos, con el programa aunar el trabajo de desmantelar los roles y mandatos de la cultura patriarcal con el de acompa&ntilde;ar a las beneficiarias en la estructuraci&oacute;n de sus proyectos socioproductivos.
 
 		</div>
-		<div class="col-lg-4"> <img  width="385px" height="400px" src="<?php echo base_url(); ?>assets/img/yoMujer.jpg"> </div>
+		<div class="col-lg-4"> <img  style="max-width: 100%;" width="385px" height="400px" src="<?php echo base_url(); ?>assets/img/yoMujer.jpg"> </div>
 	</div>
 </div>

@@ -1,5 +1,6 @@
 <!-- Titulo -->
 <?php $r=$this->ion_auth->user(); 
+
 ?>
 <h1>Actividades</h1>
 <hr>
@@ -34,7 +35,7 @@ $(document).ready(function() {
                 <tr ng-repeat="actividad in filtered =( actividades | filter:query ) | pagination : currentPage*itemsPerPage | limitTo: itemsPerPage">
                     <!-- Data que va a mostrar el CRUD -->
                     <td>{{ actividad.titulo }}</td>
-                    <td>{{ actividad.name }}</td>
+                    <td>{{ actividad.name }}</td>					
                     <td>{{ actividad.fecha }}</td>
                     <td>
                         <a ng-click="view(actividad.id_actividad)" class="fa fa-search btn btn-small btn-info"></a>

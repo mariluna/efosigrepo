@@ -32,6 +32,7 @@ class Informe_model extends CI_Model
 				tb_estado.nombre AS estado,
 				tb_municipio.nombre AS municipio,
 				tb_parroquia.nombre AS parroquia,
+				users.id as user,
 				users.first_name || ' ' || users.last_name AS usuario,
 				users.email,
 				tb_curso.nombre AS curso,
@@ -86,6 +87,11 @@ class Informe_model extends CI_Model
         $this->db->query("DELETE FROM tb_informe WHERE id_informe = $id");
         return $this->db->affected_rows();
     }
+	public function update($id, $data)
+    {
+        return $this->db->where('id_informe', $id)->update('tb_informe', $data);
+    }
+
     public function add($data)
     {
         $this->db->insert($this->table, $data);
@@ -122,8 +128,21 @@ class Informe_model extends CI_Model
     }
 	
 	public function cargar_redi(){
+		$r= $this->ion_auth->user()->row();
+		$rol = $this->ion_auth->get_users_groups()->row();
+	
+	$query = $this->db->query("SELECT id_redi FROM tb_persona WHERE id_persona = $r->persona_id")->row();
+		
+		if($rol->id == 1){
+
 		$redi=$this->db->query("Select * from tb_redi")->result();
 		return $redi;
+		}elseif($rol->id == 3){
+
+		$redi=$this->db->query("Select * from tb_redi 
+		where tb_redi.id_redi = $query->id_redi ")->result();
+		return $redi;
+		}
 	}
 	public function cargar_curso(){
 		$curso=$this->db->query("SELECT id_curso,nombre FROM tb_curso")->result();
@@ -177,6 +196,7 @@ class Informe_model extends CI_Model
     {
         return $this->db->query("select * from tb_redi WHERE id_redi NOT IN ($id_redi)")->result();
     }
+	
 	public function getSelectedMunicipio($id)
     {
         return $this->db->query("select mun.* from tb_municipio mun INNER JOIN tb_informe inf ON inf.id_municipio = mun.id_municipio WHERE inf.id_informe = $id")->result();

@@ -93,19 +93,25 @@ app.controller("personaController", [ '$scope', '$http', '$location',
 
 	$scope.addEntity = function(){
 
-		 window.location= 'persona/agregar';
+		 window.location= 'Persona/agregar';
 
 	};
 
 	$scope.view = function(id){
 
-		alert('mi id persona es ' + id);
+		window.location= 'Persona/ver/' + id;
 
 	};
 	
 	$scope.addMMDB = function(){
 
 		 window.location= 'persona/agregarMMDB';
+
+	};
+	
+	$scope.descargarList = function(){
+
+		window.location= 'Persona/generarExcel';
 
 	};
 

@@ -108,7 +108,7 @@ $(document).ready(function(e){
 
 		$('#myWizard').easyWizard();
 		$("#etnia2,#discapacidad2,#instruccion2,#estudio2, #misiones2, #estudiar2,#movimiento2,#partido2,#concejoC2,#voceria2, #comuna2 , #mmdb2, #comite2").hide();
-		$("#fecha").datepicker();
+		$("#fecha").datepicker({yearRange: "-80:-18"});
 		
 		
 		$("#redi").change(function () {
@@ -162,7 +162,135 @@ $(document).ready(function(e){
                 });
 			});
 		});
+		
+	captcha = $('#origin').val();
+	$('#origin').remove();
+	$(".submit").click(function(e){
+		if($("#captcha").val() != captcha){
+			$("#message").append('<div class="alert alert-danger info" role="alert">'+
+						'<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>'+
+						'<span class="sr-only">Error:</span> El codigo no coincide con la imagen'+
+						'<span class="glyphicon glyphicon-remove close" aria-hidden="true" id="quita" onclick="quitar()"></span></div>');
+			e.preventDefault();
+		}
+	});
 });
+function quitar(){
+	$('.alert').remove();
+}
+function soloNumeros(e){
+       key = e.keyCode || e.which;
+       tecla = String.fromCharCode(key).toLowerCase();
+       letras = "1234567890";
+       especiales = "8-37-39-46";
+
+       tecla_especial = false
+       for(var i in especiales){
+            if(key == especiales[i]){
+                tecla_especial = true;
+                break;
+            }
+        }
+        if(letras.indexOf(tecla)==-1 && !tecla_especial){
+            return false;
+        }
+    }
+function soloCedula(e){
+      if(e.value < 1000000){
+		document.getElementById('cedula').value = "";
+		$("#message").append('<div class="alert alert-danger info" role="alert">'+
+						'<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>'+
+						'<span class="sr-only">Error:</span> La cedula introducida es invalida'+
+						'<span class="glyphicon glyphicon-remove close" aria-hidden="true" id="quita" onclick="quitar()"></span></div>');
+	  }
+    }
+function soloTelefonoHab(e){
+      if(e.value.length < 10){
+		document.getElementById('telHab').value = "";
+		$("#message").append('<div class="alert alert-danger info" role="alert">'+
+						'<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>'+
+						'<span class="sr-only">Error:</span> El numero de habitacion debe tener 9 digitos'+
+						'<span class="glyphicon glyphicon-remove close" aria-hidden="true" id="quita" onclick="quitar()"></span></div>');
+	  }
+    }
+function soloTelefonoCel(e){
+      if(e.value.length < 10){
+		document.getElementById('telCel').value = "";
+		$("#message").append('<div class="alert alert-danger info" role="alert">'+
+						'<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>'+
+						'<span class="sr-only">Error:</span> El numero personal debe tener 9 digitos'+
+						'<span class="glyphicon glyphicon-remove close" aria-hidden="true" id="quita" onclick="quitar()"></span></div>');
+	  }
+    }
+function soloLetras(e){
+       key = e.keyCode || e.which;
+       tecla = String.fromCharCode(key).toLowerCase();
+       letras = " áéíóúabcdefghijklmnñopqrstuvwxyz";
+       especiales = "8-37-39-46";
+
+       tecla_especial = false
+       for(var i in especiales){
+            if(key == especiales[i]){
+                tecla_especial = true;
+                break;
+            }
+        }
+
+        if(letras.indexOf(tecla)==-1 && !tecla_especial){
+            return false;
+        }
+    }
+function soloLetrasYNumeros(e){
+       key = e.keyCode || e.which;
+       tecla = String.fromCharCode(key).toLowerCase();
+       letras = " áéíóúabcdefghijklmnñopqrstuvwxyz1234567890";
+       especiales = "8-37-39-46";
+
+       tecla_especial = false
+       for(var i in especiales){
+            if(key == especiales[i]){
+                tecla_especial = true;
+                break;
+            }
+        }
+
+        if(letras.indexOf(tecla)==-1 && !tecla_especial){
+            return false;
+        }
+    }
+function calcularEdad()
+{
+    var fecha=document.getElementById("fecha").value;
+    
+        // Si la fecha es correcta, calculamos la edad
+        var values=fecha.split("-");
+        var dia = values[0];
+        var mes = values[1];
+        var ano = values[2];
+		if(ano == 2015){
+			ano = 1935;
+		}
+        // cogemos los valores actuales
+        var fecha_hoy = new Date();
+        var ahora_ano = fecha_hoy.getFullYear();
+        var ahora_mes = fecha_hoy.getMonth()+1;
+        var ahora_dia = fecha_hoy.getDate();
+        // realizamos el calculo
+        var edad = (ahora_ano + 1900) - ano;
+        if ( ahora_mes < mes )
+        {
+            edad--;
+        }
+        if ((mes == ahora_mes) && (ahora_dia < dia))
+        {
+            edad--;
+        }
+        if (edad > 1900)
+        {
+            edad -= 1900;
+        }
+        document.getElementById("edad").value =  edad;
+}
 </script>
 <h1>Agregar Persona "Misi&oacute;n Madres del Barrio"</h1>
 <hr>
@@ -214,14 +342,14 @@ $(document).ready(function(e){
 			
 				<p>
 					<label for="nombreApellido">1.Nombres y Apellidos:</label><br>
-					<input id="nombreApellido" ng-model="nombreApellido" class="auth-input" type="text" value="" name="nombreApellido" maxLegth="50" ng-pattern="/[a-zA-Z]/" required></input>
+					<input id="nombreApellido" onkeypress="return soloLetras(event)" ng-model="nombreApellido" class="auth-input" type="text" value="" name="nombreApellido" maxLegth="50" ng-pattern="/[a-zA-Z]/" required></input>
 					<span style="color:red; font-size:12px" ng-show="form.nombreApellido.$error.required"><br>* Este campo es obligatorio</span>
 					<span style="color:red; font-size:12px" ng-show="form.nombreApellido.$error.pattern"><br>* Este campo debe ser solo letras</span>
 				</p>
 
 				<p>
 					<label for="cedula">2.C&eacute;dula:</label><br>
-					<input id="cedula" ng-model="cedula" class="auth-input" type="text" value="" name="cedula" maxlength="8" required integer></input>
+					<input id="cedula" ng-model="cedula" onblur="soloCedula(this)" onkeypress="return soloNumeros(event)" class="auth-input" type="text" value="" name="cedula" maxlength="8" required integer></input>
 					<span style="color:red; font-size:12px" ng-show="form.cedula.$error.required"><br>* Este campo es obligatorio</span>
 					<span style="color:red; font-size:12px" ng-show="form.cedula.$error.integer"><br>* Este campo debe ser un numero entero</span>
 				</p>
@@ -232,7 +360,7 @@ $(document).ready(function(e){
 				</p>
 				<p>
 					<label for="edad">4.Edad:</label><br>
-					<input id="edad" ng-model="edad" class="auth-input" type="text" value="" name="edad" maxlength="2" required integer></input>
+					<input id="edad" ng-model="edad" class="auth-input dis" type="text" value="" name="edad" readonly  maxlength="2" integer></input>
 					<span style="color:red; font-size:12px" ng-show="form.edad.$error.required"><br>* Este campo es obligatorio</span>
 					<span style="color:red; font-size:12px" ng-show="form.edad.$error.integer"><br>* Este campo debe ser un numero entero</span>
 				</p>
@@ -244,12 +372,12 @@ $(document).ready(function(e){
 				</p>
 				<p>
 					<label for="fecha">6.Fecha de Nacimiento:</label><br>
-					<input  name="fecha"class="auth-input" type="text" id="fecha" readonly required>
+					<input  name="fecha"class="auth-input" type="text" id="fecha" readonly required onchange="calcularEdad();">
 					<span style="color:red; font-size:12px" ng-show="form.fecha.$error.required"><br>* Este campo es obligatorio</span>
 				</p>
 				<p>
 					<label for="nroHijos">7.N&uacute;mero de hijas(os):</label><br>
-					<input id="nroHijos" ng-model="nroHijos" class="auth-input" type="text" value="" name="nroHijos" maxlength="2" required integer></input>
+					<input id="nroHijos" ng-model="nroHijos" onkeypress="return soloNumeros(event)" class="auth-input" type="text" value="" name="nroHijos" maxlength="2" required integer></input>
 					<span style="color:red; font-size:12px" ng-show="form.nroHijos.$error.required"><br>* Este campo es obligatorio</span>
 					<span style="color:red; font-size:12px" ng-show="form.nroHijos.$error.integer"><br>* Este campo debe ser un numero entero</span>
 				</p>
@@ -261,7 +389,7 @@ $(document).ready(function(e){
 					2.No <input type="radio" value="No" name="etnia" checked="checked" onclick="ocultar_etnia()">
 					<div id="etnia2">
 						Nombre de Etnia:<br>
-						<input type="text" class="auth-input" name="cualEtnia" maxLength="25">
+						<input type="text" onkeypress="return soloLetras(event)" class="auth-input" name="cualEtnia" maxLength="25">
 						<br><br>
 						8.1. ¿Domina Idioma?
 						<br><br>
@@ -296,19 +424,19 @@ $(document).ready(function(e){
 				</p>
 				<p>
 					<label for="telHab">11.Tel&eacute;fono de Habitaci&oacute;n:</label><br>
-					<input id="telHab" ng-model="telHab" class="auth-input" type="text" value="" name="telHab" maxlength="11" required integer></input>
+					<input id="telHab" ng-model="telHab" onblur="soloTelefonoHab(this)" onkeypress="return soloNumeros(event)" class="auth-input" type="text" value="" name="telHab" maxlength="11" required integer></input>
 					<span style="color:red; font-size:12px" ng-show="form.telHab.$error.required"><br>* Este campo es obligatorio</span>
 					<span style="color:red; font-size:12px" ng-show="form.telHab.$error.integer"><br>* Este campo debe ser un numero entero</span>
 				</p>
 				<p>
 					<label for="telCel">12.Tel&eacute;fono Celular:</label><br>
-					<input id="telCel" ng-model="telCel" class="auth-input" type="text" value="" name="telCel" maxlength="11" required integer></input>
+					<input id="telCel" ng-model="telCel" onblur="soloTelefonoCel(this)" onkeypress="return soloNumeros(event)" class="auth-input" type="text" value="" name="telCel" maxlength="11" required integer></input>
 					<span style="color:red; font-size:12px" ng-show="form.telCel.$error.required"><br>* Este campo es obligatorio</span>
 					<span style="color:red; font-size:12px" ng-show="form.telCel.$error.integer"><br>* Este campo debe ser un numero entero</span>
 				</p>
 				<p>
 					<label for="correo">13.Correo Electr&oacute;nico:</label><br>
-					<input id="correo" ng-model="correo" class="auth-input" type="text" value="" name="correo" maxlength="11" required></input>
+					<input id="correo" title="Se necesita un correo" ng-model="correo" class="auth-input" type="email" maxlength="20" value="" name="correo" maxlength="11" required pattern="^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$"></input>
 					<span style="color:red; font-size:12px" ng-show="form.correo.$error.required"><br>* Este campo es obligatorio</span>
 				</p>
 			</div>
@@ -338,9 +466,9 @@ $(document).ready(function(e){
 					2.No <input type="radio" value="No" name="estudio" checked="checked" onclick="ocultar_estudio()">
 						<div id="estudio2">
 							2.1.Nombre de la instituci&oacute;n: <br>
-							<input id="inst" ng-model="inst" class="auth-input" type="text" value="" name="inst" maxLegth="50"/><br><br>
+							<input id="inst" ng-model="inst" onkeypress="return soloLetrasYNumeros(event)" class="auth-input" type="text" value="" name="inst" maxLegth="50"/><br><br>
 							2.2.&iquest;Qu&eacute; est&aacute; estudiando? <br>
-							<input id="queEstudia" class="auth-input" type="text" value="" name="queEstudia" maxLegth="25"/><br><br>
+							<input id="queEstudia" class="auth-input" onkeypress="return soloLetras(event)" type="text" value="" name="queEstudia" maxLegth="25"/><br><br>
 							2.3.Tipo de Instituci&oacute;n:<br><br>
 							1.P&uacute;blica <input type="radio" value="Publica" name="tipoInst" checked="checked">&nbsp;
 							2.Privada<input type="radio" value="Privada" name="tipoInst"> 
@@ -377,12 +505,12 @@ $(document).ready(function(e){
 					2.No <input type="radio" value="No" name="movimiento" checked="checked" onclick="ocultar_movimiento()">
 						<div id="movimiento2">
 							1.1.&iquest;Cu&aacute;l? <br>
-							<input id="cualMovimiento" class="auth-input" type="text" value="" name="cualMovimiento" maxLegth="25"/><br><br> 
+							<input id="cualMovimiento" class="auth-input" onkeypress="return soloLetras(event)" type="text" value="" name="cualMovimiento" maxLegth="25"/><br><br> 
 							1.2.A&ntilde;os de Militancia: <br>
-							<input id="militanciaMov" ng-model="militanciaMov" class="auth-input" type="text" value="" name="militanciaMov" maxLegth="2"/><br><br>
+							<input id="militanciaMov" ng-model="militanciaMov" onkeypress="return soloNumeros(event)" class="auth-input" type="text" value="" name="militanciaMov" maxLegth="2"/><br><br>
 							<span style="color:red; font-size:12px" ng-show="form.militanciaMov.$error.integer"><br>* Este campo debe ser un numero entero</span>
 							1.3.Responsabilidad: <br>
-							<input class="auth-input" type="text" name="responsabilidadMov" maxLength="25" size="20"> <br>
+							<input class="auth-input" type="text" onkeypress="return soloLetras(event)" name="responsabilidadMov" maxLength="25" size="20"> <br>
 						</div>		
 					
 				</p>
@@ -393,12 +521,12 @@ $(document).ready(function(e){
 					2.No <input type="radio" value="No" name="partido" checked="checked" onclick="ocultar_partido()">
 						<div id="partido2">
 						1.1.&iquest;Cu&aacute;l?<br>
-						<input id="cualPartido" class="auth-input" type="text" value="" name="cualPartido" maxLegth="25"/><br><br>
+						<input id="cualPartido" class="auth-input" onkeypress="return soloLetras(event)" type="text" value="" name="cualPartido" maxLegth="25"/><br><br>
 						1.2.A&ntilde;os de Militancia:<br>
-						<input id="militanciaPar" class="auth-input" type="text" value="" name="militanciaPar" maxLegth="2" integer/><br><br>
+						<input id="militanciaPar" class="auth-input" onkeypress="return soloNumeros(event)" type="text" value="" name="militanciaPar" maxLegth="2" integer/><br><br>
 						<span style="color:red; font-size:12px" ng-show="form.militanciaPar.$error.integer"><br>* Este campo debe ser un numero entero</span>
 						1.3.Responsabilidad: <br>
-						<input id="responsabilidadPar" ng-model="responsabilidadPar" class="auth-input" type="text" value="" name="responsabilidadPar" maxLegth="25">
+						<input id="responsabilidadPar" ng-model="responsabilidadPar" onkeypress="return soloLetras(event)" class="auth-input" type="text" value="" name="responsabilidadPar" maxLegth="25">
 					</div>
 				
 				</p>
@@ -422,7 +550,7 @@ $(document).ready(function(e){
 						2.No<input type="radio" value="No" name="comuna" checked="checked" onclick="ocultar_comuna()">
 							<div id="comuna2">
 								&iquest;Cu&aacute;l?<br>
-								<input id="cualComuna" class="auth-input" type="text" value="" name="cualComuna" maxLegth="25"/>
+								<input id="cualComuna" class="auth-input" onkeypress="return soloLetras(event)" type="text" value="" name="cualComuna" maxLegth="25"/>
 							</div>
 						</div>
 					
@@ -441,9 +569,9 @@ $(document).ready(function(e){
 						2.No <input type="radio" value="No" name="comite" checked="checked" onclick="ocultar_comite()"><br>
 							<div id="comite2">
 							1.2. Indique el nombre del Comit&eacute;:<br>
-							<input id="cualComite" class="auth-input" type="text" value="" name="cualComite" maxLegth="25"/> <br>
+							<input id="cualComite" class="auth-input" type="text" onkeypress="return soloLetras(event)" value="" name="cualComite" maxLegth="25"/> <br>
 							1.3. Responsabilidad dentro del Comit&eacute;:<br>
-							<input id="responsabilidadCom" class="auth-input" type="text" value="" name="responsabilidadCom" maxLength="25"/>
+							<input id="responsabilidadCom" class="auth-input" onkeypress="return soloLetras(event)" type="text" value="" name="responsabilidadCom" maxLength="25"/>
 							</div><br>
 						</div>
 				</p>
@@ -457,6 +585,23 @@ $(document).ready(function(e){
 					1.Si<input type="radio" value="Si" name="frenteComite">&nbsp;
 					2.No<input type="radio" value="No" name="frenteComite" checked="checked">
 				</p>
+				 <p>
+				<?php 
+				function generate_captcha(){
+							$md5Hash = md5(microtime()*time());
+							$key = substr($md5Hash,0,7);
+							return $key;
+						}
+				$x = generate_captcha();
+				?>
+				<div class="captcha" style="background: rgba(74, 2, 74, 0.71); width: 100%; max-width: 80px; height: 100%; 
+				max-height: 30px; padding: 5px; font-weight: bold; color: white; margin:auto; -webkit-user-select: none; -khtml-user-select: none;
+				-moz-user-select: none; -ms-user-select: none; -o-user-select: none; user-select: none;">
+				<?php echo $x; ?>
+				</div>
+					<input type="hidden" name="captcha" id="origin" value="<?php echo $x; ?>">
+					<input type="text" class="auth-input" id="captcha" name="captcha" value="" required>
+                </p>
 			</div>
 		</section>
 <?php echo form_close(); ?>

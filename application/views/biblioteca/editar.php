@@ -106,6 +106,6 @@ $(document).ready(function(){
 		</p>
 
 	   <?php echo form_close(); ?>
-		<a class="auth-but-fix .btn-success fix-back" style="margin-top: -46px !important;" href="<?php echo base_url()?>Cursos">Volver</a>
+		<a class="auth-but-fix .btn-success fix-back" style="margin-top: -46px !important;" href="<?php echo base_url()?>Biblioteca">Volver</a>
 	</div>
 </div>

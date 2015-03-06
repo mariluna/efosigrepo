@@ -1,6 +1,6 @@
 (function(){
 
-var app= angular.module('persona',[]);
+var app= angular.module('evaluacion',[]);
 
 var INTEGER_REGEXP = /^\-?\d+$/;
 app.directive('integer', function() {
@@ -24,11 +24,12 @@ app.directive('integer', function() {
 
 app.controller("evaluacionController", [ '$scope', '$http', '$location',
 	function($scope, $http, $location) {
+		
 		$http({
 			method : 'GET',
-			url : 'index.php/api/Personas_api/'
+			url : 'index.php/api/Evaluacion_api/'
 		}).success(function(data, status, headers, config) {
-			$scope.personas = data;
+			$scope.detalles = data;
 			$scope.itemsPerPage = 10;
 			$scope.currentPage = 0;
 		}).error(function(data, status, headers, config) {
@@ -42,7 +43,7 @@ app.controller("evaluacionController", [ '$scope', '$http', '$location',
 	    var start;
 
 	    start = $scope.currentPage;
-	       //  console.log($scope.pageCount(),$scope.currentPage)
+	    //  console.log($scope.pageCount(),$scope.currentPage)
 	    if ( start > $scope.pageCount()-rangeSize ) {
 	      start = $scope.pageCount()-rangeSize+1;
 	    }
@@ -66,7 +67,7 @@ app.controller("evaluacionController", [ '$scope', '$http', '$location',
   };
 
   $scope.pageCount = function() {
-    return Math.ceil($scope.personas.length/$scope.itemsPerPage)-1;
+    return Math.ceil($scope.detalles.length/$scope.itemsPerPage)-1;
   };
 
   $scope.nextPage = function() {
@@ -91,21 +92,21 @@ app.controller("evaluacionController", [ '$scope', '$http', '$location',
     $scope.currentPage = $scope.pageCount();
   };
 
-	$scope.addEntity = function(){
-
-		 window.location= 'persona/agregar';
-
-	};
-	
-	$scope.addMMDB = function(){
-
-		 window.location= 'persona/agregarMMDB';
+	$scope.addEvaluacion = function(id){
+		
+		 window.location= 'Evaluacion/agregar/'+id;
 
 	};
 
 	$scope.view = function(id){
 
 		alert('mi id persona es ' + id);
+
+	};
+	
+	$scope.download = function(id){
+
+		 window.location= 'Evaluacion/excel/'+id;
 
 	};
 
@@ -126,6 +127,20 @@ app.controller("evaluacionController", [ '$scope', '$http', '$location',
 			});
 			location.reload();
 	     }
+	};
+	
+	$scope.respaldo = function(){
+
+		 var r = confirm("¿Estas seguro que deseas hacer respaldo?");
+
+	     if (r == true) {
+	    	$http({
+				method : 'POST',
+				url : 'index.php/api/Personas_api/respaldo'
+			});
+			location.reload();
+	     }
+
 	};
 
 

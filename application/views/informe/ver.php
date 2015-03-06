@@ -61,13 +61,13 @@
 				<label for="tot_div_sexual_for">&iquest;Hubo participaci&oacute;n de la Diversidad Sexual&#63;</label><br>
 				<?php if($data[0]->tot_div_sexual_for=="0")
 				{ echo "
-				<label>1.Si <input type='radio' value='' name='tot_div_sexual_for' >&nbsp;
-				2.No <input type='radio' value='' name='tot_div_sexual_for' checked='checked'>
+				<label>1.Si <input type='radio' value='' name='tot_div_sexual_for' disabled>&nbsp;</label>
+				<label>2.No <input type='radio' value='' name='tot_div_sexual_for' checked='checked' disabled>
 				</label>";}
 				else{
 				echo "
-				<label>1.Si <input type='radio' value='' name='tot_div_sexual_for' checked='checked'>&nbsp;
-				2.No <input type='radio' value='' name='tot_div_sexual_for'>
+				<label>1.Si <input type='radio' value='' name='tot_div_sexual_for' checked='checked' disabled>&nbsp;</label>
+				<label>2.No <input type='radio' value='' name='tot_div_sexual_for' disabled>
 				</label>";
 				echo "<br>";
 				echo "<label>Total de participantes:</lable><br><input type='text' class='auth-input dis' readonly placeholder='".$data[0]->tot_div_sexual_for."' />";
@@ -77,13 +77,13 @@
 				<label for="tot_mujeres_indigenas_for">&iquest;Hubo participaci&oacute;n de Mujeres Indigenas&#63;</label><br>
 				<?php if($data[0]->tot_mujeres_indigenas_for=="0")
 				{ echo "
-				<label>1.Si <input type='radio' value='' name='tot_mujeres_indigenas_for' >&nbsp;
-				2.No <input type='radio' value='' name='tot_mujeres_indigenas_for' checked='checked'>
+				<label>1.Si <input type='radio' value='' name='tot_mujeres_indigenas_for' disabled>&nbsp;</label>
+				<label>2.No <input type='radio' value='' name='tot_mujeres_indigenas_for' checked='checked' disabled>
 				</label>";}
 				else{
 				echo "
-				<label>1.Si <input type='radio' value='' name='tot_mujeres_indigenas_for' checked='checked'>&nbsp;
-				2.No <input type='radio' value='' name='tot_mujeres_indigenas_for'>
+				<label>1.Si <input type='radio' value='' name='tot_mujeres_indigenas_for' checked='checked' disabled>&nbsp;</label>
+				<label>2.No <input type='radio' value='' name='tot_mujeres_indigenas_for' disabled>
 				</label>";
 				echo "<br>";
 				echo "<label>Total de participantes:</lable><br><input type='text' class='auth-input dis' readonly placeholder='".$data[0]->tot_mujeres_indigenas_for."' />";
@@ -93,13 +93,13 @@
 				<label for="tot_mujeres_discapacidad_for">&iquest;Hubo participaci&oacute;n de Mujeres con Discapacidad&#63;</label><br>
 				<?php if($data[0]->tot_mujeres_discapacidad_for=="0")
 				{ echo "
-				<label>1.Si <input type='radio' value='' name='tot_mujeres_discapacidad_for' >&nbsp;
-				2.No <input type='radio' value='' name='tot_mujeres_discapacidad_for' checked='checked'>
+				<label>1.Si <input type='radio' value='' name='tot_mujeres_discapacidad_for' disabled>&nbsp;</label>
+				<label>2.No <input type='radio' value='' name='tot_mujeres_discapacidad_for' checked='checked' disabled>
 				</label>";}
 				else{
 				echo "
-				<label>1.Si <input type='radio' value='' name='tot_mujeres_discapacidad_for' checked='checked'>&nbsp;
-				2.No <input type='radio' value='' name='tot_mujeres_discapacidad_for'>
+				<label>1.Si <input type='radio' value='' name='tot_mujeres_discapacidad_for' checked='checked' disabled>&nbsp;</label>
+				<label>2.No <input type='radio' value='' name='tot_mujeres_discapacidad_for' disabled>
 				</label>";
 				echo "<br>";
 				echo "<label>Total de participantes:</lable><br><input type='text' class='auth-input dis' readonly placeholder='".$data[0]->tot_mujeres_discapacidad_for."' />";
@@ -109,13 +109,13 @@
 				<label for="tot_mujeres_afrodecendientes_for">&iquest;Hubo participaci&oacute;n de Mujeres Afrodecendientes&#63;</label><br>
 				<?php if($data[0]->tot_mujeres_afrodecendientes_for=="0")
 				{ echo "
-				<label>1.Si <input type='radio' value='' name='tot_mujeres_afrodecendientes_for' >&nbsp;
-				2.No <input type='radio' value='' name='tot_mujeres_afrodecendientes_for' checked='checked'>
+				<label>1.Si <input type='radio' value='' name='tot_mujeres_afrodecendientes_for' disabled>&nbsp;</label>
+				<label>2.No <input type='radio' value='' name='tot_mujeres_afrodecendientes_for' checked='checked' disabled>
 				</label>";}
 				else{
 				echo "
-				<label>1.Si <input type='radio' value='' name='tot_mujeres_afrodecendientes_for' checked='checked'>&nbsp;
-				2.No <input type='radio' value='' name='tot_mujeres_afrodecendientes_for'>
+				<label>1.Si <input type='radio' value='' name='tot_mujeres_afrodecendientes_for' checked='checked' disabled>&nbsp;</label>
+				<label>2.No <input type='radio' value='' name='tot_mujeres_afrodecendientes_for' disabled>
 				</label>";
 				echo "<br>";
 				echo "<label>Total de participantes:</lable><br><input type='text' class='auth-input dis' readonly placeholder='".$data[0]->tot_mujeres_afrodecendientes_for."' />";
@@ -125,13 +125,13 @@
 				<label for="tot_movimientos_mujeres_for">&iquest;Hubo participaci&oacute;n de Movimientos de Mujeres&#63;</label><br>
 				<?php if($data[0]->tot_movimientos_mujeres_for=="0")
 				{ echo "
-				<label>1.Si <input type='radio' value='' name='tot_movimientos_mujeres_for' >&nbsp;
-				2.No <input type='radio' value='' name='tot_movimientos_mujeres_for' checked='checked'>
+				<label>1.Si <input type='radio' value='' name='tot_movimientos_mujeres_for' disabled>&nbsp;</label>
+				<label>2.No <input type='radio' value='' name='tot_movimientos_mujeres_for' checked='checked' disabled>
 				</label>";}
 				else{
 				echo "
-				<label>1.Si <input type='radio' value='' name='tot_movimientos_mujeres_for' checked='checked'>&nbsp;
-				2.No <input type='radio' value='' name='tot_movimientos_mujeres_for'>
+				<label>1.Si <input type='radio' value='' name='tot_movimientos_mujeres_for' checked='checked' disabled>&nbsp;</label>
+				<label>2.No <input type='radio' value='' name='tot_movimientos_mujeres_for' disabled>
 				</label>";
 				echo "<br>";
 				echo "<label>Total de participantes:</lable><br><input type='text' class='auth-input dis' readonly placeholder='".$data[0]->tot_movimientos_mujeres_for."' />";
@@ -139,15 +139,17 @@
 				</p>
 				<p>
 				<label for="nombre_movimientos">Nombre de los movimientos participantes</label><br>
-				<input id="nombre_movimientos" class="auth-input dis" type="text" value="" name="nombre_movimientos" rows="2" readonly placeholder="<?php  echo $data[0]->nombre_movimiento_for;?>"></input>
+				<textarea id="nombre_movimientos" class="auth-input auth-textarea dis" type="text" value="" name="nombre_movimientos" rows="2" readonly placeholder="<?php echo $data[0]->nombre_movimiento_for; ?>"></textarea>
 				</p>
 				<p>
 				<label for="fec_ini">Fecha de Inicio</label><br>
-				<input id="fec_ini" class="auth-input dis" type="text" value="" name="fec_ini" rows="2" readonly placeholder="<?php  echo $data[0]->fec_inicio_for;?>"></input>
+				<input id="fec_ini" class="auth-input dis" type="text" value="" name="fec_ini" rows="2" readonly placeholder="<?php 
+				$fec_ini= explode("-",$data[0]->fec_inicio_for); 	echo $fec_ini[2]."-".$fec_ini[1]."-".$fec_ini[0];?>"></input>
 				</p>
 				<p>
 				<label for="fec_fin">Fecha de Culminaci&oacute;n:</label><br>
-				<input id="fec_fin" class="auth-input dis" type="text" value="" name="fec_fin" rows="2" readonly placeholder="<?php  echo $data[0]->fec_final_for;?>"></input>
+				<input id="fec_fin" class="auth-input dis" type="text" value="" name="fec_fin" rows="2" readonly placeholder="<?php  
+				$fec_fin= explode("-",$data[0]->fec_final_for); echo $fec_fin[2]."-".$fec_fin[1]."-".$fec_fin[0];?>"></input>
 				</p>
 				
 		</div>
@@ -157,29 +159,29 @@
 				<label for="tot_div_sexual_div">&iquest;Hubo participaci&oacute;n de la Diversidad Sexual&#63;</label><br>
 				<?php if($data[0]->tot_div_sexual_div=="0")
 				{ echo "
-				<label>1.Si <input type='radio' value='' name='tot_div_sexual_div' >&nbsp;
-				2.No <input type='radio' value='' name='tot_div_sexual_div' checked='checked'>
+				<label>1.Si <input type='radio' value=''  name='tot_div_sexual_div' disabled>&nbsp;</label>
+				<label>2.No <input type='radio' value='' name='tot_div_sexual_div'  checked='checked' disabled>
 				</label>";}
 				else{
 				echo "
-				<label>1.Si <input type='radio' value='' name='tot_div_sexual_div' checked='checked'>&nbsp;
-				2.No <input type='radio' value='' name='tot_div_sexual_div'>
+				<label>1.Si <input type='radio' value='' name='tot_div_sexual_div'  checked='checked' disabled>&nbsp;</label>
+				<label>2.No <input type='radio' value=''  name='tot_div_sexual_div' disabled>
 				</label>";
 				echo "<br>";
-				echo "<label>Total de participantes:</lable><br><input type='text' class='auth-input dis' readonly placeholder='".$data[0]->tot_div_sexual_div."' />";
+				echo "<label>Total de participantes:</lable><br><input type='text'  class='auth-input dis' readonly placeholder='".$data[0]->tot_div_sexual_div."' />";
 				}?>
 				</p>
 				<p>
 				<label for="tot_mujeres_indigenas_div">&iquest;Hubo participaci&oacute;n de Mujeres Indigenas&#63;</label><br>
 				<?php if($data[0]->tot_mujeres_indigenas_div=="0")
 				{ echo "
-				<label>1.Si <input type='radio' value='' name='tot_mujeres_indigenas_div' >&nbsp;
-				2.No <input type='radio' value='' name='tot_mujeres_indigenas_div' checked='checked'>
+				<label>1.Si <input type='radio' value='' name='tot_mujeres_indigenas_div' disabled >&nbsp;</label>
+				<label>2.No <input type='radio' value='' name='tot_mujeres_indigenas_div' checked='checked' disabled>
 				</label>";}
 				else{
 				echo "
-				<label>1.Si <input type='radio' value='' name='tot_mujeres_indigenas_div' checked='checked'>&nbsp;
-				2.No <input type='radio' value='' name='tot_mujeres_indigenas_div'>
+				<label>1.Si <input type='radio' value='' name='tot_mujeres_indigenas_div' checked='checked' disabled>&nbsp;</label>
+				<label>2.No <input type='radio' value='' name='tot_mujeres_indigenas_div' disabled>
 				</label>";
 				echo "<br>";
 				echo "<label>Total de participantes:</lable><br><input type='text' class='auth-input dis' readonly placeholder='".$data[0]->tot_mujeres_indigenas_div."' />";
@@ -189,13 +191,13 @@
 				<label for="tot_mujeres_discapacidad_div">&iquest;Hubo participaci&oacute;n de Mujeres con Discapacidad&#63;</label><br>
 				<?php if($data[0]->tot_mujeres_discapacidad_div=="0")
 				{ echo "
-				<label>1.Si <input type='radio' value='' name='tot_mujeres_discapacidad_div' >&nbsp;
-				2.No <input type='radio' value='' name='tot_mujeres_discapacidad_div' checked='checked'>
+				<label>1.Si <input type='radio' value='' name='tot_mujeres_discapacidad_div' disabled>&nbsp;</label>
+				<label>2.No <input type='radio' value='' name='tot_mujeres_discapacidad_div' disabled checked='checked'>
 				</label>";}
 				else{
 				echo "
-				<label>1.Si <input type='radio' value='' name='tot_mujeres_discapacidad_div' checked='checked'>&nbsp;
-				2.No <input type='radio' value='' name='tot_mujeres_discapacidad_div'>
+				<label>1.Si <input type='radio' value='' name='tot_mujeres_discapacidad_div' disabled checked='checked'>&nbsp;</label>
+				<label>2.No <input type='radio' value='' name='tot_mujeres_discapacidad_div' disabled>
 				</label>";
 				echo "<br>";
 				echo "<label>Total de participantes:</lable><br><input type='text' class='auth-input dis' readonly placeholder='".$data[0]->tot_mujeres_discapacidad_div."' />";
@@ -205,13 +207,13 @@
 				<label for="tot_mujeres_afrodecendientes_div">&iquest;Hubo participaci&oacute;n de Mujeres Afrodecendientes&#63;</label><br>
 				<?php if($data[0]->tot_mujeres_afrodecendientes_div=="0")
 				{ echo "
-				<label>1.Si <input type='radio' value='' name='tot_mujeres_afrodecendientes_div' >&nbsp;
-				2.No <input type='radio' value='' name='tot_mujeres_afrodecendientes_div' checked='checked'>
+				<label>1.Si <input type='radio' value='' name='tot_mujeres_afrodecendientes_div' disabled>&nbsp;</label>
+				<label>2.No <input type='radio' value='' name='tot_mujeres_afrodecendientes_div' disabled checked='checked'>
 				</label>";}
 				else{
 				echo "
-				<label>1.Si <input type='radio' value='' name='tot_mujeres_afrodecendientes_div' checked='checked'>&nbsp;
-				2.No <input type='radio' value='' name='tot_mujeres_afrodecendientes_div'>
+				<label>1.Si <input type='radio' value='' name='tot_mujeres_afrodecendientes_div' disabled checked='checked'>&nbsp;</label>
+				<label>2.No <input type='radio' value='' name='tot_mujeres_afrodecendientes_div' disabled>
 				</label>";
 				echo "<br>";
 				echo "<label>Total de participantes:</lable><br><input type='text' class='auth-input dis' readonly placeholder='".$data[0]->tot_mujeres_afrodecendientes_div."' />";
@@ -230,40 +232,40 @@
 				<label for="convocacion_medios_div">&iquest;Se realiz&oacute; convocatorias a los medios de comunicaci&oacute;n?:&#63;</label><br>
 				<?php if($data[0]->convocacion_medios_div=="No")
 				{ echo "
-				<label>1.Si <input type='radio' value='' name='convocacion_medios_div' >&nbsp;
-				2.No <input type='radio' value='' name='convocacion_medios_div' checked='checked'>
+				<label>1.Si <input type='radio' value='' disabled  name='convocacion_medios_div' >&nbsp;
+				2.No <input type='radio' value='' name='convocacion_medios_div' disabled checked='checked'>
 				</label>";}
 				else{
 				echo "
-				<label>1.Si <input type='radio' value='' name='convocacion_medios_div' checked='checked'>&nbsp;
-				2.No <input type='radio' value='' name='tconvocacion_medios_div'>
+				<label>1.Si <input type='radio' value='' name='convocacion_medios_div' disabled checked='checked'>&nbsp;
+				2.No <input type='radio' value='' name='tconvocacion_medios_div' disabled>
 				</label>";
 				echo "<br>";
 				//echo "<label>Total de participantes:</lable><br><input type='text' class='auth-input dis' readonly placeholder='".$data[0]->tot_mujeres_afrodecendientes_div."' />";
 					if($data[0]->medios_radio_div==" " || $data[0]->medios_radio_div=="false" || $data[0]->medios_radio_div==NULL){
-					echo "<input type='checkbox' name='radio' value='radio'> Radio<br>";
+					echo "<input type='checkbox' name='radio' value='radio' disabled> Radio<br>";
 					}else{
-					echo "<input type='checkbox' name='radio' value='radio' checked='checked'> Radio<br>";
+					echo "<input type='checkbox' name='radio' value='radio' disabled checked='checked'> Radio<br>";
 					}
 					if($data[0]->medios_prensa_div==" " || $data[0]->medios_prensa_div=="false" || $data[0]->medios_prensa_div==NULL){
-					echo "<input type='checkbox' name='prensa' value='prensa'>Prensa<br>";
+					echo "<input type='checkbox' name='prensa' value='prensa' disabled>Prensa<br>";
 					}else{
-					echo "<input type='checkbox' name='prensa' value='prensa' checked='checked'> Prensa<br>";
+					echo "<input type='checkbox' name='prensa' value='prensa' checked='checked' disabled> Prensa<br>";
 					}
 					if($data[0]->medios_tv_div==" " || $data[0]->medios_tv_div=="false" || $data[0]->medios_tv_div==NULL){
-					echo "<input type='checkbox' name='t_v' value='T.V.'>T.V.<br>";
+					echo "<input type='checkbox' name='t_v' value='T.V.' disabled>T.V.<br>";
 					}else{
-					echo "<input type='checkbox' name='t_v' value='T.V.' checked='checked'> T.V.<br>";
+					echo "<input type='checkbox' name='t_v' value='T.V.' checked='checked' disabled> T.V.<br>";
 					}
 					if($data[0]->medios_comunitarios_div==" " || $data[0]->medios_comunitarios_div=="false" || $data[0]->medios_comunitarios_div==NULL){
-					echo "<input type='checkbox' name='medios_comunitarios' value='medios_comunitarios'>Medios Comunitarios<br>";
+					echo "<input type='checkbox' name='medios_comunitarios' value='medios_comunitarios' disabled>Medios Comunitarios<br>";
 					}else{
-					echo "<input type='checkbox' name='medios_comunitarios' value='medios_comunitarios' checked='checked'> Medios Comunitarios<br>";
+					echo "<input type='checkbox' name='medios_comunitarios' value='medios_comunitarios' disabled checked='checked'> Medios Comunitarios<br>";
 					}
 					if($data[0]->medios_otros_div==" " || $data[0]->medios_otros_div=="false" || $data[0]->medios_otros_div==NULL){
-					echo "<input type='checkbox' name='otros' value='otros'>Medios Comunitarios<br>";
+					echo "<input type='checkbox' name='otros' value='otros' disabled>Medios Comunitarios<br>";
 					}else{
-					echo "<input type='checkbox' name='otros' value='otros' checked='checked'> Otros<br>";
+					echo "<input type='checkbox' name='otros' value='otros' disabled checked='checked'> Otros<br>";
 					}
 				
 				}?>

@@ -1,9 +1,32 @@
 <script>
 $(document).ready(function(e){
 
-		$("#fecha").datepicker();
+		$("#fecha").datepicker(
+		{
+			minDate: 'today',
+		});
 
 });
+
+
+ function soloLetrasYNumeros(e){
+       key = e.keyCode || e.which;
+       tecla = String.fromCharCode(key).toLowerCase();
+       letras = " áéíóúabcdefghijklmnñopqrstuvwxyz1234567890";
+       especiales = "8-37-39-46";
+
+       tecla_especial = false
+       for(var i in especiales){
+            if(key == especiales[i]){
+                tecla_especial = true;
+                break;
+            }
+        }
+
+        if(letras.indexOf(tecla)==-1 && !tecla_especial){
+            return false;
+        }
+    }
 </script>
 <h1>Editar Actividad</h1>
 <hr>
@@ -18,28 +41,24 @@ $(document).ready(function(e){
 	<div class="col-lg-6">
 	   <p>
 			<label for="titulo">Titulo:</label><br>
-			<input id="titulo" required class="auth-input " type="text" value="<?php echo $data[0]->titulo; ?>" name="titulo" ></input>
+			<input id="titulo" required class="auth-input" onkeypress="return soloLetrasYNumeros(event)" maxlength="20" type="text" value="<?php echo $data[0]->titulo; ?>" name="titulo" ></input>
 
 	   </p>
 
 	   <p>
 			<label for="desc">Descripcion de Actividad:</label><br>
-			<textarea id="desc" class="auth-input auth-textarea" type="text" value="" name="desc"required><?php  echo $data[0]->descripcion; ?></textarea>
-	  
-	  </p>
-
-	   
+			<textarea id="desc" class="auth-input auth-textarea" maxlength="300"  type="text" value="" name="desc"required><?php  echo $data[0]->descripcion; ?></textarea>
+	  </p>	   
 	</div>
-	
 	<div class="col-lg-6">
 		<p>
 		   <label for="user">Creado por:</label><br>
-			<input id="user" class="auth-input dis" type="text" value="<?php  echo $data[0]->name; ?>" name="user"required></input>
+			<input id="user" class="auth-input dis" disabled type="text" value="<?php  echo $data[0]->name; ?>" name="user"required></input>
 
 	   </p>
 	   <p>
 			<label for="fecha">Fecha:</label><br>
-			<input id="fecha" required class="auth-input " type="text" value="<?php echo $data[0]->fecha; ?>" name="fecha" rows="2"></input>
+			<input id="fecha" required disabled class="auth-input dis" type="text" value="<?php echo $data[0]->fecha; ?>" name="fecha" rows="2"></input>
 		</p>
 		
 	</div>

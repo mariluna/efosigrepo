@@ -37,22 +37,23 @@ app.directive('integer', function() {
 						'<div id="radioOptions_'+ time +'">'+
 							'<p>'+
 								'<label style="font-size: 12px;" for="emisora">Emisora:</label><br>'+
-								'<input id="emisoras_'+ time +'" class="auth-input" type="text" value="" name="emisoras[]"></input>'+
+								'<input id="emisoras_'+ time +'" maxlength="20" class="auth-input" type="text" value="" name="emisoras[]"></input>'+
 							'</p>'+
 							'<p>'+
 								'<label style="font-size: 12px;" for="dial">Dial:</label><br>'+
-								'<input id="dial_'+ time +'" class="auth-input" type="text" value="" name="dial[]"></input>'+
+								'<input id="dial_'+ time +'" maxlength="6" class="auth-input" type="text" value="" name="dial[]"></input>'+
 							'</p>'+
 							'<p>'+
 								'<label style="font-size: 12px;" for="hora">Hora de emision:</label><br>'+
-								'<input id="horaR_'+ time +'" class="auth-input" type="text" value="" name="horaR[]"></input>'+
+								'<input id="horaR_'+ time +'" class="auth-input" readonly type="text" value="" name="horaR[]"></input>'+
 							'</p>'+
 							'<p>'+
 								'<label style="font-size: 12px;" for="tDiv">Tipo de Divulgacion:</label><br>'+
 								'<select id="tipDiv_'+ time +'" class="auth-input" name="tipDiv[]" style="max-width: 300px !important; text-align: center;">'+
 									'<option value="" selected>Seleccione..</option>'+
-									'<option value="0">Micro </option>'+
-									'<option value="1">Programa </option>'+
+									$.get("index.php/api/Divulgaciones_api/getRadiojs").done(function (data) {
+										$('#tipDiv_'+time).html(data);
+									}) +
 								'</select>'+
 							'</p>'+
 						'</div>'+
@@ -62,22 +63,23 @@ app.directive('integer', function() {
 						'<div id="tvOptions_'+ time +'">'+
 							'<p>'+
 								'<label style="font-size: 12px;" for="nomTv">Nombre del programa:</label><br>'+
-								'<input id="nombreTv_'+ time +'" class="auth-input" type="text" value="" name="nombreTv[]"></input>'+
+								'<input id="nombreTv_'+ time +'" maxlength="40" class="auth-input" type="text" value="" name="nombreTv[]"></input>'+
 								'</p>'+
 							'<p>'+
 								'<label style="font-size: 12px;" for="canal">Canal:</label><br>'+
-								'<input id="canal_'+ time +'" class="auth-input" type="text" value="" name="canal[]"></input>'+
+								'<input id="canal_'+ time +'" maxlength="20" class="auth-input" type="text" value="" name="canal[]"></input>'+
 							'</p>'+
 							'<p>'+
 								'<label style="font-size: 12px;" for="horaTv">Hora del Programa:</label><br>'+
-								'<input id="horatv_'+ time +'" class="auth-input" type="text" value="" name="horatv[]"></input>'+
+								'<input id="horatv_'+ time +'" class="auth-input" readonly type="text" value="" name="horatv[]"></input>'+
 							'</p>'+
 							'<p>'+
 								'<label style="font-size: 12px;" for="divT">Tipo de Divulgacion:</label><br>'+
 								'<select id="tipDivTv_'+ time +'" class="auth-input" name="tipDivTv[]" style="max-width: 300px !important; text-align: center;">'+
 									'<option value="" selected>Seleccione..</option>'+
-									'<option value="0">Propaganda Televisada </option>'+
-									'<option value="1">Programa </option>'+
+									$.get("index.php/api/Divulgaciones_api/getTvjs").done(function (data) {
+										$('#tipDivTv_'+time).html(data);
+									}) +
 								'</select>'+
 							'</p>'+
 						'</div>'+
@@ -87,7 +89,7 @@ app.directive('integer', function() {
 						'<div id="prensaOptions_'+ time +'">'+
 							'<p>'+
 								'<label style="font-size: 12px;" for="nombre">Nombre del Medio:</label><br>'+
-								'<input id="nombrePrensa_'+ time +'" class="auth-input" type="text" value="" name="nombrePrensa[]"></input>'+
+								'<input id="nombrePrensa_'+ time +'" maxlength="40" class="auth-input" type="text" value="" name="nombrePrensa[]"></input>'+
 							'</p>'+
 							'<p>'+
 								'<label style="font-size: 12px;" for="nombre">Fecha de la Noticia:</label><br>'+
@@ -95,10 +97,10 @@ app.directive('integer', function() {
 							'</p>'+
 							'<p>'+
 								'<label style="font-size: 12px;">Tipo de Divulgacion:</label><br>'+
-								'<select id="tipDivPrensa_'+ time +'" class="auth-input" name="tipDivPrensa[]" style="max-width: 300px !important; text-align: center;">'+
+								'<select onChange="getPrensa(this)" id="tipDivPrensa_'+ time +'" class="auth-input" name="tipDivPrensa[]" style="max-width: 300px !important; text-align: center;">'+
 									'<option value="" selected>Seleccione..</option>'+
-									'<option value="0">Fisica </option>'+
-									'<option value="1">Digital </option>'+
+									'<option value="fisica">Fisica </option>'+
+									'<option value="digital">Digital </option>'+
 								'</select>'+
 							'</p>'+
 							'<p>'+
@@ -118,6 +120,8 @@ app.directive('integer', function() {
 					$('#tvOptions_'+ time).hide();
 					$('#prensaOptions_'+ time).hide();
 					$("#fecha"+ time).datepicker();
+					$("#horaR_"+ time).timepicker();
+					$("#horatv_"+ time).timepicker();
                 };
 
             $('form').submit(function (e) {
@@ -236,6 +240,12 @@ app.controller("divulgacionesController", [ '$scope', '$http', '$location',
 		window.location= 'Divulgaciones/ver/'+id;
 
 	};
+	
+	$scope.viewInforme = function(id){
+
+		window.open('Divulgaciones/show_informe/'+id,'_blank');
+
+	};
 
 	$scope.edit = function(id){
 
@@ -244,19 +254,15 @@ app.controller("divulgacionesController", [ '$scope', '$http', '$location',
 	};
 
 	$scope.delete = function(id){
-
 	     var r = confirm("¿Estas seguro que deseas eliminar este elemento?");
 
 	     if (r == true) {
-		 alert(id)
 	    	$http({
 				method : 'DELETE',
 				url : 'index.php/api/Divulgaciones_api/remove/' + id
-			});
+			})
 			location.reload();
-	     }else{
-		 alert()
-		 }
+	     }
 	};
 
 

@@ -1152,13 +1152,13 @@ body:not(.sidebar-left-mini) #menu .nav-header{
 
 .btn-metis-4{
 	color:#fff;
-	background-color:#a264e7;
+	background-color:#650065;
 	border-color:#62309a
 }
 
 .btn-metis-4:hover,.btn-metis-4:focus,.btn-metis-4:active,.btn-metis-4.active,.open>.dropdown-toggle.btn-metis-4{
 	color:#fff;
-	background-color:#8838e0;
+	background-color:rgba(101, 0, 101, 0.74);
 	border-color:#44216b
 }
 
@@ -2442,8 +2442,10 @@ body:not(.sidebar-left-mini) #menu .nav-header{
 }
 
 .auth-textarea {
-    min-width: 197px;
+    min-width: 200px;
     min-height: 100px;
+    max-width: 500px;
+    max-height: 250px;
 }
 
 .bg-blue.dker,.bg-blue>.dker{

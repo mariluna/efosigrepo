@@ -20,11 +20,12 @@ class Actividades_api extends REST_Controller{
 
     public function index_get(){
 		$r=$this->ion_auth->user()->row();
+		$get = 
         $this->response($this->db->query("SELECT t1.id_actividad,
 							   t1.id_usuario,
 							   t2.first_name || ' ' || t2.last_name as name,
 							   t1.titulo, 
-							   t1.fecha
+							   to_char(t1.fecha, 'DD-MM-YYYY') AS fecha
 							   FROM tb_actividad t1
 							   INNER JOIN users t2 ON t1.id_usuario = t2.id WHERE  t1.id_usuario IN (1, $r->id) ")->result());
 

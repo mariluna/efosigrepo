@@ -9,7 +9,8 @@ class Cursos extends CI_Controller {
 	}
 	function view($name_view,$data)
 	{
-
+		$this->load->model('cursos_model');
+		$this->cursos_model->checkCursoDate();
 		$this->load->view('header');
 		$this->load->view('cursos/'.$name_view.'', $data);
 		$this->load->view('footer');
@@ -26,7 +27,7 @@ class Cursos extends CI_Controller {
 
 	public function ver($id,$est)
 	{
-		if (!$this->ion_auth->logged_in()){redirect('auth/login', 'refresh');}
+		//if (!$this->ion_auth->logged_in()){redirect('auth/login', 'refresh');}
 		$this->load->model('cursos_model');
 		$name="ver";
 		$get['data']=$this->cursos_model->get($id,$est);
@@ -44,6 +45,7 @@ class Cursos extends CI_Controller {
 		$name="agregar";
 		$this->load->model('cursos_model');
 		$data['estado']=$this->cursos_model->getEstado();
+		$data['facilitadores']=$this->cursos_model->getFacilitadores();
 		$this->view($name,$data);
 	}
 	
@@ -52,7 +54,8 @@ class Cursos extends CI_Controller {
 		if (!$this->ion_auth->logged_in()){redirect('auth/login', 'refresh');}
 		$name="asistencia";
 		$this->load->model('cursos_model');
-		$data['cursos']=$this->cursos_model->get_all();
+		$user = $this->ion_auth->user()->row();
+		$data['cursos']=$this->cursos_model->getCursoFac($user->persona_id);
 		$this->view($name,$data);
 	}
 	
@@ -74,10 +77,16 @@ class Cursos extends CI_Controller {
 		$name="editar";
 		$get['data']=$this->cursos_model->get($id,$est);
 		if($get['data'] == "Error"){
+			$this->session->set_flashdata('message', '<br><br><div class="alert alert-danger info" role="alert">
+						<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+						<span class="sr-only">Error:</span> El curso Indicado no existe.
+						<span class="glyphicon glyphicon-remove close" aria-hidden="true"></span></div>');
 			redirect('Cursos');
 		} else {
 			$get['list']=$this->cursos_model->getEstadoEdit($get['data']->id_curso);
 			$get['estado']=$this->cursos_model->getEstadoForEdit($get['data']->id_curso);
+			$get['facilitadores']=$this->cursos_model->getFacEdit($get['data']->id_facilitador);
+			$get['facilitador']=$this->cursos_model->getFacForEdit($get['data']->id_facilitador);
 			$this->view($name,$get);
 		}
 	}
@@ -104,7 +113,10 @@ class Cursos extends CI_Controller {
 		$this->load->model('cursos_model');
 
 		if ((is_numeric($part) == false) OR (is_numeric($ins)== false) OR (is_numeric($cursoid)== false) OR (is_numeric($userid)== false) OR (is_numeric($estid)== false)){
-			echo 'mori vaidando';die();
+			$this->session->set_flashdata('message', '<br><br><div class="alert alert-danger info" role="alert">
+						<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+						<span class="sr-only">Error:</span> El curso no existe.
+						<span class="glyphicon glyphicon-remove close" aria-hidden="true"></span></div>');
 			redirect(base_url().'Cursos');
 		}else{
 		
@@ -116,16 +128,33 @@ class Cursos extends CI_Controller {
 			
 				if ($cupo > 0){		
 					$inscribirCurso = $this->cursos_model->registrarPersonaCurso($cursoid, $userid, $estid);
-					echo 'inscribi en curso'.$inscribirCurso;die();
-					redirect(base_url().'Cursos');
+					if($inscribirCurso == "true"){
+						$this->session->set_flashdata('message', '<br><br><div class="alert alert-success info" role="alert">
+							<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+							<span class="sr-only">Error:</span> Usted fue inscrito con exito.
+							<span class="glyphicon glyphicon-remove close" aria-hidden="true"></span></div>');
+						redirect(base_url().'Cursos');
+					}else{
+							$this->session->set_flashdata('message', '<br><br><div class="alert alert-danger info" role="alert">
+							<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+							<span class="sr-only">Error:</span> Usted ya esta inscrito en ese curso.
+							<span class="glyphicon glyphicon-remove close" aria-hidden="true"></span></div>');
+						redirect(base_url().'Cursos');
+					}
 					
 				}else{
-					echo 'no inscribi en curso'.$inscribirCurso;die();
+					$this->session->set_flashdata('message', '<br><br><div class="alert alert-danger info" role="alert">
+						<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+						<span class="sr-only">Error:</span> El cupo de participantes esta completo.
+						<span class="glyphicon glyphicon-remove close" aria-hidden="true"></span></div>');
 					redirect(base_url().'Cursos');
 				}
 					
 			} else {	
-				echo 'curso data es '.$checkCursoData;die();
+				$this->session->set_flashdata('message', '<br><br><div class="alert alert-danger info" role="alert">
+						<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+						<span class="sr-only">Error:</span> El curso no existe.
+						<span class="glyphicon glyphicon-remove close" aria-hidden="true"></span></div>');
 				redirect(base_url().'Cursos');
 			
 			}	
