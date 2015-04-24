@@ -24,7 +24,7 @@
     <script src="<?php echo base_url(); ?>js/persona.js"></script>
 	<script src="<?php echo base_url(); ?>js/divulgaciones.js"></script>
 	<script src="<?php echo base_url(); ?>js/informe.js"></script>
-	<script src="<?php echo base_url(); ?>js/actividades.js"></script>	
+	<script src="<?php echo base_url(); ?>js/agendas.js"></script>	
 	<script src="<?php echo base_url(); ?>js/biblioteca.js"></script>
 	<script src="<?php echo base_url(); ?>js/evaluacion.js"></script>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -50,6 +50,7 @@
 	
   </head>
     <body class="  " id="mybody">
+
     <div class="bg-dark dk" id="wrap">
       <div id="top">
         <!-- .navbar -->
@@ -57,17 +58,21 @@
           <div class="container-fluid">
 
             <!-- Brand and toggle get grouped for better mobile display -->
+			
             <header class="navbar-header">
+			<?php if ($this->ion_auth->logged_in()){ ?>
               <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse" onclick="menuopen()">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
+			  <?php } ?>
               <a href="<?php echo base_url(); ?>" class="navbar-brand">
                 <img style ="width: 275px; position: absolute;" src="<?php echo base_url(); ?>assets/img/logo_efosig.jpg" alt="">
               </a>
             </header>
+			
                <div class="topnav">
                <?php if (!$this->ion_auth->logged_in()){
                   echo '<span class="user">Iniciar Sesi&oacute;n</span>';
@@ -89,7 +94,7 @@
                  </div>
                  <?php  } ?>
                </div>
-
+		
         <div class="collapse navbar-collapse navbar-ex1-collapse">
 
        <!-- .nav -->
@@ -143,21 +148,27 @@
           </li>
 		  
 		  <li class="">
-            <a href="<?php echo base_url(); ?>Actividades">
-              <i class="fa fa-tags"></i><span class="link-title">&nbsp;Actividades</span>
+            <a href="<?php echo base_url(); ?>Agenda">
+              <i class="fa fa-tags"></i><span class="link-title">&nbsp;Agenda</span>
             </a>
           </li>
+		  
+		  <li class="">
+            <a href="<?php echo base_url(); ?>Auditoria">
+              <i class="fa fa-lock"></i><span class="link-title">&nbsp;Auditoria</span>
+            </a>
+          </li> 
 		  
 		  <?php } ?>
              <li class="nav-divider"></li>
            <li class="">
             <a  data-toggle="tooltip" onClick="document.getElementById('mybody').className += ' sidebar-right-opened'; $('#footer').hide()">
-              <i class="fa fa-folder-open"></i><span class="link-title">&nbsp;Ver Actividades</span>
+              <i class="fa fa-folder-open"></i><span class="link-title">&nbsp;Ver Agenda</span>
             </a>
           </li>
           <li class="">
             <a data-toggle="tooltip"  onClick="document.getElementById('mybody').className =' '; $('#footer').show()">
-              <i class="fa fa-folder"></i><span class="link-title">&nbsp;Ocultar Actividades</span>
+              <i class="fa fa-folder"></i><span class="link-title">&nbsp;Ocultar Agenda</span>
             </a>
           </li>
 				<li class="nav-divider"></li>
@@ -190,12 +201,6 @@
             </div>
 
             <div class="user-wrapper bg-dark">
-
-              <a class="user-link" href="">
-
-                <span class="user-img fa fa-user fa-5x"></span>
-
-              </a>
               <div class="media-body" >
                 <h5 class="media-heading fa fa-user">&nbsp;<?php echo $user->username; ?></h5>
                 <ul class="list-unstyled user-info">
@@ -231,7 +236,7 @@
               <i class="fa fa-check-square-o"></i><span class="link-title">&nbsp;Evaluaci&oacute;n</span>
             </a>
         </li>
-		
+
 		<?php if($rol->id == 1 || $rol->id == 3){ ?>
           <li class="">
             <a href="<?php echo base_url(); ?>Auth">
@@ -258,21 +263,26 @@
           </li>
 		  
 		  <li class="">
-            <a href="<?php echo base_url(); ?>Actividades">
-              <i class="fa fa-tags"></i><span class="link-title">&nbsp;Actividades</span>
+            <a href="<?php echo base_url(); ?>Agenda">
+              <i class="fa fa-tags"></i><span class="link-title">&nbsp;Agenda</span>
             </a>
           </li>
-		  
+
+          <li class="">
+            <a href="<?php echo base_url(); ?>Auditoria">
+              <i class="fa fa-lock"></i><span class="link-title">&nbsp;Auditoria</span>
+            </a>
+          </li> 
 		  <?php } ?>
              <li class="nav-divider"></li>
            <li class="">
             <a onClick="document.getElementById('mybody').className += ' sidebar-right-opened'; $('#footer').hide()">
-              <i class="fa fa-folder-open"></i><span class="link-title">&nbsp;Ver Actividades</span>
+              <i class="fa fa-folder-open"></i><span class="link-title">&nbsp;Ver Agenda</span>
             </a>
           </li>
           <li class="">
             <a data-toggle="tooltip"  onClick="document.getElementById('mybody').className =' '; $('#footer').show()">
-              <i class="fa fa-folder"></i><span class="link-title">&nbsp;Ocultar Actividades</span>
+              <i class="fa fa-folder"></i><span class="link-title">&nbsp;Ocultar Agenda</span>
             </a>
           </li>
            <li class="nav-divider"></li>
@@ -281,8 +291,9 @@
       </div><!-- /#left -->
 
        <div id="right"style="width:250px;">
+               <?php //echo"hola"; print_r($rol); ?>
 		   <ul id="menu" class="bg-blue dker">
-			  <li class="nav-header">Actividades</li>
+			  <li class="nav-header">Agenda</li>
 			  <li class="nav-divider"></li>
 				<?php 
 					$today = date("Y-m-d");
@@ -300,7 +311,7 @@
 						$newFecha = explode("-",$fecha);
 						$fechaFormat = $newFecha[2]."-".$newFecha[1]."-".$newFecha[0];
 						echo "<li class=''>";					
-						echo "<a  href = '".base_url()."/Actividades/ver/".$row[0]."'>".$fechaFormat." - ".$row[1]."</a>";
+						echo "<a  href = '".base_url()."/Agenda/ver/".$row[0]."'>".$fechaFormat." - ".$row[1]."</a>";
 						echo "</li>";
 					}
 						
@@ -313,3 +324,4 @@
         <div class="outer">
           <div class="inner bg-light lter">
                  <div class="col-lg-12">
+

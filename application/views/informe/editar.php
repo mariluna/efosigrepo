@@ -729,7 +729,7 @@ $("#redi").change(function () {
 							});
 					  </script>
 					<label>1.Si <input type='radio' value='Si' name='convocacion_medios_div' checked='checked' onclick='mostrar_convocacion_medios()'>&nbsp;</label>
-					<label>2.No <input type='radio' value='No' name='tconvocacion_medios_div' onclick='ocultar_convocacion_medios()'></label>";
+					<label>2.No <input type='radio' value='No' name='convocacion_medios_div' onclick='ocultar_convocacion_medios()'></label>";
 					echo "<br>
 					<div id='convocacion_medios2'>";
 					//echo "<label>Total de participantes:</label><br><input type='text' class='auth-input dis' readonly placeholder='".$data[0]->tot_mujeres_afrodecendientes_div."' />";

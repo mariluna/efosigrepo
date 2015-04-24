@@ -19,6 +19,11 @@ $(document).ready(function() {
 <div>
     <!-- Div que contiene la aplicacion ng-app="project" y el controlador de angular ng-controller="ApiController" -->
     <div class="span6" ng-controller="cursosController as uni" ng-app="cursos">
+		<?php if ($rol==null){ ?>
+		<div class="add-menu">
+            <td><a href="<?php echo base_url(); ?>" class="fa fa-arrow-left  btn btn-success"> Volver </a></td>
+        </div>
+		<?php } ?>
         <!--aqui el f=if para ocultar el boton de agregar -->
 		<?php if(($rol != null) && ($rol->id == 1)){ ?>
 		<div class="add-menu">
@@ -68,7 +73,7 @@ $(document).ready(function() {
                     </td>
 					<?php }elseif($rol != null){ ?>
 					<td>
-                        <a ng-click="view(curso.id_curso)" class="fa fa-search btn btn-small btn-info"></a>
+                        <a ng-click="view(curso.id_curso, curso.estado)" class="fa fa-search btn btn-small btn-info"></a>
                         <a ng-click="register(curso.nro_participantes, curso.inscritos, curso.id_curso,<?php echo $r->persona_id; ?>,curso.id_estado)" class="fa fa-list-alt btn btn-small btn-success"></a>
                     </td>
 					<?php } elseif($rol == null){?>

@@ -6,9 +6,11 @@ class Persona_model extends CI_Model
 
     public function get_all()
     {
-		$r=$this->ion_auth->user()->row();		
+		$r=$this->ion_auth->user()->row();
+        $rol = $this->ion_auth->get_users_groups()->row();
+
 		$query=$this->db->query("SELECT id_estado FROM tb_persona WHERE id_persona = $r->persona_id")->row();  
-		if($query->id_estado == 24){
+		if(($query->id_estado == 24) AND ($rol->id == 1)){
 		
 			$getpersona = $this->db->query("select * from tb_persona")->result();
 		
@@ -110,7 +112,20 @@ class Persona_model extends CI_Model
         $this->db->insert($this->table, $data);
         return $this->db->insert_id();
     }
-	
+
+    public function AsignarRol($email,$username)
+    {
+        $userdata = $this->db->query("SELECT id FROM users WHERE email = '$email' AND username = '$username'")->row();
+        $data = array(
+
+            'user_id'  => $userdata->id,
+            'group_id' => 2
+
+        );
+        $this->db->insert("users_groups", $data);
+        return $this->db->insert_id();
+    }
+
 	public function add_MMDB($data)
 	{
 		$this->db->insert("tb_mmdb", $data);
@@ -295,4 +310,11 @@ class Persona_model extends CI_Model
 		
 		return $body;
     }
+	
+    public function addAuditoria($data)
+    {
+        $this->db->insert('tb_auditoria', $data);
+        return $this->db->insert_id();
+    }
+	
 }

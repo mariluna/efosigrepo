@@ -114,6 +114,12 @@ app.controller("personaController", [ '$scope', '$http', '$location',
 		window.location= 'Persona/generarExcel';
 
 	};
+	
+	$scope.respaldo = function(){
+
+		window.location= 'Persona/respaldo';
+
+	};
 
 	$scope.edit = function(id){
 

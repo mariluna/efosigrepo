@@ -34,4 +34,10 @@ class Biblioteca_model extends CI_Model
         return $this->db->where('id_biblioteca', $id)->update($this->table, $data);
     }
 	
+    public function addAuditoria($data)
+    {
+        $this->db->insert('tb_auditoria', $data);
+        return $this->db->insert_id();
+    }
+	
 }

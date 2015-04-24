@@ -1,8 +1,8 @@
 (function(){
 
-var app= angular.module('cursos',[]);
+var app= angular.module('auditoria',[]);
 
-var INTEGER_REGEXP = /^\d+$/;
+var INTEGER_REGEXP = /^\-?\d+$/;
 app.directive('integer', function() {
   return {
     require: 'ngModel',
@@ -22,15 +22,15 @@ app.directive('integer', function() {
   };
 });
 
-app.controller("cursosController", [ '$scope', '$http', '$location',
+app.controller("auditoriaController", [ '$scope', '$http', '$location',
 	function($scope, $http, $location) {
-	
-		$scope.cursos = {};
+		$scope.auditorias='';
 		$http({
 			method : 'GET',
-			url : 'index.php/api/Cursos_api/'
+			url : 'index.php/api/Auditoria_api/'
 		}).success(function(data, status, headers, config) {
-			$scope.cursos = data;
+			$scope.auditorias = data;
+			//console.log(data);
 			$scope.itemsPerPage = 10;
 			$scope.currentPage = 0;
 		}).error(function(data, status, headers, config) {
@@ -68,7 +68,7 @@ app.controller("cursosController", [ '$scope', '$http', '$location',
   };
 
   $scope.pageCount = function() {
-    return Math.ceil($scope.cursos.length/$scope.itemsPerPage)-1;
+    return Math.ceil($scope.auditorias.length/$scope.itemsPerPage)-1;
   };
 
   $scope.nextPage = function() {
@@ -95,55 +95,39 @@ app.controller("cursosController", [ '$scope', '$http', '$location',
 
 	$scope.addEntity = function(){
 
-		 window.location= 'Cursos/agregar';
+		 window.location= 'auditoria/agregar';
+
+	};
+
+	
+	$scope.view = function(id){
+
+		window.location= 'auditoria/ver/'+id;
+		//alert('mi id persona es ' + id);*/
 
 	};
 	
-	$scope.addAsiss = function(){
+	/* $scope.addMMDB = function(){
 
-		 window.location= 'Cursos/agregarAsistencia';
+		 window.location= 'persona/agregarMMDB';
 
-	};
-	
-	$scope.descAsis = function(){
+	}; 
 
-		 window.location= 'Cursos/descargarAsistencia';
+	$scope.edit = function(id){
 
-	};
+		window.location= 'auditoria/editar/'+id;
 
-	$scope.view = function(id,est){
+	};*/
 
-		window.location= 'Cursos/ver/'+id+'/'+est;
+	$scope.delete = function(id){
 
-	};
-
-	$scope.edit = function(id,est){
-
-		window.location= 'Cursos/editar/'+id+'/'+est;
-		
-	};
-	
-	$scope.register = function(part, ins, cursoid, userid, estid){
-
-		window.location= 'Cursos/registrar_curso/'+ part + '/' + ins + '/' + cursoid + '/' + userid + '/' + estid;
-
-	};
-	
-	$scope.regLogin = function(){
-
-		window.location= 'Auth/login';
-
-	};
-
-	$scope.delete = function(id, est){
-
-	     var r = confirm("Â¿Estas seguro que deseas eliminar este elemento?");
+	     var r = confirm("¿Estas seguro que deseas eliminar este elemento?");
 
 	     if (r == true) {
 	    	$http({
 				method : 'DELETE',
-				url : 'index.php/api/Cursos_api/remove/' + id + '/' + est
-			})
+				url : 'index.php/api/auditoria_api/remove/' + id
+			});
 			location.reload();
 	     }
 	};
@@ -151,22 +135,11 @@ app.controller("cursosController", [ '$scope', '$http', '$location',
 
 }]);
 
-angular.module('cursos').filter('pagination', function()
+angular.module('auditoria').filter('pagination', function()
 {
   return function(input, start) {
     start = parseInt(start, 10);
     return input.slice(start);
-  };
-});
-
-app.filter('estatusDir', function () {
-  return function (item) {
-      if (item ==1){
-          item= 'Activo';
-      }else if(item == 0){
-        item='Inactivo';
-      }
-      return item;
   };
 });
 

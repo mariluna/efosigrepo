@@ -503,10 +503,11 @@ class Auth extends CI_Controller {
 
 		if (!$this->ion_auth->logged_in() || (!$this->ion_auth->is_admin() && !($this->ion_auth->user()->row()->id == $id)))
 		{
-			redirect('auth', 'refresh');
+			redirect(base_url());
 		}
 
-		$user = $this->ion_auth->user($id)->row();
+		$user = $this->ion_auth->user()->row();
+       // print_r($user);die();
 		$groups=$this->ion_auth->groups()->result_array();
 		$currentGroups = $this->ion_auth->get_users_groups($id)->result();
 		$tables = $this->config->item('tables','ion_auth');
@@ -524,10 +525,12 @@ class Auth extends CI_Controller {
 			}
 
 			$data = array(
+                'username'    => $this->input->post('user'),
 				'cargo'    => $this->input->post('cargo'),
 				'persona_id'      => $this->input->post('persona'),
 				'pregunta'    => $this->input->post('pregunta'),
 				'respuesta'      => $this->input->post('respuesta'),
+                'persona_id' => $user->persona_id
 			);
 
 			// Only allow updating groups if user is admin

@@ -280,6 +280,9 @@ function calcularEdad()
 <hr>
 <div id="message"> </div>
 <div class="col-lg-12" ng-app="persona">
+	<div class="add-menu">
+            <td><a href="<?php echo base_url(); ?>" class="fa fa-arrow-left  btn btn-success"> Volver </a></td>
+    </div>
 	<?php
 		$d=array('name' => 'form', 'id' => 'myWizard');
 		echo form_open(base_url().'api/personas_api/save',$d);
@@ -327,7 +330,7 @@ function calcularEdad()
 			
 				<p>
 					<label for="nombreApellido">1.Nombres y Apellidos:</label><br>
-					<input id="nombreApellido" ng-model="nombreApellido" onkeypress="return soloLetras(event)" class="auth-input" type="text" value="" name="nombreApellido" maxLegth="50" ng-pattern="/[a-zA-Z]/" required></input>
+					<input id="nombreApellido" ng-model="nombreApellido" onkeypress="return soloLetras(event)" class="auth-input" type="text" value="" name="nombreApellido" maxlength="50" ng-pattern="/[a-zA-Z]/" required></input>
 					<span style="color:red; font-size:12px" ng-show="form.nombreApellido.$error.required"><br>* Este campo es obligatorio</span>
 					<span style="color:red; font-size:12px" ng-show="form.nombreApellido.$error.pattern"><br>* Este campo debe ser solo letras</span>
 				</p>
@@ -361,21 +364,21 @@ function calcularEdad()
 				</p>
 				<p>
 					<label for="nroHijos">7.N&uacute;mero de hijas(os):</label><br>
-					<input id="nroHijos" ng-model="nroHijos" onkeypress="return soloNumeros(event)" class="auth-input" type="text" value="" name="nroHijos" maxlength="2" required integer></input>
+					<input id="nroHijos" ng-model="nroHijos" onkeypress="return soloNumeros(event)" class="auth-input" type="text" name="nroHijos" maxlength="2" required integer></input>
 					<span style="color:red; font-size:12px" ng-show="form.nroHijos.$error.required"><br>* Este campo es obligatorio</span>
 					<span style="color:red; font-size:12px" ng-show="form.nroHijos.$error.integer"><br>* Este campo debe ser un numero entero</span>
 				</p>
 			</div>
 			<div class="col-lg-6">
 				<p>
-					<label for="etnia">8.¿Pertenece ud a una etnia?</label><br>
+					<label for="etnia">8.&iquest;Pertenece ud a una etnia?</label><br>
 					1.Si <input type="radio" value="Si" name="etnia" onclick="mostrar_etnia()">&nbsp;
 					2.No <input type="radio" value="No" name="etnia" checked="checked" onclick="ocultar_etnia()">
 					<div id="etnia2">
 						Nombre de Etnia:<br>
 						<input type="text" onkeypress="return soloLetras(event)" class="auth-input" name="cualEtnia" maxLength="25">
 						<br><br>
-						8.1. ¿Domina Idioma?
+						8.1. &iquest;Domina Idioma?
 						<br><br>
 						1.Si <input type="radio" value="Si" name="idioma" checked="checked"><br>
 						2.No <input type="radio" value="No" name="idioma"> 
@@ -491,7 +494,7 @@ function calcularEdad()
 							1.1.&iquest;Cu&aacute;l? <br>
 							<input id="cualMovimiento" class="auth-input" type="text" value="" onkeypress="return soloLetras(event)" name="cualMovimiento" maxlength="25"/><br><br> 
 							1.2.A&ntilde;os de Militancia: <br>
-							<input id="militanciaMov" ng-model="militanciaMov" class="auth-input" onkeypress="return soloNumeros(event)" type="text" value="" name="militanciaMov" maxLegth="2"/><br><br>
+							<input id="militanciaMov" ng-model="militanciaMov" class="auth-input" onkeypress="return soloNumeros(event)" type="text" value="" name="militanciaMov" maxlength="2"/><br><br>
 							<span style="color:red; font-size:12px" ng-show="form.militanciaMov.$error.integer"><br>* Este campo debe ser un numero entero</span>
 							1.3.Responsabilidad: <br>
 							<input class="auth-input" type="text" name="responsabilidadMov" onkeypress="return soloLetras(event)" maxLength="25" size="20"> <br>

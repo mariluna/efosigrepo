@@ -466,7 +466,9 @@ border-color: #D43F3A;
 	display:block;
 	margin-left:auto;
 	margin-right:auto;
-	position:relative
+	position:relative;
+    width: auto;
+    height: auto;
 }
 
 .user-media .user-link .user-img{
@@ -498,7 +500,7 @@ border-color: #D43F3A;
     display: block;
     float: left;
     margin: 10px;
-    text-align: center;
+    text-align: left;
 }
 
 .user-media .media-body h5.media-heading{
@@ -521,7 +523,8 @@ border-color: #D43F3A;
 	top:0;
 	left:-100%;
 	display:none;
-	min-width:250px
+    min-width: 160px;
+    width: 100%;
 }
 
 .user-media-toggleHover{
@@ -2655,12 +2658,30 @@ body.error .logo h1{
 	padding:3px; */
 }
 
+.banner-1{
+	width:100%;
+	height:auto;
+}
+
+.banner-2{
+	width:100%;
+	height:auto;
+}
+
 @media (max-width:767px){
 	body.error .logo h1{
 		font-size:60px
 	}
 
 }
+@media (max-width:767px){
+	.banner-1{
+		visibility:hidden;
+		width:100%;
+		height:auto;
+	}
+}
+
 
 .login{
 	padding-top:40px;
@@ -2721,15 +2742,3 @@ body.error .logo h1{
     border-top-right-radius: 110px;
     border-bottom-right-radius: 110px;
 }
-
-input.ng-invalid.ng-dirty {
-    border-color: #F00;
-    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset, 0px 0px 8px rgba(255, 0, 0, 0.4);
-    outline: 0px none;
-}
-
-input.ng-valid.ng-dirty {
-  /*  border-color: rgba(126, 239, 104, 0.8);
-	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(126, 239, 104, 0.6);
-	outline: 0 none;*/
-  }

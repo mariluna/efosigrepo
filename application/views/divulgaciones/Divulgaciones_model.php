@@ -6,17 +6,18 @@ class Divulgaciones_model extends CI_Model
 
     public function get_all()
     {
-        return $this->db->query("SELECT count(dr.id_divulgacion_radio) as rad,
-									count(dp.id_divulgacion_prensa) as pre,
-									count(dt.id_divulgacion_tv) as tv,
-									b.id_curso, 
-									b.nombre
-								FROM tb_divulgacion a 
-								INNER JOIN tb_curso b ON a.id_curso = b.id_curso 
-								LEFT JOIN tb_divulgacion_radio dr ON a.tipo_divulgacion_radio = dr.id_divulgacion_radio
-								LEFT JOIN tb_divulgacion_tv dt ON a.tipo_divulgacion_tv = dt.id_divulgacion_tv
-								LEFT JOIN tb_divulgacion_prensa dp ON a.tipo_divulgacion_prensa = dp.id_divulgacion_prensa
-								group by b.nombre, b.id_curso")->result();
+        return $this->db->query("SELECT a.id_divulgacion, 
+										count(dr.id_divulgacion_radio) as rad,
+										count(dp.id_divulgacion_prensa) as pre,
+										count(dt.id_divulgacion_tv) as tv,
+										b.id_curso, 
+										b.nombre
+									FROM tb_divulgacion a 
+									INNER JOIN tb_curso b ON a.id_curso = b.id_curso 
+									LEFT JOIN tb_divulgacion_radio dr ON a.tipo_divulgacion_radio = dr.id_divulgacion_radio
+									LEFT JOIN tb_divulgacion_tv dt ON a.tipo_divulgacion_tv = dt.id_divulgacion_tv
+									LEFT JOIN tb_divulgacion_prensa dp ON a.tipo_divulgacion_prensa = dp.id_divulgacion_prensa
+									group by b.nombre, b.id_curso, a.id_divulgacion")->result();
     }
 
     public function get($id)
@@ -75,6 +76,7 @@ class Divulgaciones_model extends CI_Model
 	
 	public function getCurso()
 	{
+		//$get = $this->db->query("SELECT id_curso, nombre FROM tb_curso WHERE id_curso NOT IN (SELECT DISTINCT id_curso FROM tb_divulgacion)")->result();
 		$get = $this->db->query("SELECT id_curso, nombre FROM tb_curso")->result();
 		return $get;
 	}

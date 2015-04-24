@@ -123,12 +123,21 @@
 		<p align="center">
 			<label for="curso">Curso:</label><br>
 			<select id="curso" class="demo-default" required name="curso" required>
-				<option value="">Seleccione..</option>
-					<?php 
-						foreach($curso as $key){
-							 
-							echo "<option value='".$key->id_curso."'>".$key->nombre."</option>";
-				
+			<?php 
+						if(isset($_GET["Curso"])){
+								$id = $_GET["Curso"];
+								$X = pg_query("SELECT *
+								   FROM tb_curso
+								   WHERE  id_curso = $id"); 
+								
+								while($row = pg_fetch_row($X)){
+								echo "<option value='".$row[0]."' selected>".$row[1]."</option>";
+								}
+						}else{
+							echo "<option value=''>Seleccione..</option>";
+							foreach($curso as $key){
+								echo "<option value='".$key->id_curso."'>".$key->nombre."</option>";
+							}
 						}
 					?>	
 			</select>
@@ -165,13 +174,26 @@
 						<input id="radio_1" type="checkbox" onclick="radioOp(radioOptions_1)">&nbsp; Radio</input>
 						<div id="radioOptions_1">
 							<p>
-								<label style="font-size: 12px;" for="emisora">Emisora:</label><br>
-								<input id="emisoras_1" maxlength="20" class="auth-input" type="text" value="" name="emisoras[]" ></input>
+								<label style="font-size: 12px;" for="emisoras">Emisoras:</label><br>
+								<select id="emisoras_1" class="auth-input" name="emisoras[]" style="max-width: 300px !important; text-align: center;">
+									<option value="" selected>Seleccione.. </option>
+									<option value="La Mega">La Mega</option>
+									<option value="Hot">Hot</option>
+									<option value="Fiesta">Fiesta</option>
+									<option value="La X">La X</option>
+									<option value="RQ">RQ</option>
+								</select>
 							</p>
-
 							<p>
-								<label style="font-size: 12px;" for="dial">Dial:</label><br>
-								<input id="dial_1" maxlength="6" class="auth-input" type="text" value="" name="dial[]" ></input>
+								<label style="font-size: 12px;" for="dials">Dial:</label><br>
+								<select id="dial_1" class="auth-input" name="dial[]" style="max-width: 300px !important; text-align: center;">
+									<option value="" selected>Seleccione.. </option>
+									<option value="103.7 FM">103.7 FM</option>
+									<option value="94.1 FM">94.1 FM</option>
+									<option value="106.5 FM">106.5 FM</option>
+									<option value="89.7 FM">89.7 FM</option>
+									<option value="910 AM">910 AM</option>
+								</select>
 							</p>
 
 							<p>
@@ -198,14 +220,24 @@
 						<div id="tvOptions_1">
 							<p>
 								<label style="font-size: 12px;" for="nomTv">Nombre del programa:</label><br>
-								<input id="nombreTv_1" maxlength="40" class="auth-input" type="text" value="" name="nombreTv[]"></input>
+								<select id="nombreTv_1" class="auth-input" name="nombreTv[]" style="max-width: 300px !important; text-align: center;">
+									<option value="" selected>Seleccione.. </option>
+									<option value="A que te ríes">A que te ríes</option>
+									<option value="¡Qué Locura!">¡Qué Locura!</option>
+									<option value="Primer Contacto">Primer Contacto</option>
+									<option value="El Noticiero">El Noticiero</option>
+								</select>
 							</p>
-
 							<p>
 								<label style="font-size: 12px;" for="canal">Canal:</label><br>
-								<input id="canal_1" maxlength="20" class="auth-input" type="text" value="" name="canal[]"></input>
+								<select id="canal_1" class="auth-input" name="canal[]" style="max-width: 300px !important; text-align: center;">
+									<option value="" selected>Seleccione.. </option>
+									<option value="A que te ríes">Televen</option>
+									<option value="¡Qué Locura!">Venevision</option>
+									<option value="Primer Contacto">RCTV</option>
+									<option value="El Noticiero">VTV</option>
+								</select>
 							</p>
-
 							<p>
 								<label style="font-size: 12px;" for="horaTv">Hora del Programa:</label><br>
 								<input id="horatv_1" class="auth-input" readonly type="text" value="" name="horatv[]" ></input>
@@ -230,7 +262,14 @@
 						<div id="prensaOptions_1">
 							<p>
 								<label style="font-size: 12px;" for="nombre">Nombre del Medio:</label><br>
-								<input id="nombrePrensa_1" maxlength="40" class="auth-input" type="text" value="" name="nombrePrensa[]"></input>
+								<select id="nombrePrensa_1" class="auth-input" name="nombrePrensa[]" style="max-width: 300px !important; text-align: center;">
+									<option value="" selected>Seleccione.. </option>
+									<option value="El Universal">El Universal</option>
+									<option value="Ultimas Noticias">Ultimas Noticias</option>
+									<option value="El Nacional">El Nacional</option>
+									<option value="VEA">VEA</option>
+									<option value="Correo del Orinoco">Correo del Orinoco</option>
+								</select>
 							</p>
 
 							<p>

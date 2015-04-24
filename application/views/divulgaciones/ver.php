@@ -5,7 +5,13 @@
          <label for="nombre">Nombre del Curso:</label><br>
          <textarea id="nombre" class="auth-input auth-textarea dis" type="text" value="" name="nombre" rows="2" readonly placeholder="<?php echo $divulgaciones[0]->nombre; ?>"></textarea>
    </p>
+ <div class="col-lg-12">
+  <p>
+		<a class="auth-but-fix .btn-danger" href="<?php echo base_url()?>Divulgaciones/agregar?Curso=<?php echo $idCurso;?>">Agregar mas divulgaciones</a>	
+	</p>
+ </div>
 	<div class="col-lg-4">
+	 
 		<table class="table table-striped table-condensed cuotas" style="text-align: center; ">
 			<thead>
 				<tr>
@@ -193,7 +199,7 @@
 	</div>
 	<div class="col-lg-12">
 		<p>
-			<a class="auth-but-fix .btn-danger fix-back" href="<?php echo base_url()?>Divulgaciones">Volver</a>
+			<a class="auth-but-fix .btn-danger" href="<?php echo base_url()?>Divulgaciones">Volver</a>
 		</p>
 	</div>
 </div>

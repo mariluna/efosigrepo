@@ -96,7 +96,7 @@ class Informe extends CI_Controller {
 		$data['user'] = $r=$this->ion_auth->user()->row();
 		$data['content'] =$paraPdf;
 
-		$footer="DIRECCIÓN NACIONAL DE FORMACI&Oacute;N SOCIALISTA FEMINISTA";
+		$footer="DIRECCI&Oacute;N NACIONAL DE FORMACI&Oacute;N SOCIALISTA FEMINISTA";
        //print_r($data['content']);die();
 		$html=$this->load->view('pdf_informe_output', $data, true);
 		

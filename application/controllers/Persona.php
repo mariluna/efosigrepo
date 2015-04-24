@@ -148,4 +148,21 @@ class Persona extends CI_Controller {
 			
 			$this->reportes_excel->genera_excel_basico($tituloExcel,$header,$reporte_header,$reporte_data);
 	}
+	
+	public function respaldo()
+	{
+		// Load the DB utility class
+		$this->load->dbutil();
+
+		// Backup your entire database and assign it to a variable
+		$backup =& $this->dbutil->backup(); 
+
+		// Load the file helper and write the file to your server
+		$this->load->helper('file');
+		write_file('C://backupefosig.gz', $backup); 
+
+		// Load the download helper and send the file to your desktop
+		$this->load->helper('download');
+		force_download('backupefosig.gz', $backup);
+	}
 }

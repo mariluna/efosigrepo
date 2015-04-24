@@ -7,7 +7,9 @@ class Cursos_model extends CI_Model
     public function get_all()
     {
       
-		$r=$this->ion_auth->user()->row();	
+		$r=$this->ion_auth->user()->row();
+        $rol = $this->ion_auth->get_users_groups()->row();
+        //print_r($rol);
 
 			if($r == null){
 		
@@ -20,27 +22,27 @@ class Cursos_model extends CI_Model
 											ORDER BY a.status DESC")->result();
 			} else {
 		
-			$query = $this->db->query("SELECT id_estado FROM tb_persona WHERE id_persona = $r->persona_id")->row();  
-			
-			if($query->id_estado == 24){
-			
-				$getcursos = $this->db->query("SELECT DISTINCT a.*, b.nro_participantes AS inscritos, e.nombre as estado, e.id_estado
-												FROM tb_curso a
-												INNER JOIN tr_curso_participantes b 
-												ON a.id_curso = b.id_curso
-												INNER JOIN tb_estado e 
-												ON e.id_estado = b.id_estado
-												ORDER BY a.status DESC")->result();
-			} else {
-					
-				$getcursos = $this->db->query("SELECT DISTINCT a.*, b.nro_participantes AS inscritos, e.nombre as estado, e.id_estado
-												FROM tb_curso a
-												INNER JOIN tr_curso_participantes b 
-												ON a.id_curso = b.id_curso
-												INNER JOIN tb_estado e 
-												ON e.id_estado = b.id_estado
-												WHERE e.id_estado = $query->id_estado
-												ORDER BY a.status DESC")->result();
+                $query = $this->db->query("SELECT id_estado FROM tb_persona WHERE id_persona = $r->persona_id")->row();
+
+                if(($query->id_estado == 24) AND ($rol->id == 1)){
+
+                    $getcursos = $this->db->query("SELECT DISTINCT a.*, b.nro_participantes AS inscritos, e.nombre as estado, e.id_estado
+                                                    FROM tb_curso a
+                                                    INNER JOIN tr_curso_participantes b
+                                                    ON a.id_curso = b.id_curso
+                                                    INNER JOIN tb_estado e
+                                                    ON e.id_estado = b.id_estado
+                                                    ORDER BY a.status DESC")->result();
+                } else {
+
+                    $getcursos = $this->db->query("SELECT DISTINCT a.*, b.nro_participantes AS inscritos, e.nombre as estado, e.id_estado
+                                                    FROM tb_curso a
+                                                    INNER JOIN tr_curso_participantes b
+                                                    ON a.id_curso = b.id_curso
+                                                    INNER JOIN tb_estado e
+                                                    ON e.id_estado = b.id_estado
+                                                    WHERE e.id_estado = $query->id_estado
+                                                    ORDER BY a.status DESC")->result();
 											  
 			}
 		}
@@ -57,7 +59,9 @@ public function getCursoFac($facid)
 											ON a.id_curso = b.id_curso
 											INNER JOIN tb_estado e 
 											ON e.id_estado = b.id_estado
-											WHERE a.id_facilitador = $facid
+											INNER JOIN tr_curso_estado ce 
+											ON e.id_estado = ce.estado_id
+											WHERE ce.facilitador = $facid
 											ORDER BY a.status DESC")->result();
 	
 		return $getcursos;
@@ -105,11 +109,26 @@ public function getCursoFac($facid)
 
     }
 
-    public function delete($id)
+    public function delete($id,$est)
     {
-        print_r($id);
-        $this->db->where('id_curso', $id)->delete($this->table);
-        return $this->db->affected_rows();
+       // print_r($id);
+        $totalCursos = $this->db->query("select count(curso_id) as totalcursos from tr_curso_estado where curso_id = $id ")->row();
+        $idEstado = $this->db->query("select id_estado from tb_estado where nombre ='$est'")->row();
+		//print_r($totalCursos->totalcursos);die();
+        if($totalCursos->totalcursos >= 2){
+            
+            $this->db->where(array('id_curso' => $id, 'id_estado' => $idEstado->id_estado))->delete("tr_persona_curso");
+            $this->db->where(array('id_curso' => $id, 'id_estado' => $idEstado->id_estado))->delete("tr_curso_participantes");
+			$this->db->where(array('curso_id' => $id, 'estado_id' => $idEstado->id_estado))->delete("tr_curso_estado");
+            return $this->db->affected_rows();
+        }elseif($totalCursos->totalcursos == 1){
+            
+            $this->db->where(array('id_curso' => $id, 'id_estado' => $idEstado->id_estado))->delete("tr_persona_curso");
+            $this->db->where(array('id_curso' => $id, 'id_estado' => $idEstado->id_estado))->delete("tr_curso_participantes");
+			$this->db->where(array('curso_id' => $id, 'estado_id' => $idEstado->id_estado))->delete("tr_curso_estado");
+            $this->db->where('id_curso', $id)->delete($this->table);
+            return $this->db->affected_rows();
+        }
     }
 
     public function add($data)
@@ -415,5 +434,65 @@ public function getCursoFac($facid)
 		
 		}
 		return $this->db->affected_rows();
+	}
+	
+    public function getforaudiUpdate($id,$est)
+    {
+    	$get=  $this->db->query("SELECT DISTINCT a.*, b.nombre as estado, b.id_estado, c.id as rel
+								FROM tb_curso a 
+								INNER JOIN tr_curso_estado c ON a.id_curso = c.curso_id
+								INNER JOIN tb_estado b on  b.id_estado = c.estado_id
+								WHERE a.id_curso = $id AND b.id_estado = '$est'")->row();
+								
+		if ($get == null){
+			
+			$get = "Error";
+			return $get;		
+		
+		}else{
+		
+			return $get;
+			
+		}
+
+    }
+
+    public function getforaudidelete($id)
+    {
+    	$get=  $this->db->query("SELECT DISTINCT a.*, b.nombre as estado, b.id_estado, c.id as rel
+								FROM tb_curso a 
+								INNER JOIN tr_curso_estado c ON a.id_curso = c.curso_id
+								INNER JOIN tb_estado b on  b.id_estado = c.estado_id
+								WHERE a.id_curso = $id")->row();
+								
+		if ($get == null){
+			
+			$get = "Error";
+			return $get;		
+		
+		}else{
+		
+			return $get;
+			
+		}
+
+    }
+
+	public function addAuditoria($data)
+    {
+        $this->db->insert('tb_auditoria', $data);
+        return $this->db->insert_id();
+    }
+	
+	public function getFacilitadorFrom($est)
+	{
+		return $this->db->query("SELECT  nombre_apellido,
+										 id_persona 
+							    FROM users a
+								INNER JOIN tb_persona b ON a.persona_id = b.id_persona
+								INNER JOIN users_groups c ON c.user_id = a.id
+								INNER JOIN groups d ON d.id = c.group_id
+								WHERE d.id = 3
+								AND b.id_estado = $est")->result();
 	}
 }

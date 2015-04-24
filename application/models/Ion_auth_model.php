@@ -2163,4 +2163,10 @@ class Ion_auth_model extends CI_Model
 		//just return the string IP address now for better compatibility
 		return $ip_address;
 	}
+	
+    public function addAuditoria($data)
+    {
+        $this->db->insert('tb_auditoria', $data);
+        return $this->db->insert_id();
+    }
 }

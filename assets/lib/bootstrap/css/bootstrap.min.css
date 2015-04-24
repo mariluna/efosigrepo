@@ -3403,12 +3403,12 @@ tbody.collapse.in{
 	display:none;
 	float:left;
 	min-width:160px;
-	padding:5px 0;
+	padding:5px 20px;
 	margin:2px 0 0;
 	font-size:14px;
 	text-align:left;
 	list-style:none;
-	background-color:#fff;
+	background-color:#650065;
 	-webkit-background-clip:padding-box;
 	background-clip:padding-box;
 	border:1px solid #ccc;
@@ -3431,13 +3431,13 @@ tbody.collapse.in{
 }
 
 .dropdown-menu>li>a{
-	display:block;
-	padding:3px 20px;
-	clear:both;
-	font-weight:400;
-	line-height:1.42857143;
-	color:#333;
-	white-space:nowrap
+display: block;
+padding: 3px 10px;
+clear: both;
+font-weight: 400;
+line-height: 25px;
+color: white;
+white-space: nowrap;
 }
 
 .dropdown-menu>li>a:hover,.dropdown-menu>li>a:focus{
@@ -3888,7 +3888,7 @@ textarea.input-group-sm>.form-control,textarea.input-group-sm>.input-group-addon
 
 .nav .open>a,.nav .open>a:hover,.nav .open>a:focus{
 	background-color:#eee;
-	border-color:#428bca
+	
 }
 
 .nav .nav-divider{
@@ -4416,7 +4416,7 @@ textarea.input-group-sm>.form-control,textarea.input-group-sm>.input-group-addon
 }
 
 .navbar-nav>li>.dropdown-menu{
-	margin-top:0;
+	margin-top:-2px;
 	border-top-left-radius:0;
 	border-top-right-radius:0
 }
@@ -4645,7 +4645,7 @@ textarea.input-group-sm>.form-control,textarea.input-group-sm>.input-group-addon
 }
 
 .navbar-inverse .navbar-nav > .open > a, .navbar-inverse .navbar-nav > .open > a:hover, .navbar-inverse .navbar-nav > .open > a:focus {
-    color: #777;
+    color: white;
     background-color: transparent;
 }
 
@@ -4665,12 +4665,13 @@ textarea.input-group-sm>.form-control,textarea.input-group-sm>.input-group-addon
 	}
 
 	.navbar-inverse .navbar-nav .open .dropdown-menu>li>a{
-		color:#777
+		color:white
 	}
 
 	.navbar-inverse .navbar-nav .open .dropdown-menu>li>a:hover,.navbar-inverse .navbar-nav .open .dropdown-menu>li>a:focus{
-		color:#fff;
-		background-color:transparent
+		color: #262626;
+		text-decoration: none;
+		background-color: #F5F5F5;
 	}
 
 	.navbar-inverse .navbar-nav .open .dropdown-menu>.active>a,.navbar-inverse .navbar-nav .open .dropdown-menu>.active>a:hover,.navbar-inverse .navbar-nav .open .dropdown-menu>.active>a:focus{
@@ -6697,7 +6698,7 @@ button.close{
 		outline: medium none;
 		box-shadow: none;
 		margin-left: 0px;
-		padding-left: 70px;
+		padding-left: 100px;
 		height:50px;
 	}
 

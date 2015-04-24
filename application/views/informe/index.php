@@ -44,10 +44,10 @@ $(document).ready(function() {
 					 <td>{{ informe.act_nombre_for }}</td>
 					  <td>{{ informe.usuario}}</td>
                     <td>
-                        <a ng-click="view(informe.id_informe)" class="fa fa-search btn btn-small btn-info"></a>
-                        <a ng-click="edit(informe.id_informe)" class="fa fa-pencil btn btn-small btn-primary"></a>
-                        <a ng-click="delete(informe.id_informe)" class="fa fa-trash btn btn-small btn-danger"></a>
-						<a ng-click="viewInforme(informe.id_informe)" target="_blank" class="fa fa-file-pdf-o btn btn-small btn-danger"></a>
+                        <a ng-click="view(informe.id_informe)" title="Ver informe" class="fa fa-search btn btn-small btn-info"></a>
+                        <a ng-click="edit(informe.id_informe)" title="Actualizar informe"class="fa fa-pencil btn btn-small btn-primary"></a>
+                        <a ng-click="delete(informe.id_informe)" title="Eliminar informe" class="fa fa-trash btn btn-small btn-danger"></a>
+						<a ng-click="viewInforme(informe.id_informe)" title="Informe PDF" target="_blank" class="fa fa-file-pdf-o btn btn-small btn-danger"></a>
                     </td>
                 </tr>
             </tbody>

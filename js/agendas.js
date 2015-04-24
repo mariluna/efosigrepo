@@ -1,8 +1,9 @@
+
 (function(){
 
-var app= angular.module('cursos',[]);
+var app= angular.module('agendas',[]);
 
-var INTEGER_REGEXP = /^\d+$/;
+var INTEGER_REGEXP = /^\-?\d+$/;
 app.directive('integer', function() {
   return {
     require: 'ngModel',
@@ -22,15 +23,14 @@ app.directive('integer', function() {
   };
 });
 
-app.controller("cursosController", [ '$scope', '$http', '$location',
+app.controller("agendasController", [ '$scope', '$http', '$location',
 	function($scope, $http, $location) {
-	
-		$scope.cursos = {};
 		$http({
 			method : 'GET',
-			url : 'index.php/api/Cursos_api/'
+			url : 'index.php/api/Agendas_api/'
+			
 		}).success(function(data, status, headers, config) {
-			$scope.cursos = data;
+			$scope.actividades = data;
 			$scope.itemsPerPage = 10;
 			$scope.currentPage = 0;
 		}).error(function(data, status, headers, config) {
@@ -68,7 +68,7 @@ app.controller("cursosController", [ '$scope', '$http', '$location',
   };
 
   $scope.pageCount = function() {
-    return Math.ceil($scope.cursos.length/$scope.itemsPerPage)-1;
+    return Math.ceil($scope.actividades.length/$scope.itemsPerPage)-1;
   };
 
   $scope.nextPage = function() {
@@ -95,63 +95,41 @@ app.controller("cursosController", [ '$scope', '$http', '$location',
 
 	$scope.addEntity = function(){
 
-		 window.location= 'Cursos/agregar';
-
-	};
-	
-	$scope.addAsiss = function(){
-
-		 window.location= 'Cursos/agregarAsistencia';
-
-	};
-	
-	$scope.descAsis = function(){
-
-		 window.location= 'Cursos/descargarAsistencia';
+		 window.location= 'Agendas/agregar';
 
 	};
 
-	$scope.view = function(id,est){
+	$scope.view = function(id){
 
-		window.location= 'Cursos/ver/'+id+'/'+est;
-
-	};
-
-	$scope.edit = function(id,est){
-
-		window.location= 'Cursos/editar/'+id+'/'+est;
-		
-	};
-	
-	$scope.register = function(part, ins, cursoid, userid, estid){
-
-		window.location= 'Cursos/registrar_curso/'+ part + '/' + ins + '/' + cursoid + '/' + userid + '/' + estid;
-
-	};
-	
-	$scope.regLogin = function(){
-
-		window.location= 'Auth/login';
+		window.location= 'Agendas/ver/'+id;
 
 	};
 
-	$scope.delete = function(id, est){
+	$scope.edit = function(id){
 
-	     var r = confirm("Â¿Estas seguro que deseas eliminar este elemento?");
+		window.location= 'Agendas/editar/'+id;
+
+	};
+
+	$scope.delete = function(id){
+
+	     var r = confirm("¿Estas seguro que deseas eliminar este elemento?");
 
 	     if (r == true) {
+		 
 	    	$http({
 				method : 'DELETE',
-				url : 'index.php/api/Cursos_api/remove/' + id + '/' + est
-			})
+				url : 'index.php/api/Agendas_api/remove/' + id
+			});
 			location.reload();
-	     }
+	     }else{
+		 }
 	};
 
 
 }]);
 
-angular.module('cursos').filter('pagination', function()
+angular.module('agendas').filter('pagination', function()
 {
   return function(input, start) {
     start = parseInt(start, 10);
@@ -159,15 +137,35 @@ angular.module('cursos').filter('pagination', function()
   };
 });
 
-app.filter('estatusDir', function () {
-  return function (item) {
-      if (item ==1){
-          item= 'Activo';
-      }else if(item == 0){
-        item='Inactivo';
-      }
-      return item;
-  };
-});
+	app.filter('nombreDivR', function () {
+	  return function (item) {
+		  if (item!=null){
+			  item= 'Radio';
+		  }else if(item ==0){
+			item='';
+		  }
+		  return item;
+	  };
+	});
+	app.filter('nombreDivTv', function () {
+	  return function (item) {
+		  if (item!=null){
+			  item= 'Television';
+		  }else if(item ==0){
+			item='';
+		  }
+		  return item;
+	  };
+	});
+	app.filter('nombreDivP', function () {
+	  return function (item) {
+		  if (item!=null){
+			  item= 'Prensa';
+		  }else if(item ==0){
+			item='';
+		  }
+		  return item;
+	  };
+	});
 
 })();

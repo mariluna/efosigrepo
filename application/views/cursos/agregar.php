@@ -16,6 +16,7 @@ function soloNumeros(e){
             return false;
         }
     }
+	
 </script>
 <h1>Agregar Curso</h1>
 <div id="message"> </div>
@@ -60,6 +61,7 @@ $(document).ready(function(e){
 				$("#finspan").show();
 			}
 	});
+		 
 });
 
 function validarFecha(e){
@@ -74,6 +76,38 @@ function validarFecha(e){
 }
 function quitar(){
 	$('.alert').remove();
+}
+
+function showFacilitador(value){
+
+	if($('#facilitador_'+ value.value).length){
+		$('#fac_'+ value.value).remove();
+	}else{
+			$.post("index.php/api/cursos_api/getEstadoName", {
+				estadoid: value.value
+			}, function (data) {
+				nombest = data;
+			});
+			$.post("index.php/api/cursos_api/getFacilitadores", {
+				estado: value.value
+			}, function (data) {
+				$(".result").append('<div id="fac_'+ value.value +'"><label for="facilitador">Facilitador del Curso ('+nombest+'):</label><br>'+
+									'<select id="facilitador_'+ value.value +'" class="demo-default" required name="facilitador[]">'+
+									'<option value="">Seleccione..</option>'+
+									'</select></div>');
+				$('#facilitador_'+ value.value).html(data);
+				nombest = '';
+				$('#facilitador_'+ value.value).selectize({
+					create: false,
+					sortField: {
+						field: 'text',
+						direction: 'asc'
+					},
+					dropdownParent: 'body'
+				});
+			});
+	}			
+                   
 }
 </script>
 <div class="col-lg-6">
@@ -99,50 +133,34 @@ function quitar(){
 		<input name="fechafin" class="auth-input" type="text" id="fechafin" onchange="validarFecha(this)" readonly required>
 		<span id="finspan" style="color:red; font-size:12px"><br>* Este campo es obligatorio</span>
 	</p>
-</div>
-<div class="col-lg-6">
-	<p align="center">
-		<label for="facilitador">Facilitador del Curso:</label><br>
-		<select id="facilitador" class="demo-default" required name="facilitador" required>
-			<option value="">Seleccione..</option>
-				<?php 
-					foreach($facilitadores as $key){
-						echo "<option value='".$key->id_persona."'>".$key->nombre_apellido."</option>";			
-					}
-				?>	
-		</select>
-		<script>
-			$('#facilitador').selectize({
-				create: false,
-				sortField: {
-					field: 'text',
-					direction: 'asc'
-				},
-				dropdownParent: 'body'
-			});
-		</script>
-	</p>
-   <p>
+	   <p>
          <label for="participantes">N&uacute;mero de Participantes del Curso:</label><br>
          <input id="participantes" ng-model="participantes" class="auth-input" type="text" value="" name="participantes" onkeypress="return soloNumeros(event)" required integer></input>
          <span style="color:red; font-size:12px" ng-show="form.participantes.$error.required"><br>* Este campo es obligatorio</span>
          <span style="color:red; font-size:12px" ng-show="form.participantes.$error.integer"><br>* Este campo debe ser un numero entero</span>
    </p>
-
-   <p>
+</div>
+<div class="col-lg-6">
+	   <p>
        <label for="estado">Estado:</label><br>
        <select name="estado[]" class="auth-input" style="max-width: 300px ! important; height: 100%; max-height: 266px;" required multiple>
 	    <?php foreach($estado as $row){ 
-			echo "<option value='$row->id_estado'>$row->nombre</option>";
+			echo "<option value='$row->id_estado' onclick='showFacilitador(this)'>$row->nombre</option>";
 		 }             
          ?>
        </select>
          <span style="color:red; font-size:12px" ng-show="form.estado.$error.required"><br>* Este campo es obligatorio</span>
    </p>
+   
+   	<div class="result">
+
+	</div>
 </div>
+
+
 <div class="col-lg-12">
  <p>
-	<input type="submit" class="auth-button .btn-danger go" ng-disabled="form.$invalid" value="Agregar" name="submit"></input>
+	<input type="submit" class="auth-button .btn-danger go" value="Agregar" name="submit"></input>
 </p>
 <p>
 <a class="auth-button .btn-danger back" href="<?php echo base_url()?>cursos">Volver</a>

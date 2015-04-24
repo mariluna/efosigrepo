@@ -1,5 +1,5 @@
 <html>
-	<head>
+	<head><title>Informe</title>
 		<style>
 			body{
 				font-weight: bold;
@@ -138,7 +138,7 @@
 				}
 ?>
 </td>
-				<td class="info" colspan="2">1.1. Nombre de la Actividad:&nbsp; <?php echo $content[0]->act_nombre_for;?></td>
+				<td class="info" colspan="2">1.1. Nombre de la Actividad:&nbsp; <br><?php echo $content[0]->act_nombre_for;?></td>
 			</tr>
 			<tr>
 				<td class="info">2. Total de Asistentes:&nbsp; <?php echo $content[0]->tot_asistentes_for;?><br></td>
@@ -149,60 +149,63 @@
 				<td class="info" colspan="2">3. ¿Hubo participación de la Diversidad Sexual? &nbsp; 
 				<?php if($content[0]->tot_div_sexual_for <= '0'){
 				echo "SI ( ) NO (X)";
-				$total=" ";}
+				$total="NO APLICA";}
 				else{
 				echo "SI (X) NO ( )";
-				$total=$content[0]->tot_div_sexual_for;}
+				$total="Total de participantes:".$content[0]->tot_div_sexual_for."";}
 				?>
 				</td>
-				<td class="info" colspan="2">3.1. Si es "SI", total de participantes: <?php echo $total;?><br></td>
+				<td class="info" colspan="2">3.1.  <?php echo $total;?><br></td>
 			</tr>
 			<tr>
 				<td class="info" colspan="2">4. ¿Hubo participación de Mujeres Indigenas? &nbsp;
 				<?php if($content[0]->tot_mujeres_indigenas_for <= '0'){
 				echo "SI ( ) NO (X)";
-				$ind=" ";}
+				$ind="NO APLICA";}
 				else{
 				echo "SI (X) NO ( )";
-				$ind=$content[0]->tot_mujeres_indigenas_for;}
+				$ind="Total de participantes:".$content[0]->tot_mujeres_indigenas_for."";}
 				?></td>
-				<td class="info" colspan="2">4.1. Si es "SI", total de participantes: <?php echo $ind;?><br></td>
+				<td class="info" colspan="2">4.1.  <?php echo $ind;?><br></td>
 			</tr>
 			<tr>			
 				<td class="info" colspan="2">5. ¿Hubo participación de Mujeres con Discapacidad? &nbsp;
 				<?php if($content[0]->tot_mujeres_discapacidad_for <= '0'){
 				echo "SI ( ) NO (X)";
-				$dis=" ";}
+				$dis="NO APLICA";}
 				else{
 				echo "SI (X) NO ( )";
-				$dis=$content[0]->tot_mujeres_discapacidad_for;}
+				$dis="Total de participantes:".$content[0]->tot_mujeres_discapacidad_for."";}
 				?></td>
-				<td class="info" colspan="2">5.1. Si es "SI", total de participantes: <?php echo $dis;?><br></td>
+				<td class="info" colspan="2">5.1. <?php echo $dis;?><br></td>
 			</tr>
 			<tr>			
 				<td class="info" colspan="2">6. ¿Hubo participación de Mujeres Afrodecendientes?  &nbsp;
 				<?php if($content[0]->tot_mujeres_afrodecendientes_for <= '0'){
 				echo "SI ( ) NO (X)";
-				$afr=" ";}
+				$afr="NO APLICA";}
 				else{
 				echo "SI (X) NO ( )";
-				$afr=$content[0]->tot_mujeres_afrodecendientes_for;}
+				$afr="Total de participantes:".$content[0]->tot_mujeres_afrodecendientes_for."";}
 				?></td>
-				<td class="info" colspan="2">6.1. Si es "SI", total de participantes:  <?php echo $afr;?><br></td>
+				<td class="info" colspan="2">6.1.  <?php echo $afr;?><br></td>
 			</tr>
 			<tr>			
 				<td class="info" colspan="2">7. ¿Hubo participación de Movimientos de Mujeres? &nbsp;
 				<?php if($content[0]->tot_movimientos_mujeres_for <= '0'){
 				echo "SI ( ) NO (X)";
-				$mov=" ";}
+				$mov="NO APLICA";}
 				else{
 				echo "SI (X) NO ( )";
-				$mov=$content[0]->tot_movimientos_mujeres_for;}
+				$mov="Total de participantes:".$content[0]->tot_movimientos_mujeres_for."";}
 				?></td>
-				<td class="info" colspan="2">7.1. Si es "SI", total de participantes:  <?php echo $mov;?><br></td>
+				<td class="info" colspan="2">7.1.  <?php echo $mov;?><br></td>
 			</tr>
 			<tr>
-				<td class="info" colspan="4">7.2. Nombre de los movimientos participantes: &nbsp;  <?php echo $content[0]->nombre_movimiento_for;?></td>
+				<td class="info" colspan="4">7.2. Nombre de los movimientos participantes: &nbsp;  
+				<?php IF($content[0]->nombre_movimiento_for==" "){
+				echo "NO APLICA";}else{
+				echo $content[0]->nombre_movimiento_for;}?></td>
 			</tr>
 			<tr>
 				<td class="info" colspan="2">8. Fecha de inicio: &nbsp;  <?php echo date("d-m-Y", strtotime($content[0]->fec_inicio_for));?></td>			
@@ -226,7 +229,7 @@
 				echo "1.Toma comunitaria ( ) 2. Bautizo ( ) 3. Lanzamiento ( )<br>4. Premiación (X)";
 				}?>
 				</td>
-				<td class="info" colspan="2">1.1. Nombre de la Actividad:&nbsp;  <?php echo $content[0]->act_nombre_div;?></td>
+				<td class="info" colspan="2">1.1. Nombre de la Actividad:&nbsp; <br> <?php echo $content[0]->act_nombre_div;?></td>
 			</tr>
 			<tr>
 				<td class="info">2. Total de Asistentes:&nbsp;  <?php echo $content[0]->tot_asistentes_div;?><br></td>
@@ -237,84 +240,85 @@
 				<td class="info" colspan="2">3. ¿Hubo participación de la Diversidad Sexual? 
 				<?php if($content[0]->tot_div_sexual_div <= '0'){
 				echo "SI ( ) NO (X)";
-				$dv=" ";}
+				$dv="NO APLICA";}
 				else{
 				echo "SI (X) NO ( )";
-				$dv=$content[0]->tot_div_sexual_div;}
+				$dv="Total de participantes:".$content[0]->tot_div_sexual_div."";}
 				?></td>
-				<td class="info" colspan="2">3.1. Si es "SI", total de participantes:&nbsp;  <?php echo $dv;?><br></td>
+				<td class="info" colspan="2">3.1.&nbsp;  <?php echo $dv;?><br></td>
 			</tr>
 			<tr>
 				<td class="info" colspan="2">4. ¿Hubo participación de Mujeres Indigenas? 
 				<?php if($content[0]->tot_mujeres_indigenas_div <= '0'){
 				echo "SI ( ) NO (X)";
-				$indv=" ";}
+				$indv="NO APLICA";}
 				else{
 				echo "SI (X) NO ( )";
-				$indv=$content[0]->tot_mujeres_indigenas_div;}
+				$indv="Total de participantes:".$content[0]->tot_mujeres_indigenas_div."";}
 				?></td>
-				<td class="info" colspan="2">4.1. Si es "SI", total de participantes:&nbsp;  <?php echo $indv;?><br></td>
+				<td class="info" colspan="2">4.1. &nbsp;  <?php echo $indv;?><br></td>
 			</tr>
 			<tr>			
 				<td class="info" colspan="2">5. ¿Hubo participación de Mujeres con Discapacidad? 
 				<?php if($content[0]->tot_mujeres_discapacidad_div <= '0'){
 				echo "SI ( ) NO (X)";
-				$disv=" ";}
+				$disv="NO APLICA";}
 				else{
 				echo "SI (X) NO ( )";
-				$disv=$content[0]->tot_mujeres_discapacidad_div;}
+				$disv="Total de participantes:".$content[0]->tot_mujeres_discapacidad_div."";}
 				?></td>
-				<td class="info" colspan="2">5.1. Si es "SI", total de participantes:&nbsp;  <?php echo $disv;?><br></td>
+				<td class="info" colspan="2">5.1. &nbsp;  <?php echo $disv;?><br></td>
 			</tr>
 			<tr>			
 				<td class="info" colspan="2">6. ¿Hubo participación de Mujeres Afrodecendientes?
 				<?php if($content[0]->tot_mujeres_afrodecendientes_div <= '0'){
 				echo "SI ( ) NO (X)";
-				$afrv=" ";}
+				$afrv="NO APLICA";}
 				else{
 				echo "SI (X) NO ( )";
-				$afrv=$content[0]->tot_mujeres_afrodecendientes_div;}
+				$afrv="Total de participantes:".$content[0]->tot_mujeres_afrodecendientes_div."";}
 				?></td>
-				<td class="info" colspan="2">6.1. Si es "SI", total de participantes:&nbsp;  <?php echo $afrv;?><br></td>
+				<td class="info" colspan="2">6.1. &nbsp;  <?php echo $afrv;?><br></td>
 			</tr>
 			<tr>
-				<td class="info" colspan="3">7. Tipo de material entregado: 
+				<td class="info" colspan="2">7. Tipo de material entregado: 
 				<?php if($content[0]->tipo_material_div =='Folletos'){
-				echo "1. Folletos (X) 2. Díptricos ( ) 3. Trípticos ( ) 4. Volantes ( )<br>
+				echo "1. Folletos (X) 2. Díptricos ( ) <br>3. Trípticos ( ) 4. Volantes ( )
 				5. Afiches ( ) 6. Libros ( ) ";
 				}
 				elseif($content[0]->tipo_material_div =='Diptricos'){
-				echo "1. Folletos ( ) 2. Díptricos (X) 3. Trípticos ( ) 4. Volantes ( )<br>
+				echo "1. Folletos ( ) 2. Díptricos (X) <br>3. Trípticos ( ) 4. Volantes ( )
 				5. Afiches ( ) 6. Libros ( ) ";
 				}
 				elseif($content[0]->tipo_material_div =='Tripticos'){
-				echo "1. Folletos ( ) 2. Díptricos ( ) 3. Trípticos (X) 4. Volantes ( )<br>
+				echo "1. Folletos ( ) 2. Díptricos ( ) <br>3. Trípticos (X) 4. Volantes ( )
 				5. Afiches ( ) 6. Libros ( ) ";
 				}
 				elseif($content[0]->tipo_material_div =='Volantes'){
-				echo "1. Folletos ( ) 2. Díptricos ( ) 3. Trípticos ( ) 4. Volantes (X)<br>
+				echo "1. Folletos ( ) 2. Díptricos ( ) <br>3. Trípticos ( ) 4. Volantes (X)
 				5. Afiches ( ) 6. Libros ( ) ";}
 				elseif($content[0]->tipo_material_div =='Afiches'){
-				echo "1. Folletos ( ) 2. Díptricos ( ) 3. Trípticos () 4. Volantes ( )<br>
+				echo "1. Folletos ( ) 2. Díptricos ( ) <br>3. Trípticos () 4. Volantes ( )
 				5. Afiches (X) 6. Libros ( ) ";
 				}
 				elseif($content[0]->tipo_material_div =='Libros'){
-				echo "1. Folletos ( ) 2. Díptricos ( ) 3. Trípticos ( ) 4. Volantes ( )<br>
+				echo "1. Folletos ( ) 2. Díptricos ( ) <br>3. Trípticos ( ) 4. Volantes ( )
 				5. Afiches ( ) 6. Libros (X) ";
 				}?>
 				</td>
 				
-				<td class="info">8. Cantidad:&nbsp;  <?php echo $content[0]->cantidad_div;?></td>
+				<td class="info" colspan="2">8. Cantidad:&nbsp;  <?php echo $content[0]->cantidad_div;?></td>
 			</tr>
 			<tr>
 				<td class="info" colspan="2">9. ¿Se realizó convocatorias a los medios de comunicación?:<br>
 					<?php if($content[0]->convocacion_medios_div == 'No'){
 				echo "SI ( ) NO (X)";
-			$Radio="1. Radio ( ) ";
-			$prensa="2. Prensa ( ) ";
-			$tv="3. T.V. ( )<br>";
-			$medios="4. Medios Comunitarios ( ) ";
-			$otros="5. Otros ( ) ";
+				
+			$Radio="NO APLICA ";
+			$prensa=" ";
+			$tv=" ";
+			$medios=" ";
+			$otros=" ";
 				}
 				else{
 				echo "SI (X) NO ( )";
@@ -345,7 +349,7 @@
 				}
 				?></td>
 				</td>
-				<td class="info" colspan="2">9.1. Si es "SI", en cuales: <?php echo $Radio;?>&nbsp; <?php echo $prensa;?> &nbsp;<?php echo $tv;?> 
+				<td class="info" colspan="2">9.1. <?php echo $Radio;?>&nbsp; <?php echo $prensa;?> &nbsp;<?php echo $tv;?> <br>
 			&nbsp;<?php echo $medios; ?> &nbsp; <?php echo $otros;?>
 		
 				</td>
@@ -353,7 +357,8 @@
 		</table>
 		<div><br>
 			Generado por: <?php echo  $user->first_name.' '.$user->last_name ?><br>
-			Fecha: <?php echo  date("d-m-y");  ?>
+			Fecha: <?php echo  date("d-m-y");  ?><br>
+			Hora: <?php echo date("H:i:s");?>
 		</div>
 	</body>
 </html>

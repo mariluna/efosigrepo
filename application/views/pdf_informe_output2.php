@@ -1,6 +1,6 @@
 <html>
 	<head>
-	   <meta charset="UTF-8">
+	   <title>Divulgaciones</title>
 		<style>
 			body{
 				font-weight: bold;
@@ -111,14 +111,7 @@ REGIONALES Y NACIONALES</td>
 					} 
 					if($countRadio == 0){
 				
-					echo "
-								<tr>
-								<td class='info' width='70px'>1. Emisora:  </td>
-								<td class='info' width='30px'>1.1. Dial:&nbsp; </td>
-				                <td class='info' width='30px'>1.2. Hora de Emisi&oacute;n:&nbsp;</td> </tr>";
-							echo "
-							<tr>			
-							<td class='info' colspan='3'> 2. Tipo de Divulgaci&oacute;n: 1. Micro ( ) 2. Programa ( ) </td></tr>";
+					echo "<tr><td class='info' colspan='3' align='center'>NO APLICA </td></tr>";
 					}
 				?>
 				<tr>
@@ -147,14 +140,7 @@ REGIONALES Y NACIONALES</td>
 					}
 				} 
 				if($countTv == 0){
-				echo "<tr>
-						<td class='info' colspan='2'>1. Canal: </td>
-				        <td class='info'>1.2. Hora de Emisi&oacute;n:&nbsp; </td></tr>";
-			    echo "<tr>			
-				<td class='info' colspan='2' >";
-				echo "2. Tipo de Divulgaci&oacute;n: 1. Propaganda Televisiva ( ) 2. Programa ( ) </td>";
-				echo "
-				<td class='info' >2.2. Nombre del programa: &nbsp;</td></tr>";	
+			echo "<tr><td class='info' colspan='3' align='center'>NO APLICA </td></tr>";
 				}
 				?>
 			<tr>
@@ -263,28 +249,16 @@ REGIONALES Y NACIONALES</td>
 					}
 				}
 				if($countPrensa == 0){
-				echo "
-							<tr>
-							<td class='info' colspan='2'>1. Nombre del Medio: </td>
-				            <td class='info'>1.2. Fecha de la Noticia:&nbsp; </td>
-						</tr>
-						<tr><td class='info' colspan='2' >";
-					echo "2. Tipo de Divulgaci&oacute;n: 1. F&iacute;sica ( ) 2. Digital ( )";
-					echo "</td>
-				  <td class='info'>2.2. Si es F&iacute;sica, diga de que forma:<br>
-				  1. Peri&oacute;dico ( ) 2. Revista ( ) 3. Boletín ( )";
-					echo "</td></tr>";
-				    echo "<tr>			
-				<td class='info' colspan='3' >
-				2.3. Si es Digital, diga de que forma: 1. Peri&oacute;dico/Revista web ( ) 2. Facebook ( ) 3. Blog ( ) 4. Twitter ( )";
-				echo "</td></tr>";
+				echo "<tr><td class='info' colspan='3' align='center'>NO APLICA </td></tr>";
 				}
 			?>
 			
 		</table>
 		<div><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 			Generado por: <?php echo  $user->first_name.' '.$user->last_name ?><br>
-			Fecha: <?php echo  date("d-m-y");  ?>
+			Fecha: <?php echo  date("d-m-y");  ?><br>
+			Hora: <?php echo date("H:i:s");?>
+			
 		</div>
 	</body>
 </html>

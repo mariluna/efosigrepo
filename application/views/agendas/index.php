@@ -1,25 +1,20 @@
 <!-- Titulo -->
-<h1>Personas</h1>
+<?php $r=$this->ion_auth->user(); 
+
+?>
+<h1>Agendas</h1>
 <hr>
 <script type="text/javascript">
 $(document).ready(function() {
     $(".loader").fadeOut("slow");
-	
-	$('.close').click(function () {
-		$('.alert').remove();
-	});
 })
 </script>
 <div class="loader"></div>
 <div>
     <!-- Div que contiene la aplicacion ng-app="project" y el controlador de angular ng-controller="ApiController" -->
-    <div class="span6" ng-controller="personaController" ng-app="persona">
+    <div class="span6" ng-controller="agendasController" ng-app="agendas">
         <div class="add-menu">
-            <!-- ng-click="createUT()" botones que disparan funciones en angular, las cuales se encuentran el la aplicacion -->
-            <td><a ng-click="addEntity()" class="fa fa-plus btn btn-success"> Agregar General </a></td>
-			<td><a ng-click="addMMDB()" class="fa fa-plus btn btn-success"> Agregar MMDB</a></td>
-			<td><a ng-click="respaldo()" class="fa fa-plus btn btn-success"> Respaldo</a></td>
-			<td><a ng-click="descargarList()" class="fa fa-download btn btn-info"> Descargar Listado Personas</a></td>
+            <td><a ng-click="addEntity()" class="fa fa-plus btn btn-success"> Agregar </a></td>
         </div>
         <!-- Input que contiene un modelo, con el cual podemos filtrar la data del CRUD -->
         <div style="width:30% !important;">
@@ -27,35 +22,30 @@ $(document).ready(function() {
            <!--  <div ng-hide="filtered.length===3">{{filtered.length}}</div> -->
         </div>
         <!-- CRUD -->
-		<?php
-		$message = $this->session->flashdata('message');
-		echo $message;
-		?>
         <table class="table table-striped table-condensed" style="text-align: center;">
             <thead>
                 <tr>
-                    <th style="min-width: 80px; text-align: center;">Nombre persona</th>
-					<th style="min-width: 80px; text-align: center;">C&eacute;dula</th>
-					<th style="min-width: 80px; text-align: center;">Estatus</th>
-					<th style="min-width: 80px; text-align: center;">Acciones</th>
+                    <th style="min-width: 80px; text-align: center;">Titulo</th>
+                    <th style="min-width: 80px; text-align: center;">Creado por</th>
+                    <th style="min-width: 80px; text-align: center;">Fecha</th>
                 </tr>
             </thead>
             <tbody>
                 <!-- con el ng-repeat le decimos que carge y repita tantas filas como datos obtenga y el filter para filtrar los datos-->
-                <tr ng-repeat="persona in filtered =( personas | filter:query ) | pagination : currentPage*itemsPerPage | limitTo: itemsPerPage">
+                <tr ng-repeat="actividad in filtered =( actividades | filter:query ) | pagination : currentPage*itemsPerPage | limitTo: itemsPerPage">
                     <!-- Data que va a mostrar el CRUD -->
-                    <td>{{ persona.nombre_apellido }}</td>
-					<td>{{ persona.cedula }} </td>
-					<td>{{ persona.status }} </td>
+                    <td>{{ actividad.titulo }}</td>
+                    <td>{{ actividad.name }}</td>					
+                    <td>{{ actividad.fecha }}</td>
                     <td>
-                        <a ng-click="view(persona.id_persona)" class="fa fa-search btn btn-small btn-info"></a>
-                        <a ng-click="edit(persona.id_persona)" class="fa fa-pencil btn btn-small btn-primary"></a>
-                        <a ng-click="delete(persona.id_persona)" class="fa fa-trash btn btn-small btn-danger"></a>
+                        <a ng-click="view(actividad.id_actividad)" class="fa fa-search btn btn-small btn-info"></a>
+                        <a ng-click="edit(actividad.id_actividad)" class="fa fa-pencil btn btn-small btn-primary"></a>
+                        <a ng-click="delete(actividad.id_actividad)" class="fa fa-trash btn btn-small btn-danger"></a>
                     </td>
                 </tr>
             </tbody>
         </table>
-		          <div class="pagination-div">
+		          <div class="pagination-div" ng-hide="filter:query">
             <ul class="pagination">
                 <li ng-class="DisablePrevPage()">
                     <a href ng-click="firstPage()"><i class="fa fa-angle-double-left pagi"></i></a>
