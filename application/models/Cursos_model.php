@@ -275,6 +275,26 @@ public function getCursoFac($facid)
 							
 	}
 	
+	public function checkCursoStatus($cursoid)
+	{
+		$check = $this->db->query("SELECT status
+									FROM tb_curso
+									WHERE id_curso = $cursoid")->row();
+				
+		if ($check->status == 0){
+		
+			$msg = "false";
+		
+		}else{
+		
+			$msg = "true";
+			
+		}
+		
+		return $msg;
+							
+	}
+	
 	public function addCursoEstado($data)
     {
         $this->db->insert_batch('tr_curso_estado', $data);

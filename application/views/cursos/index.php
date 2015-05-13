@@ -1,11 +1,3 @@
-<!-- Titulo -->
-<?php 
- //$r=$this->ion_auth->user(); 
- $rol = $this->ion_auth->get_users_groups()->row();
- $r=$this->ion_auth->user()->row();
- ?>
-<h1>Cursos</h1>
-<hr>
 <script type="text/javascript">
 $(document).ready(function() {
     $(".loader").fadeOut("slow");
@@ -13,15 +5,22 @@ $(document).ready(function() {
 	$('.close').click(function () {
 		$('.alert').remove();
 	});
-})
+});
 </script>
+<?php 
+ //$r=$this->ion_auth->user(); 
+ $rol = $this->ion_auth->get_users_groups()->row();
+ $r=$this->ion_auth->user()->row();
+ ?>
+<h1>Cursos</h1>
+<hr>
 <div class="loader"></div>
 <div>
     <!-- Div que contiene la aplicacion ng-app="project" y el controlador de angular ng-controller="ApiController" -->
     <div class="span6" ng-controller="cursosController as uni" ng-app="cursos">
 		<?php if ($rol==null){ ?>
 		<div class="add-menu">
-            <td><a href="<?php echo base_url(); ?>" class="fa fa-arrow-left  btn btn-success"> Volver </a></td>
+            <td><a href="<?php echo base_url(); ?>" class="fa fa-arrow-left  btn btn-danger"> Volver </a></td>
         </div>
 		<?php } ?>
         <!--aqui el f=if para ocultar el boton de agregar -->
@@ -51,7 +50,7 @@ $(document).ready(function() {
                 <tr>
                     <th style="min-width: 80px; text-align: center;">Nombre del Curso</th>
                     <th style="min-width: 80px; text-align: center;">Duraci&oacute;n</th>
-                    <th style="min-width: 80px; text-align: center;">N° Participantes / Inscritos</th>
+                    <th style="min-width: 80px; text-align: center;">Inscritos / N° Participantes</th>
                     <th style="min-width: 80px; text-align: center;">Estatus</th>
                     <th style="min-width: 80px; text-align: center;">Acciones</th>
                 </tr>
@@ -62,15 +61,20 @@ $(document).ready(function() {
                     <!-- Data que va a mostrar el CRUD -->
                     <td>{{ curso.nombre + " ("+ curso.estado + ")"}}</td>
                     <td>{{ curso.duracion }} (Horas)</td>
-                    <td>{{ curso.nro_participantes + " / " + curso.inscritos}}</td>
+                    <td>{{ curso.inscritos + " / " + curso.nro_participantes}}</td>
                     <td>{{ curso.status | estatusDir}}</td>
 					<?php if(($rol != null) && ($rol->id == 1)){ ?>
                     <td>
-                        <a ng-click="view(curso.id_curso, curso.estado)" class="fa fa-search btn btn-small btn-info"></a>
-                        <a ng-click="edit(curso.id_curso, curso.estado)" class="fa fa-pencil btn btn-small btn-primary"></a>
-                        <a ng-click="delete(curso.id_curso, curso.estado)" class="fa fa-trash btn btn-small btn-danger"></a>
-						<a ng-click="register(curso.nro_participantes, curso.inscritos, curso.id_curso,<?php echo $r->persona_id; ?>,curso.id_estado)" class="fa fa-list-alt btn btn-small btn-success"></a>
+                        <a ng-click="view(curso.id_curso, curso.estado)" class="fa fa-search btn btn-small btn-info" title="Ver"></a>
+                        <a ng-click="edit(curso.id_curso, curso.estado)" class="fa fa-pencil btn btn-small btn-primary" title="Editar"></a>
+                        <a ng-click="delete(curso.id_curso, curso.estado)" class="fa fa-trash btn btn-small btn-danger"title="Eliminar"></a>
+						<a ng-click="register(curso.nro_participantes, curso.inscritos, curso.id_curso,<?php echo $r->persona_id; ?>,curso.id_estado)" title="Inscribirse" class="fa fa-list-alt btn btn-small btn-success"></a>
                     </td>
+						<script>
+						$(function (){
+						  $('[data-toggle="tooltip"]').tooltip();
+						})
+						</script>
 					<?php }elseif($rol != null){ ?>
 					<td>
                         <a ng-click="view(curso.id_curso, curso.estado)" class="fa fa-search btn btn-small btn-info"></a>

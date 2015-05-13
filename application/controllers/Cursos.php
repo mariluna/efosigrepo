@@ -85,8 +85,8 @@ class Cursos extends CI_Controller {
 		} else {
 			$get['list']=$this->cursos_model->getEstadoEdit($get['data']->id_curso);
 			$get['estado']=$this->cursos_model->getEstadoForEdit($get['data']->id_curso);
-			$get['facilitadores']=$this->cursos_model->getFacEdit($get['data']->id_facilitador);
-			$get['facilitador']=$this->cursos_model->getFacForEdit($get['data']->id_facilitador);
+			//$get['facilitadores']=$this->cursos_model->getFacEdit($get['data']->id_facilitador);
+			//$get['facilitador']=$this->cursos_model->getFacForEdit($get['data']->id_facilitador);
 			$this->view($name,$get);
 		}
 	}
@@ -119,45 +119,54 @@ class Cursos extends CI_Controller {
 						<span class="glyphicon glyphicon-remove close" aria-hidden="true"></span></div>');
 			redirect(base_url().'Cursos');
 		}else{
-		
-			$checkCursoData = $this->cursos_model->checkCursoData($part, $ins, $cursoid, $estid);
+			$checkCursoStatus = $this->cursos_model->checkCursoStatus($cursoid);
 			
-			if ($checkCursoData =="true"){
+			if ($checkCursoStatus =="false"){
+				$this->session->set_flashdata('message', '<br><br><div class="alert alert-danger info" role="alert">
+						<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+						<span class="sr-only">Error:</span> El curso se encuentra inactivo, por lo que no es posible su inscripcion.
+						<span class="glyphicon glyphicon-remove close" aria-hidden="true"></span></div>');
+				redirect(base_url().'Cursos');
+			}else{
+				$checkCursoData = $this->cursos_model->checkCursoData($part, $ins, $cursoid, $estid);
 				
-				$cupo = $part-$ins;
-			
-				if ($cupo > 0){		
-					$inscribirCurso = $this->cursos_model->registrarPersonaCurso($cursoid, $userid, $estid);
-					if($inscribirCurso == "true"){
-						$this->session->set_flashdata('message', '<br><br><div class="alert alert-success info" role="alert">
-							<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-							<span class="sr-only">Error:</span> Usted fue inscrito con exito.
-							<span class="glyphicon glyphicon-remove close" aria-hidden="true"></span></div>');
-						redirect(base_url().'Cursos');
+				if ($checkCursoData =="true"){
+					
+					$cupo = $part-$ins;
+				
+					if ($cupo > 0){		
+						$inscribirCurso = $this->cursos_model->registrarPersonaCurso($cursoid, $userid, $estid);
+						if($inscribirCurso == "true"){
+							$this->session->set_flashdata('message', '<br><br><div class="alert alert-success info" role="alert">
+								<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+								<span class="sr-only">Error:</span> Usted fue inscrito con exito.
+								<span class="glyphicon glyphicon-remove close" aria-hidden="true"></span></div>');
+							redirect(base_url().'Cursos');
+						}else{
+								$this->session->set_flashdata('message', '<br><br><div class="alert alert-danger info" role="alert">
+								<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+								<span class="sr-only">Error:</span> Usted ya esta inscrito en ese curso.
+								<span class="glyphicon glyphicon-remove close" aria-hidden="true"></span></div>');
+							redirect(base_url().'Cursos');
+						}
+						
 					}else{
-							$this->session->set_flashdata('message', '<br><br><div class="alert alert-danger info" role="alert">
+						$this->session->set_flashdata('message', '<br><br><div class="alert alert-danger info" role="alert">
 							<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-							<span class="sr-only">Error:</span> Usted ya esta inscrito en ese curso.
+							<span class="sr-only">Error:</span> El cupo de participantes esta completo.
 							<span class="glyphicon glyphicon-remove close" aria-hidden="true"></span></div>');
 						redirect(base_url().'Cursos');
 					}
-					
-				}else{
+						
+				} else {	
 					$this->session->set_flashdata('message', '<br><br><div class="alert alert-danger info" role="alert">
-						<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-						<span class="sr-only">Error:</span> El cupo de participantes esta completo.
-						<span class="glyphicon glyphicon-remove close" aria-hidden="true"></span></div>');
+							<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+							<span class="sr-only">Error:</span> El curso no existe.
+							<span class="glyphicon glyphicon-remove close" aria-hidden="true"></span></div>');
 					redirect(base_url().'Cursos');
-				}
-					
-			} else {	
-				$this->session->set_flashdata('message', '<br><br><div class="alert alert-danger info" role="alert">
-						<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-						<span class="sr-only">Error:</span> El curso no existe.
-						<span class="glyphicon glyphicon-remove close" aria-hidden="true"></span></div>');
-				redirect(base_url().'Cursos');
-			
-			}	
+				
+				}	
+			}
 		}
 	}
 	
@@ -309,6 +318,62 @@ class Cursos extends CI_Controller {
 		
 		}
 
+	}
+	public function test(){
+	$this->load->library("email");
+ 
+        //configuracion para gmail
+        $configGmail = array(
+            'protocol' => 'smtp',
+            'smtp_host' => 'ssl://smtp.gmail.com',
+            'smtp_port' => 465,
+            'smtp_user' => 'joynertagf@gmail.com',
+            'smtp_pass' => 'albafarizo',
+            'mailtype' => 'html',
+            'charset' => 'utf-8',
+            'newline' => "\r\n"
+        );    
+ 
+        //cargamos la configuración para enviar con gmail
+        $this->email->initialize($configGmail);
+		$body='<style type="text/css">
+				.tg  {font-family:Arial, sans-serif;font-size:14px;border-collapse:collapse;border-spacing:0;border:0px}
+				.tg td{padding:10px 5px;overflow:hidden;word-break:normal;}
+				.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;overflow:hidden;word-break:normal;}
+				</style>
+				<table class="tg">
+				  <tr>
+					<th class="tg-031e" colspan="2">
+						<img style="max-width: 500px;" src="'.base_url().'img/head.png">
+						<img style="max-width: 500px;" src="'.base_url().'img/cintillo-200.png"><br>
+						<img style="width: 100%; max-width: 500px;" src="'.base_url().'img/logo_efosig.jpg">
+					</th>
+				  </tr>
+				  <tr>
+					<td class="tg-031e" colspan="2" style="padding: 17px;">
+						<p>Gracias por inscribirse en nuestro sitio de EFOSIG, sus datos para ingresar al sistema son: </p>
+						<p style="text-align:center">Usuario: joynertagf@gmail<br>Password: 19565827</p>
+						<p>para acceder al sitio EFOSIG, haga click en este <a href="">enlace</a> </p>
+					</td>
+				  </tr>
+				  <tr>
+					<td class="tg-031e" colspan="2">
+						<img style="width: 100%;" src="'.base_url().'img/footer-pdf.png">
+						<table width="100%" style="border: 0px;vertical-align: bottom; font-family: serif; font-size: 12pt; color: #000000; font-weight: bold; margin-top:-45px"><tr>
+						<td width="100%" align="center" style="border:0px; color: white; font-weight: bold;">Escuela de Formaci&oacute;n Socialista para la Igualdad de G&eacute;nero "Ana Mar&iacute;a Campos"</td>
+						</tr></table>
+					</td>
+				  </tr>
+				</table>
+				';
+        $this->email->from('no-reply@efosig.com.ve');
+        $this->email->to('joynertagf@gmail');
+        $this->email->subject('Bienvenido/a a EFOSIG');
+		
+        $this->email->message($body);
+        $this->email->send();
+		
+		echo $body;
 	}
 
 }

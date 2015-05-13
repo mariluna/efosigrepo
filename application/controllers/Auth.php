@@ -48,7 +48,7 @@ class Auth extends CI_Controller {
 			$this->view($name,$this->data);
 		}
 	}
-
+	
 	//log the user in
 	function login()
 	{
@@ -437,6 +437,8 @@ class Auth extends CI_Controller {
 		}
 		if ($this->form_validation->run() == true && $this->ion_auth->register($username, $password, $email, $additional_data))
 		{
+			$this->load->model('ion_auth_model');
+		    $this->ion_auth_model->Ini_user($username, $email);
 			//check to see if we are creating the user
 			//redirect them back to the admin page
 			$this->session->set_flashdata('message', $this->ion_auth->messages());
@@ -734,7 +736,6 @@ class Auth extends CI_Controller {
 
 	function _render_page($view, $data=null, $render=false)
 	{
-
 		$this->viewdata = (empty($data)) ? $this->data: $data;
 
 		$view_html = $this->load->view($view, $this->viewdata, $render);

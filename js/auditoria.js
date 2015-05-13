@@ -99,6 +99,11 @@ app.controller("auditoriaController", [ '$scope', '$http', '$location',
 
 	};
 
+	$scope.respaldo = function(){
+
+		window.location= 'Persona/respaldo';
+
+	};
 	
 	$scope.view = function(id){
 

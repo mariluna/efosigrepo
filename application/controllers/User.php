@@ -14,7 +14,15 @@ class User extends REST_Controller{
     public function index_get(){
     $this->response($this->db->get('users')->result());
         }
-
+	function ver_usuario($id)
+	{
+		$this->load->model('ion_auth_model');
+		$user=$this->ion_auth_model->get_user($id);
+		$name="ver_usuario";
+		$this->load->view('header');
+		$this->load->view('auth/ver_usuario', $user);
+		$this->load->view('footer');
+	}
     public function index_post(){
         // Create a new book
     }

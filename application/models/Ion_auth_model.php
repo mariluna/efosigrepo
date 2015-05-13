@@ -2169,4 +2169,24 @@ class Ion_auth_model extends CI_Model
         $this->db->insert('tb_auditoria', $data);
         return $this->db->insert_id();
     }
+	
+	function get_user($id){
+
+    	$get=  $this->db->query("select a.*, b. name from users a inner join users_groups c on a.id = c.user_id inner join groups b on c.group_id = b.id where a.id =$id")->row();
+        return $get;
+
+	}
+	
+	function Ini_user($username, $email)
+	{
+		$get=  $this->db->query("select id from users where username = '$username' AND email = '$email'")->row();
+		$newUser = array(
+		
+			'user_id' => $get->id,
+			'group_id'=> 2		
+		);
+		$this->db->insert('users_groups', $newUser);
+	}
+	
+	
 }

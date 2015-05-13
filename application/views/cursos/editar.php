@@ -34,6 +34,16 @@ $(document).ready(function(){
 			$("#parspan").hide();
 			$(".fix-back").show();
 		}
+		var ini = document.getElementById('fechaini').value;
+		var fin = document.getElementById('fechafin').value;
+		if(fin < ini){
+			$(".alert").remove();
+			$("#message").append('<div class="alert alert-danger info" role="alert">'+
+							'<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>'+
+							'<span class="sr-only">Error:</span> La fecha final no puede ser menor a la fecha de inicio'+
+							'<span class="glyphicon glyphicon-remove close" aria-hidden="true" id="quita" onclick="quitar()"></span></div>');
+			e.preventDefault();
+		}
 	});
 	
 	$("#inispan").hide();
@@ -70,7 +80,7 @@ $(document).ready(function(){
 function validarFecha(e){
 	var Fini = document.getElementById('fechaini').value;
 	if(e.value < Fini){
-		document.getElementById('fechafin').value = "";
+		$(".alert").remove();
 		$("#message").append('<div class="alert alert-danger info" role="alert">'+
 						'<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>'+
 						'<span class="sr-only">Error:</span> La fecha final no puede ser menor a la fecha de inicio'+
@@ -100,6 +110,7 @@ function soloNumeros(e){
 </script>
 <h1>Editar Curso</h1>
 <hr>
+<div id="message"></div>
 <div class="auth-form" ng-controller="cursosController as uni" ng-app="cursos">
 
 	<?php
@@ -128,10 +139,10 @@ function soloNumeros(e){
 
 	   </p>
 	   
-		<p>
+		<p style="visibility:hidden;">
 			<label for="estatus">Estatus:</label><br>
 			<?php if ($data->status == 1){ ?>
-			<div class="switch">
+			<div class="switch" style="visibility:hidden;">
 				<input type="radio" class="switch-input" name="estatus" value="1" id="est1" checked required>
 				<label for="est1" class="switch-label switch-label-off" >On</label>
 				<input type="radio" class="switch-input" name="estatus" value="0" id="est0" required>
@@ -139,7 +150,7 @@ function soloNumeros(e){
 				<span class="switch-selection"></span>
 			</div>
 			<?php }else{ ?>
-			<div class="switch">
+			<div class="switch" style="visibility:hidden;">
 				<input type="radio" class="switch-input" name="estatus" value="1" id="est1" required>
 				<label for="est1" class="switch-label switch-label-off" >On</label>
 				<input type="radio" class="switch-input" name="estatus" value="0" id="est0" checked required>
@@ -152,16 +163,16 @@ function soloNumeros(e){
 	
 	<div class="col-lg-6">
 
-	   <p>
+	 <!--  <p>
 			<label for="facilitador">Facilitador del Curso:</label><br>
 			<select id="facilitador" class="demo-default" required name="facilitador" required>
 				<option value="<?php echo $facilitador->id_persona; ?>" selected><?php echo $facilitador->nombre_apellido; ?></option>
 					<?php 
-						foreach($facilitadores as $key){
+					/*	foreach($facilitadores as $key){
 						 
 							echo "<option value='".$key->id_persona."'>".$key->nombre_apellido."</option>";
 			
-						}
+						}*/
 					?>	
 			</select>
 			<script>
@@ -174,21 +185,21 @@ function soloNumeros(e){
 					dropdownParent: 'body'
 				});
 			</script>
-		</p>
+		</p> 
 		
 	   <p>
 			<label for="estado">Estado:</label><br>
 			<select class="auth-input" name="estado" style="max-width: 300px !important; text-align: center; text-transform:uppercase;" required>
-				<option selected value="<?php echo $data->id_estado; ?>"> <?php echo $data->estado; ?> </option>
+				<option selected value="<?php /*echo $data->id_estado; ?>"> <?php echo $data->estado; ?> </option>
 				 <?php 
 					foreach($list as $key){
 							 
 							echo "<option value='".$key->id_estado."'>".$key->nombre."</option>";
 				
 						}
-				 ?>
+				*/ ?>
 			 </select>
-		</p>
+		</p>-->
 		
 		<p>
 			<label for="fecha">Fecha de Inicio:</label><br>
@@ -198,7 +209,7 @@ function soloNumeros(e){
 
 		<p>
 			<label for="fecha">Fecha de Fin:</label><br>
-			<input name="fechafin" class="auth-input" type="text" onchange="validarFecha(this)" value="<?php  echo $fechaFormatfin; ?>" id="fechafin" readonly required>
+			<input name="fechafin" class="auth-input" type="text" value="<?php  echo $fechaFormatfin; ?>" onclick="validarFecha(this)" id="fechafin" readonly required>
 			<span id="finspan" style="color:red; font-size:12px"><br>* Este campo es obligatorio</span>
 		</p>
 	</div>
@@ -207,7 +218,7 @@ function soloNumeros(e){
 		<a class="auth-button .btn-danger b" style="position: absolute; margin-left: -140px;" href="<?php echo base_url()?>Cursos">Volver</a>
 		<p>
 			
-			 <input type="submit" class="auth-button .btn-success go" value="Guardar" name="submit"></input>
+			 <input type="submit" class="auth-button .btn-success go" value="Guardar" name="submit" onclick="return confirm('¿Esta seguro que desea modificar esta informacion?');"></input>
 			 
 		</p>
 

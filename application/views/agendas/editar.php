@@ -58,7 +58,7 @@ $(document).ready(function(e){
 	   </p>
 	   <p>
 			<label for="fecha">Fecha:</label><br>
-			<input id="fecha" required disabled class="auth-input dis" type="text" value="<?php echo $data[0]->fecha; ?>" name="fecha" rows="2"></input>
+			<input id="fecha" required readonly class="auth-input dis" type="text" value="<?php echo $data[0]->fecha; ?>" name="fecha" rows="2"></input>
 		</p>
 		
 	</div>

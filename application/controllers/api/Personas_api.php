@@ -33,9 +33,9 @@ class Personas_api extends REST_Controller{
 
 	}
 
-	public function remove_delete($id = NULL)
+	public function remove_delete($id)
 	{
-			$dataAudi1=$this->persona_model->get($id);		
+		$dataAudi1=$this->persona_model->get($id);		
 		$r=$this->ion_auth->user()->row();
 		$dataAudi = array (
 			'id_usuario' => $r->id,
@@ -318,7 +318,7 @@ class Personas_api extends REST_Controller{
         $this->db->trans_complete();
 		$this->session->set_flashdata('message', '<div class="alert alert-success info" role="alert">
 						<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-						<span class="sr-only">Error:</span> Usuario Agregado de forma exitosa.
+						<span class="sr-only">Error:</span> Usuario creado, revisa tu correo "'.$this->post("correo").'" para acceder al sistema.
 						<span class="glyphicon glyphicon-remove close" aria-hidden="true"></span></div>');
 		redirect(base_url());
 
@@ -552,7 +552,7 @@ class Personas_api extends REST_Controller{
 					<th class="tg-031e" colspan="2">
 						<img style="max-width: 500px;" src="'.base_url().'img/head.png">
 						<img style="max-width: 500px;" src="'.base_url().'img/cintillo-200.png"><br>
-						<img style="width: 100%; max-width: 500px;" src="img/logo_efosig.jpg">
+						<img style="width: 100%; max-width: 500px;" src="'.base_url().'img/logo_efosig.jpg">
 					</th>
 				  </tr>
 				  <tr>
@@ -597,7 +597,7 @@ class Personas_api extends REST_Controller{
 		$this->db->trans_complete();
 		$this->session->set_flashdata('message', '<div class="alert alert-success info" role="alert">
 						<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-						<span class="sr-only">Error:</span> Usuario agregado de forma exitosa.
+						<span class="sr-only">Error:</span> Usuario creado, revisa tu correo "'.$this->post("correo").'" para acceder al sistema.
 						<span class="glyphicon glyphicon-remove close" aria-hidden="true"></span></div>');
 		redirect(base_url());
 	}

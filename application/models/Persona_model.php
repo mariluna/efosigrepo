@@ -9,14 +9,14 @@ class Persona_model extends CI_Model
 		$r=$this->ion_auth->user()->row();
         $rol = $this->ion_auth->get_users_groups()->row();
 
-		$query=$this->db->query("SELECT id_estado FROM tb_persona WHERE id_persona = $r->persona_id")->row();  
+		$query=$this->db->query("SELECT id_estado FROM tb_persona WHERE id_persona = $r->persona_id ")->row();  
 		if(($query->id_estado == 24) AND ($rol->id == 1)){
 		
-			$getpersona = $this->db->query("select * from tb_persona")->result();
+			$getpersona = $this->db->query("select * from tb_persona WHERE status != 'INACTIVO'")->result();
 		
 		}else{
 		
-			$getpersona = $this->db->query("select * from tb_persona where id_estado = $query->id_estado")->result();
+			$getpersona = $this->db->query("select * from tb_persona where status != 'INACTIVO' and id_estado = $query->id_estado")->result();
 		
 		}
 		return $getpersona;
@@ -96,14 +96,13 @@ class Persona_model extends CI_Model
     {
     	$get=  $this->db->query("SELECT status FROM tb_persona WHERE id_persona = $id")->row();
         return $get;
-
     }
 
     public function delete($id)
     {
 		$this->db->where('id_persona', $id)->delete("tr_persona_curso");
-        $this->db->where('id_persona', $id)->delete($this->table);
-		$this->db->where('id_general',$id)->delete("tb_general");
+		$this->db->where('id_persona', $id)->update('status', 'INACTIVO');
+		$this->db->from('tb_persona');
         return $this->db->affected_rows();
     }
 

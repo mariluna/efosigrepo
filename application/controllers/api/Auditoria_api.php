@@ -22,7 +22,7 @@ function view($name_view,$data){
 	
     public function index_get(){
 
-	 $this->response($this->db->query("SELECT  u.username, a.accion, a.fecha, a.tabla_afectada,
+	 $this->response($this->db->query("SELECT  u.username, a.accion,  to_char(a.fecha, 'DD-MM-YYYY') AS fecha, a.tabla_afectada,
        									a.campo_afectado,
 										a.informacion_campo,
 										a.id_auditoria

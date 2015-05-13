@@ -19,7 +19,8 @@
     <link rel="shortcut icon" href="<?php echo base_url(); ?>assets/img/minmujeroficial.jpg" type="image/jpg" />
     <!--Carga de angular y las diferentes apps -->
     <script src="<?php echo base_url(); ?>js/angular.min.js"></script>
-    <script src="<?php echo base_url(); ?>js/app.js"></script>
+    <script src="<?php echo base_url(); ?>js/auditoria.js"></script>
+	<script src="<?php echo base_url(); ?>js/app.js"></script>
     <script src="<?php echo base_url(); ?>js/cursos.js"></script>
     <script src="<?php echo base_url(); ?>js/persona.js"></script>
 	<script src="<?php echo base_url(); ?>js/divulgaciones.js"></script>
@@ -120,7 +121,7 @@
             </a>
         </li>
 		
-		<?php if($rol->id == 1 || $rol->id == 3){ ?>
+		<?php if($rol->id == 1){ ?>
           <li class="">
             <a href="<?php echo base_url(); ?>Auth">
               <i class="fa fa-group"></i><span class="link-title">&nbsp;Usuarios</span>
@@ -131,9 +132,7 @@
             <a href="<?php echo base_url(); ?>Persona">
               <i class="fa fa-user"></i><span class="link-title">&nbsp;Persona</span>
             </a>
-          </li>
-		  
-		  
+          </li>  
 		  
 		  <li class="">
             <a href="<?php echo base_url(); ?>Divulgaciones">
@@ -148,7 +147,7 @@
           </li>
 		  
 		  <li class="">
-            <a href="<?php echo base_url(); ?>Agenda">
+            <a href="<?php echo base_url(); ?>Agendas">
               <i class="fa fa-tags"></i><span class="link-title">&nbsp;Agenda</span>
             </a>
           </li>
@@ -159,6 +158,31 @@
             </a>
           </li> 
 		  
+		  <?php } ?>
+		  <?php if($rol->id == 3){ ?>
+          <li class="">
+            <a href="<?php echo base_url(); ?>Persona">
+              <i class="fa fa-user"></i><span class="link-title">&nbsp;Persona</span>
+            </a>
+          </li>  
+		  
+		  <li class="">
+            <a href="<?php echo base_url(); ?>Divulgaciones">
+              <i class="fa fa-newspaper-o"></i><span class="link-title">&nbsp;Divulgaciones</span>
+            </a>
+          </li>
+		  
+		 <li class="">
+            <a href="<?php echo base_url(); ?>Informe">
+              <i class="fa fa-file-text"></i><span class="link-title">&nbsp;Informe</span>
+            </a>
+          </li>
+		  
+		  <li class="">
+            <a href="<?php echo base_url(); ?>Agendas">
+              <i class="fa fa-tags"></i><span class="link-title">&nbsp;Agenda</span>
+            </a>
+          </li>		  
 		  <?php } ?>
              <li class="nav-divider"></li>
            <li class="">
@@ -237,7 +261,7 @@
             </a>
         </li>
 
-		<?php if($rol->id == 1 || $rol->id == 3){ ?>
+		<?php if($rol->id == 1){ ?>
           <li class="">
             <a href="<?php echo base_url(); ?>Auth">
               <i class="fa fa-group"></i><span class="link-title">&nbsp;Usuarios</span>
@@ -248,7 +272,7 @@
             <a href="<?php echo base_url(); ?>Persona">
               <i class="fa fa-user"></i><span class="link-title">&nbsp;Persona</span>
             </a>
-          </li>
+          </li>  
 		  
 		  <li class="">
             <a href="<?php echo base_url(); ?>Divulgaciones">
@@ -258,21 +282,47 @@
 		  
 		   <li class="">
             <a href="<?php echo base_url(); ?>Informe">
-              <i class="fa fa-file-text"></i><span class="link-title">&nbsp;Informe</span>
+              <i class="fa fa-file-text"></i><span class="link-title">&nbsp;Actividad Regional</span>
             </a>
           </li>
 		  
 		  <li class="">
-            <a href="<?php echo base_url(); ?>Agenda">
+            <a href="<?php echo base_url(); ?>Agendas">
               <i class="fa fa-tags"></i><span class="link-title">&nbsp;Agenda</span>
             </a>
           </li>
-
-          <li class="">
+		  
+		  <li class="">
             <a href="<?php echo base_url(); ?>Auditoria">
               <i class="fa fa-lock"></i><span class="link-title">&nbsp;Auditoria</span>
             </a>
           </li> 
+		  
+		  <?php } ?>
+		  <?php if($rol->id == 3){ ?>
+          <li class="">
+            <a href="<?php echo base_url(); ?>Persona">
+              <i class="fa fa-user"></i><span class="link-title">&nbsp;Persona</span>
+            </a>
+          </li>  
+		  
+		  <li class="">
+            <a href="<?php echo base_url(); ?>Divulgaciones">
+              <i class="fa fa-newspaper-o"></i><span class="link-title">&nbsp;Divulgaciones</span>
+            </a>
+          </li>
+		  
+		 <li class="">
+            <a href="<?php echo base_url(); ?>Informe">
+              <i class="fa fa-file-text"></i><span class="link-title">&nbsp;Actividad Regional</span>
+            </a>
+          </li>
+		  
+		  <li class="">
+            <a href="<?php echo base_url(); ?>Agendas">
+              <i class="fa fa-tags"></i><span class="link-title">&nbsp;Agenda</span>
+            </a>
+          </li>		  
 		  <?php } ?>
              <li class="nav-divider"></li>
            <li class="">

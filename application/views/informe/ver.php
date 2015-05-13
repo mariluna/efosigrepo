@@ -1,4 +1,4 @@
-<h1>Informe regional por actividad</h1>
+<h1>Actividad regional por curso</h1>
 <hr>
 <div class="auth-form" ng-controller="informeController" ng-app="informe">
 		<div class="col-lg-4">

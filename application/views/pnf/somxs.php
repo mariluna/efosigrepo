@@ -13,7 +13,7 @@ $(document).ready(function() {
     <div class="span6">
         <div class="add-menu">
             <!-- ng-click="createUT()" botones que disparan funciones en angular, las cuales se encuentran el la aplicacion -->
-            <td><a href="<?php echo base_url(); ?>" class="fa fa-arrow-left btn btn-success"> Volver </a></td>
+            <td><a href="<?php echo base_url(); ?>" class="fa fa-arrow-left btn btn-danger"> Volver </a></td>
         </div>
         <!-- Input que contiene un modelo, con el cual podemos filtrar la data del CRUD -->
         <div class="col-lg-8" style="font-size:15px; text-align: justify;">

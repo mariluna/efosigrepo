@@ -1,4 +1,4 @@
-<h1>Agregar Informe</h1>
+<h1>Agregar Actividad</h1>
 <hr>
 
 <script>
@@ -400,7 +400,9 @@ $("#redi").change(function () {
 </script>
 
 <div class="col-lg-12" ng-app="informe">
-
+<div class="add-menu">
+            <td><a href="<?php echo base_url("informe"); ?>" class="fa fa-arrow-left  btn btn-success"> Volver </a></td>
+    </div>
 	<form action="<?php echo base_url().'api/informe_api/save'; ?>" id="myWizard" class="form-horizontal" name="form" method="post" accept-charset="utf-8">
 		<section class="step" data-step-title="General">
 						<div class="col-lg-6">

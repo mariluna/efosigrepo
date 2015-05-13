@@ -4,12 +4,9 @@
 <?php 
 	$rol = $this->ion_auth->get_users_groups()->row();
 	
-	/*$fechaini = $data->fecha_inicio;
-	$fechafin = $data->fecha_fin;
-	$newFechaini = explode("-",$fechaini);
-	$newFechafin = explode("-",$fechafin);
-	$fechaFormatini = $newFechaini[2]."-".$newFechaini[1]."-".$newFechaini[0];
-	$fechaFormatfin = $newFechafin[2]."-".$newFechafin[1]."-".$newFechafin[0];*/
+	$fecha = $data->fecha;
+	$newFecha = explode("-",$fecha);
+	$fechaFormat = $newFecha[2]."-".$newFecha[1]."-".$newFecha[0];
 ?>
 <div class="auth-form" ng-controller="auditoriaController" ng-app="auditoria">
 	<div class="col-lg-6">
@@ -25,17 +22,9 @@
 
 	   <p>
 			 <label for="estatus">Fecha de edici&oacute;n:</label><br>
-			 <input id="estatus" class="auth-input dis" type="text" value="" name="estatus" readonly required placeholder="<?php  echo $data->fecha; ?>"></input>
+			 <input id="estatus" class="auth-input dis" type="text" value="" name="estatus" readonly required placeholder="<?php  echo $fechaFormat; ?>"></input>
 
 	   </p>
-
-	   <p>
-			 <label for="estatus">Fecha de edici&oacute;n:</label><br>
-			 <input id="estatus" class="auth-input dis" type="text" value="" name="estatus" readonly required placeholder="<?php  echo $data->fecha; ?>"></input>
-
-	   </p>
-
-
 
 </div>
 	 <div class="col-lg-6">

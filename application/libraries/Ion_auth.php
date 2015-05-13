@@ -148,19 +148,29 @@ class Ion_auth
 					'identity'		=> $user->{$this->config->item('identity', 'ion_auth')},
 					'forgotten_password_code' => $user->forgotten_password_code
 				);
-
-				if(!$this->config->item('use_ci_email', 'ion_auth'))
-				{
-					$this->set_message('forgot_password_successful');
-					return $data;
-				}
-				else
-				{
+				
+				$this->load->library("email");
+ 
+				//configuracion para gmail
+				$configGmail = array(
+					'protocol' => 'smtp',
+					'smtp_host' => 'ssl://smtp.gmail.com',
+					'smtp_port' => 465,
+					'smtp_user' => 'joynertagf@gmail.com',
+					'smtp_pass' => 'albafarizo',
+					'mailtype' => 'html',
+					'charset' => 'utf-8',
+					'newline' => "\r\n"
+				);    
+		 
+				//cargamos la configuración para enviar con gmail
+				$this->email->initialize($configGmail);
+				
 					$message = $this->load->view($this->config->item('email_templates', 'ion_auth').$this->config->item('email_forgot_password', 'ion_auth'), $data, true);
 					$this->email->clear();
-					$this->email->from($this->config->item('admin_email', 'ion_auth'), $this->config->item('site_title', 'ion_auth'));
+					$this->email->from('no-reply@efosig.com.ve');
 					$this->email->to($user->email);
-					$this->email->subject($this->config->item('site_title', 'ion_auth') . ' - ' . $this->lang->line('email_forgotten_password_subject'));
+					$this->email->subject('recuperar clave');
 					$this->email->message($message);
 
 					if ($this->email->send())
@@ -173,7 +183,6 @@ class Ion_auth
 						$this->set_error('forgot_password_unsuccessful');
 						return FALSE;
 					}
-				}
 			}
 			else
 			{

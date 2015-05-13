@@ -13,7 +13,7 @@ $(document).ready(function() {
     <!-- Div que contiene la aplicacion ng-app="project" y el controlador de angular ng-controller="ApiController" -->
     <div class="span6" ng-controller="auditoriaController" ng-app="auditoria">
         <div class="add-menu">
-            <td><a ng-click="addEntity()" class="fa fa-plus btn btn-success"> Respaldo de la BD</a></td>
+            <td><a ng-click="respaldo()" class="fa fa-plus btn btn-success"> Respaldo de BD</a></td>
         </div>
         <!-- Input que contiene un modelo, con el cual podemos filtrar la data del CRUD -->
         <div style="width:30% !important;">

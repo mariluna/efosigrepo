@@ -18,7 +18,6 @@ $(document).ready(function() {
             <!-- ng-click="createUT()" botones que disparan funciones en angular, las cuales se encuentran el la aplicacion -->
             <td><a ng-click="addEntity()" class="fa fa-plus btn btn-success"> Agregar General </a></td>
 			<td><a ng-click="addMMDB()" class="fa fa-plus btn btn-success"> Agregar MMDB</a></td>
-			<td><a ng-click="respaldo()" class="fa fa-plus btn btn-success"> Respaldo</a></td>
 			<td><a ng-click="descargarList()" class="fa fa-download btn btn-info"> Descargar Listado Personas</a></td>
         </div>
         <!-- Input que contiene un modelo, con el cual podemos filtrar la data del CRUD -->
@@ -48,9 +47,9 @@ $(document).ready(function() {
 					<td>{{ persona.cedula }} </td>
 					<td>{{ persona.status }} </td>
                     <td>
-                        <a ng-click="view(persona.id_persona)" class="fa fa-search btn btn-small btn-info"></a>
-                        <a ng-click="edit(persona.id_persona)" class="fa fa-pencil btn btn-small btn-primary"></a>
-                        <a ng-click="delete(persona.id_persona)" class="fa fa-trash btn btn-small btn-danger"></a>
+                        <a title="Detalles" ng-click="view(persona.id_persona)" class="fa fa-search btn btn-small btn-info"></a>
+                        <a title="Modificar" ng-click="edit(persona.id_persona)" class="fa fa-pencil btn btn-small btn-primary"></a>
+                        <a title="Eliminar" ng-click="delete(persona.id_persona)" class="fa fa-trash btn btn-small btn-danger"></a>
                     </td>
                 </tr>
             </tbody>

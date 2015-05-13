@@ -144,6 +144,7 @@ app.controller("cursosController", [ '$scope', '$http', '$location',
 				method : 'DELETE',
 				url : 'index.php/api/Cursos_api/remove/' + id + '/' + est
 			})
+			alert('¡El curso fue eliminado con exito!');
 			location.reload();
 	     }
 	};

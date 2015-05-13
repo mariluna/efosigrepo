@@ -2,6 +2,10 @@
 <?php $r=$this->ion_auth->user(); 
  $rol = $this->ion_auth->get_users_groups()->row();?>
 	<div class="col-lg-12">
+			<?php
+		$message = $this->session->flashdata('message');
+		echo $message;
+		?>
 		<img class="banner-1" src="<?php echo base_url(); ?>img/encabezado.PNG">
 		<nav class="navbar-inverse navbar-pnf">
 			<div class="navbar-header">
@@ -41,7 +45,7 @@
     </nav>
 		<img class="banner-2" src="<?php echo base_url(); ?>img/Banner.PNG">
 	</div>
-	<div class="col-lg-12" style="padding-top: 25px;">
+	<div class="col-lg-12" style="padding: 25px;font-size:18px;">
 		<p>
 			La Escuela de Formación Socialista para la igualdad de Género Ana María Campos” (EFOSIG.AMC),
 			del MinMujer, creada en el año 2009, con una visión estratégica, para la elevación de la conciencia

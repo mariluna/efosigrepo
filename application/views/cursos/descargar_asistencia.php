@@ -217,7 +217,7 @@ $(document).ready(function(){
 
 	<div class="col-lg-12">
 		<p>
-			<input type="submit" class="auth-button .btn-danger submit" ng-disabled="form.$invalid" value="Descargar"></input>
+			<input type="submit" class="auth-button .btn-danger submit" style="margin-left: 83px; margin-top: -5px;" ng-disabled="form.$invalid" value="Descargar"></input>
 		</p>
 		<p>
 			<a class="auth-button .btn-danger back" href="<?php echo base_url()?>Cursos">Volver</a>

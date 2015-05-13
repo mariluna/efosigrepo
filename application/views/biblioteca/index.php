@@ -24,7 +24,7 @@ $(document).ready(function() {
         </div> 
 		<?php }else{ ?>
 		<div class="add-menu">
-			<a href="<?php echo base_url(); ?>" class="fa fa-arrow-left  btn btn-success"> Volver </a>
+			<a href="<?php echo base_url(); ?>" class="fa fa-arrow-left  btn btn-danger"> Volver </a>
 		</div> 
 		<?php } ?>
         <!-- Input que contiene un modelo, con el cual podemos filtrar la data del CRUD -->

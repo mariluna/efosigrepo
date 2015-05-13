@@ -1,4 +1,4 @@
-<h1>Editar Informe</h1>
+<h1>Editar Actividad</h1>
 <hr>
 <script>
 function mostrar_total_diversidad_sexual(){
@@ -280,6 +280,9 @@ $("#redi").change(function () {
 });
 </script>
 <div class="auth-form" ng-controller="informeController" ng-app="informe">
+<div class="add-menu">
+            <td><a href="<?php echo base_url("informe"); ?>" class="fa fa-arrow-left  btn btn-success"> Volver </a></td>
+    </div>
 	<?php
 	    $d=array('name' => 'form');
 		echo form_open(base_url().'api/informe_api/update',$d);
@@ -771,7 +774,7 @@ $("#redi").change(function () {
 		</p>
 
 	   <?php echo form_close(); ?>
-		<a class="auth-but-fix .btn-success fix-back" style="margin-top: -46px !important;" href="<?php echo base_url()?>informe">Volver</a>
+		
 	</div>
 		<!--<p>
 			 <input ng-click="edit(<?php //echo $data[0]->id_informe; ?>)" type="button" class="auth-button .btn-success go" value="Editar" name="submit"></input>

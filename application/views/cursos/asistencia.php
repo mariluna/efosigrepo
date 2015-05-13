@@ -92,9 +92,6 @@ $(document).ready(function(){
  <p>
 	<input type="submit" class="auth-button .btn-danger go" ng-disabled="form.$invalid" value="Agregar"></input>
 </p>
-<p>
-<a class="auth-button .btn-danger back" href="<?php echo base_url()?>Cursos">Volver</a>
-</p>
 </div>
 <?php echo form_close(); ?>
 

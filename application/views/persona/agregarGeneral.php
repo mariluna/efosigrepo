@@ -281,7 +281,7 @@ function calcularEdad()
 <div id="message"> </div>
 <div class="col-lg-12" ng-app="persona">
 	<div class="add-menu">
-            <td><a href="<?php echo base_url(); ?>" class="fa fa-arrow-left  btn btn-success"> Volver </a></td>
+            <td><a href="<?php echo base_url(); ?>" class="fa fa-arrow-left  btn btn-danger"> Volver </a></td>
     </div>
 	<?php
 		$d=array('name' => 'form', 'id' => 'myWizard');
@@ -290,7 +290,7 @@ function calcularEdad()
 	<section class="step" data-step-title="Habitaci&oacute;n">
 			<div class="col-lg-12" style="text-align:center">
 				<p style="display: inline-block;max-width: 100%;margin-bottom: 5px;font-weight: 700;">1. REDI</p><br>
-				<select class="auth-input"id="redi" name="redi"> 
+				<select class="auth-input" id="redi" name="redi" required> 
 				<option value="">Seleccione una opcion</option>
 				<?php 
 					foreach ($redi as $redis){
@@ -301,19 +301,19 @@ function calcularEdad()
 				<br><br>
 
 				<p style="display: inline-block;max-width: 100%;margin-bottom: 5px;font-weight: 700;">2. ESTADO</p><br>
-				<select disabled class="auth-input" id="est" name="estado" > 
+				<select disabled class="auth-input" id="est" name="estado" required> 
 				<option value="">Seleccione una opcion</option>
 				</select>
 				<br><br>
 						
 				<p style="display: inline-block;max-width: 100%;margin-bottom: 5px;font-weight: 700;">3. MUNICIPIO</p><br>
-				<select disabled class="auth-input" id="mun" name="municipio" disabled> 
+				<select disabled class="auth-input" id="mun" name="municipio" disabled required> 
 				<option value="" selected="selected">Seleccione una opcion</option>
 				</select>
 				<br><br>
 
 				<p style="display: inline-block;max-width: 100%;margin-bottom: 5px;font-weight: 700;">4. PARROQUIA</p><br>
-				<select disabled class="auth-input" id="par" name="parroquia" disabled> 
+				<select disabled class="auth-input" id="par" name="parroquia" disabled required> 
 				<option value="">Seleccione una opcion</option>
 				</select>
 				<br><br>
@@ -364,7 +364,7 @@ function calcularEdad()
 				</p>
 				<p>
 					<label for="nroHijos">7.N&uacute;mero de hijas(os):</label><br>
-					<input id="nroHijos" ng-model="nroHijos" onkeypress="return soloNumeros(event)" class="auth-input" type="text" name="nroHijos" maxlength="2" required integer></input>
+					<input id="nroHijos" ng-model="nroHijos" onkeypress="return soloNumeros(event)" value="0" class="auth-input" type="text" name="nroHijos" maxlength="2" required integer></input>
 					<span style="color:red; font-size:12px" ng-show="form.nroHijos.$error.required"><br>* Este campo es obligatorio</span>
 					<span style="color:red; font-size:12px" ng-show="form.nroHijos.$error.integer"><br>* Este campo debe ser un numero entero</span>
 				</p>
@@ -423,7 +423,7 @@ function calcularEdad()
 				</p>
 				<p>
 					<label for="correo">13.Correo Electr&oacute;nico:</label><br>
-					<input id="correo" title="Se necesita un correo" ng-model="correo" class="auth-input" type="email" value="" name="correo" maxlength="20" required pattern="^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$" ></input>
+					<input id="correo" title="Se necesita un correo" ng-model="correo" class="auth-input" type="email" value="" name="correo" maxlength="50" required pattern="^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$" ></input>
 					<span style="color:red; font-size:12px" ng-show="form.correo.$error.required"><br>* Este campo es obligatorio</span>
 				</p>
 			</div>

@@ -31,7 +31,7 @@
   <?php echo form_close();?>
 
   <p>
-    <a href="forgot_password"><?php echo lang('login_forgot_password');?></a>
+    <a href="Auth/forgot_password"><?php echo lang('login_forgot_password');?></a>
   </p>
 </div>
 <div class="col-lg-6" style="text-align:center;">
